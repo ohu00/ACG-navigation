@@ -1,0 +1,1059 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>ACG 导航 · 二次元汇聚地</title>
+    <!-- 添加 favicon -->
+    <link rel="icon" href="./favicon.png" type="image/x-icon" />
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css" />
+    <!-- 其他样式... -->
+</head>
+    
+    <style>
+        /* ================================================================
+           【可调】CSS 变量（亮色/暗色主题）
+           搜索 "【可调" 快速定位所有可调整项
+           每个变量后均附有详细说明
+           ================================================================ */
+        :root {
+            /* -------- 背景颜色（亮色） -------- */
+            --bg-body: #ffffff; /* 【可调】页面整体背景色（亮色） */
+            --bg-container: rgba(255, 255, 255, 0.35); /* 【可调】分类卡片背景色 + 透明度（0.92=92%不透明，可调0~1） */
+            --bg-card: rgba(252, 249, 246, 0.8); /* 【可调】站点卡片背景色 + 透明度 */
+            --bg-sidebar: rgba(255, 253, 251, 0.85); /* 【可调】侧栏背景色 + 透明度 */
+            --bg-sidebar-hover: #f5576c; /* 【可调】侧栏悬停背景色 */
+            --bg-search: #ffffff; /* 【可调】搜索框背景色 */
+            --bg-badge: #2d2a24; /* 【可调】"今日热推" 徽标背景色 */
+
+            /* -------- 文字颜色（亮色） -------- */
+            --text-primary: #2d2a24; /* 【可调】主标题/正文颜色 */
+            --text-secondary: #8a7a6a; /* 【可调】次要文字/描述颜色 */
+            --text-muted: #b0a292; /* 【可调】灰色/辅助文字颜色 */
+            --text-footer: rgba(255, 255, 255, 0.75); /* 【可调】页脚文字颜色 + 透明度 */
+
+            /* -------- 边框 & 阴影 -------- */
+            --border-color: rgba(232, 221, 208, 0.6); /* 【可调】边框颜色 + 透明度 */
+            --border-hover: rgba(224, 212, 200, 0.8); /* 【可调】悬停边框颜色 + 透明度 */
+            --shadow-color: rgba(0, 0, 0, 0.06); /* 【可调】阴影颜色 + 透明度（数值越大阴影越深） */
+
+            /* -------- 图标 & 标签 -------- */
+            --icon-bg: rgba(240, 232, 224, 0.7); /* 【可调】图标背景色 + 透明度 */
+
+            /* -------- 暗色模式遮罩（背景图变暗） -------- */
+            --bg-overlay: rgba(0, 0, 0, 0.1); /* 【可调】亮色模式下背景图遮罩（0 = 无遮罩） */
+        }
+
+        /* ================================================================
+           暗色模式（覆盖上述变量）
+           ================================================================ */
+        body.dark-mode {
+            /* -------- 背景颜色（暗色） -------- */
+            --bg-body: #1a1a1e;
+            --bg-container: rgba(30, 30, 35, 0.35);
+            --bg-card: rgba(40, 40, 46, 0.8);
+            --bg-sidebar: rgba(30, 30, 35, 0.92);
+            --bg-sidebar-hover: #f5576c;
+            --bg-search: #2a2a30;
+            --bg-badge: #f0e8e0;
+
+            --text-primary: #e8e4e0;
+            --text-secondary: #bfb6ae;
+            --text-muted: #8f857a;
+            --text-footer: rgba(255, 255, 255, 0.75);
+
+            --border-color: rgba(60, 56, 52, 0.6);
+            --border-hover: rgba(100, 90, 80, 0.8);
+            --shadow-color: rgba(0, 0, 0, 0.3);
+
+            --icon-bg: rgba(60, 56, 52, 0.6);
+
+            --bg-overlay: rgba(0, 0, 0, 0.5);
+        }
+
+        /* ================================================================
+           全局重置 & 基础样式
+           ================================================================ */
+        * { margin: 0; padding: 0; box-sizing: border-box; }
+
+        body {
+            font-family: 'Segoe UI', 'PingFang SC', Roboto, 'Helvetica Neue', sans-serif;
+            background-image: url('./background.jpg'); /* 【可调】背景图片路径（替换文件名即可） */
+            background-size: cover; /* 【可调】背景尺寸：cover(铺满) / contain(完整) / 100% 100% */
+            background-position: center; /* 【可调】背景位置：center / top / bottom / left / right */
+            background-attachment: fixed; /* 【可调】背景固定：fixed(固定) / scroll(滚动) */
+            background-repeat: no-repeat; /* 【可调】背景重复：no-repeat / repeat / repeat-x / repeat-y */
+            position: relative;
+            color: var(--text-primary);
+            padding: 2rem 1.5rem; /* 【可调】页面内边距（上下 2rem，左右 1.5rem） */
+            line-height: 1.6; /* 【可调】行高 */
+            min-height: 100vh; /* 【可调】最小高度 */
+            transition: background-color 0.3s, color 0.3s; /* 【可调】颜色过渡时间 */
+        }
+
+        /* -------- 背景图遮罩层（用于暗色模式变暗） -------- */
+        body::before {
+            content: '';
+            position: fixed;
+            top: 0; left: 0; right: 0; bottom: 0;
+            background-color: var(--bg-overlay); /* 透明度由 --bg-overlay 控制 */
+            pointer-events: none;
+            z-index: 0;
+            transition: background-color 0.3s; /* 【可调】遮罩过渡时间 */
+        }
+
+        .container {
+            max-width: 1440px; /* 【可调】页面最大宽度 */
+            margin: 0 auto;
+            padding-left: 80px; /* 【可调】为左侧栏留出的空间（侧栏宽度） */
+            position: relative;
+            z-index: 1;
+        }
+
+        /* ================================================================
+           侧栏导航（左侧固定）
+           ================================================================ */
+        #sidebar {
+            position: fixed;
+            left: 16px; /* 【可调】侧栏距离左侧距离 */
+            top: 50%;
+            transform: translateY(-50%);
+            z-index: 1000;
+            display: flex;
+            flex-direction: column;
+            gap: 10px; /* 【可调】侧栏导航项之间的间距 */
+            background: var(--bg-sidebar);
+            backdrop-filter: blur(0.5px); /* 【可调】侧栏毛玻璃模糊度（px 越大越模糊） */
+            padding: 12px 8px; /* 【可调】侧栏内边距（上下 12px，左右 8px） */
+            border-radius: 20px; /* 【可调】侧栏圆角 */
+            box-shadow: 0 4px 20px var(--shadow-color); /* 【可调】侧栏阴影（水平 垂直 模糊 颜色） */
+            border: 1px solid var(--border-color); /* 【可调】侧栏边框粗细 + 颜色 */
+            max-height: 80vh; /* 【可调】侧栏最大高度（80%视口高度） */
+            overflow-y: auto; /* 【可调】溢出滚动：auto / hidden / scroll */
+            transition: background 0.3s, border-color 0.3s, box-shadow 0.3s; /* 【可调】过渡时间 */
+        }
+
+        #sidebar a {
+            display: block;
+            padding: 4px 10px; /* 【可调】导航项内边距 */
+            font-size: 0.9rem; /* 【可调】导航项字号 */
+            font-weight: 500; /* 【可调】导航项字重 */
+            color: var(--text-secondary);
+            text-decoration: none;
+            border-radius: 30px; /* 【可调】导航项圆角 */
+            transition: background 0.2s, color 0.2s; /* 【可调】悬停过渡时间 */
+            white-space: nowrap;
+            text-align: center;
+            letter-spacing: 0.3px; /* 【可调】字间距 */
+            cursor: pointer;
+        }
+        #sidebar a:hover {
+            background: var(--bg-sidebar-hover);
+            color: #fff;
+        }
+
+        /* 侧栏滚动条 */
+        #sidebar::-webkit-scrollbar {
+            width: 3px; /* 【可调】滚动条宽度 */
+        }
+        #sidebar::-webkit-scrollbar-track {
+            background: transparent;
+        }
+        #sidebar::-webkit-scrollbar-thumb {
+            background: var(--text-muted);
+            border-radius: 10px; /* 【可调】滚动条圆角 */
+        }
+
+        /* ================================================================
+           头部（Logo + 搜索 + 暗色切换）
+           ================================================================ */
+        .header {
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            flex-wrap: wrap;
+            gap: 1rem; /* 【可调】头部各元素间距 */
+            margin-bottom: 2.5rem; /* 【可调】头部底部外边距 */
+            padding-bottom: 1.5rem; /* 【可调】头部底部内边距（与边框距离） */
+            border-bottom: 2px solid var(--border-color); /* 【可调】头部下边框粗细 + 颜色 */
+            transition: border-color 0.3s; /* 【可调】边框颜色过渡时间 */
+        }
+
+        .logo { display: flex; align-items: center; gap: 8rem; } /* 【可调】Logo 图片与标语间距 */
+        .logo a { display: inline-block; line-height: 0; }
+        .logo img {
+            height: 128px; /* 【可调】Logo 图片高度（宽度自动等比） */
+            width: auto;
+            vertical-align: middle;
+            transition: opacity 0.2s; /* 【可调】悬停过渡时间 */
+        }
+        .logo img:hover { opacity: 0.8; } /* 【可调】Logo 悬停透明度 */
+        .logo .slogan {
+            font-size: 1.95rem; /* 【可调】标语字号 */
+            color: var(--text-secondary);
+            font-weight: 400;
+            margin-left: 0.25rem; /* 【可调】标语左间距 */
+            transition: color 0.3s; /* 【可调】颜色过渡时间 */
+        }
+
+        .header-meta {
+            display: flex;
+            align-items: center;
+            gap: 1.2rem; /* 【可调】头部右侧各元素间距 */
+            flex-wrap: wrap;
+        }
+
+        /* -------- "今日热推" 徽标 -------- */
+        .header-meta .badge {
+            background: var(--bg-badge);
+            color: var(--bg-body);
+            padding: 0.3rem 1rem; /* 【可调】徽标内边距 */
+            border-radius: 20px; /* 【可调】徽标圆角 */
+            font-size: 0.8rem; /* 【可调】徽标字号 */
+            font-weight: 500;
+            letter-spacing: 0.3px; /* 【可调】徽标字间距 */
+            transition: background 0.3s, color 0.3s; /* 【可调】过渡时间 */
+        }
+        .header-meta .badge i { margin-right: 6px; } /* 【可调】徽标图标右间距 */
+
+        /* -------- 搜索框 -------- */
+        .search-box {
+            display: flex;
+            align-items: center;
+            background: var(--bg-search);
+            border: 1px solid var(--border-color); /* 【可调】搜索框边框粗细 + 颜色 */
+            border-radius: 30px; /* 【可调】搜索框圆角 */
+            padding: 0.3rem 0.3rem 0.3rem 1.2rem; /* 【可调】搜索框内边距（左 1.2rem，右 0.3rem） */
+            transition: 0.25s, border-color 0.3s, background 0.3s; /* 【可调】过渡时间 */
+        }
+        .search-box:focus-within {
+            border-color: #f5576c; /* 【可调】搜索框聚焦时边框颜色 */
+            box-shadow: 0 0 0 3px rgba(245, 87, 108, 0.15); /* 【可调】聚焦时外发光（大小 + 颜色 + 透明度） */
+        }
+        .search-box input {
+            border: none;
+            outline: none;
+            background: transparent;
+            font-size: 0.9rem; /* 【可调】搜索框输入字号 */
+            padding: 0.4rem 0; /* 【可调】搜索框输入上下内边距 */
+            width: 160px; /* 【可调】搜索框输入宽度 */
+            color: var(--text-primary);
+            transition: color 0.3s; /* 【可调】颜色过渡时间 */
+        }
+        .search-box input::placeholder { color: var(--text-muted); }
+        .search-box button {
+            background: #f5576c; /* 【可调】搜索按钮背景色 */
+            border: none;
+            color: #fff;
+            padding: 0.4rem 1.2rem; /* 【可调】搜索按钮内边距 */
+            border-radius: 30px; /* 【可调】搜索按钮圆角 */
+            font-size: 0.85rem; /* 【可调】搜索按钮字号 */
+            cursor: pointer;
+            transition: 0.2s; /* 【可调】按钮过渡时间 */
+            font-weight: 500;
+        }
+        .search-box button:hover { background: #d94356; } /* 【可调】搜索按钮悬停背景色 */
+
+        /* -------- 暗色模式切换按钮 -------- */
+        .theme-toggle {
+            background: var(--bg-search);
+            border: 1px solid var(--border-color); /* 【可调】切换按钮边框粗细 + 颜色 */
+            border-radius: 30px; /* 【可调】切换按钮圆角 */
+            padding: 0.3rem 0.8rem; /* 【可调】切换按钮内边距 */
+            font-size: 1.1rem; /* 【可调】切换按钮图标大小 */
+            cursor: pointer;
+            color: var(--text-primary);
+            transition: 0.3s; /* 【可调】过渡时间 */
+            display: flex;
+            align-items: center;
+            gap: 0.3rem; /* 【可调】图标与文字间距 */
+            line-height: 1.4;
+        }
+        .theme-toggle:hover {
+            border-color: #f5576c;
+            background: var(--bg-sidebar-hover);
+            color: #fff;
+        }
+        .theme-toggle .toggle-label {
+            font-size: 0.75rem; /* 【可调】切换按钮文字大小 */
+            font-weight: 500;
+        }
+
+        /* ================================================================
+           分类卡片
+           ================================================================ */
+        .category-grid { display: flex; flex-direction: column; gap: 2.5rem; } /* 【可调】分类卡片之间的间距 */
+
+        .category-card {
+            background: var(--bg-container);
+            backdrop-filter: blur(2px); /* 【可调】分类卡片毛玻璃模糊度 */
+            border-radius: 24px; /* 【可调】分类卡片圆角 */
+            padding: 1.8rem 2rem 2rem; /* 【可调】分类卡片内边距（上 1.8rem，左右 2rem，下 2rem） */
+            box-shadow: 0 4px 20px var(--shadow-color); /* 【可调】分类卡片阴影 */
+            border: 1px solid var(--border-color); /* 【可调】分类卡片边框粗细 + 颜色 */
+            transition: 0.3s; /* 【可调】分类卡片过渡时间 */
+            scroll-margin-top: 20px; /* 【可调】滚动定位时距顶部的偏移量 */
+        }
+        .category-card:hover {
+            border-color: var(--border-hover);
+            box-shadow: 0 8px 32px var(--shadow-color); /* 【可调】悬停时阴影（更大） */
+        }
+
+        /* -------- 分类标题 -------- */
+        .category-title {
+            display: flex;
+            align-items: center;
+            gap: 0.6rem; /* 【可调】标题图标与文字间距 */
+            font-size: 1.5rem; /* 【可调】分类标题字号 */
+            font-weight: 600;
+            margin-bottom: 1.5rem; /* 【可调】标题底部外边距 */
+            padding-bottom: 0.6rem; /* 【可调】标题底部内边距（与边框距离） */
+            border-bottom: 2px dashed var(--border-color); /* 【可调】标题下边框粗细 + 样式（dashed/dotted/solid） */
+            transition: border-color 0.3s; /* 【可调】过渡时间 */
+            color: var(--text-primary);
+        }
+        .category-title i {
+            color: #f5576c; /* 【可调】标题图标颜色 */
+            font-size: 1.4rem; /* 【可调】标题图标大小 */
+            width: 2rem; /* 【可调】标题图标宽度（保证对齐） */
+            text-align: center;
+        }
+        .category-title .count {
+            font-size: 0.8rem; /* 【可调】站点数量字号 */
+            font-weight: 400;
+            color: var(--text-muted);
+            margin-left: auto;
+            background: var(--icon-bg);
+            padding: 0.1rem 0.9rem; /* 【可调】数量标签内边距 */
+            border-radius: 30px; /* 【可调】数量标签圆角 */
+            transition: background 0.3s, color 0.3s; /* 【可调】过渡时间 */
+        }
+
+        /* ================================================================
+           站点卡片（左图标 + 右上名称 + 右下描述）
+           ================================================================ */
+        .items-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(180px, 1fr)); /* 【可调】每列最小宽度（210px），自动填充 */
+            gap: 1.1rem; /* 【可调】站点卡片之间的间距 */
+        }
+
+        .item-card {
+            background: var(--bg-card);
+            border-radius: 16px; /* 【可调】站点卡片圆角 */
+            padding: 0.8rem 0.9rem 0.7rem; /* 【可调】站点卡片内边距（上 0.8rem，左右 0.9rem，下 0.7rem） */
+            transition: 0.2s ease; /* 【可调】过渡时间 */
+            border: 1px solid transparent; /* 【可调】默认边框（透明） */
+            display: flex;
+            flex-direction: column;
+            cursor: pointer;
+        }
+        .item-card:hover {
+            background: var(--bg-container);
+            border-color: var(--border-hover);
+            transform: translateY(-2px); /* 【可调】悬停上浮距离 */
+            box-shadow: 0 8px 24px var(--shadow-color); /* 【可调】悬停阴影 */
+        }
+
+        /* -------- 卡片头部（图标 + 文字信息） -------- */
+        .item-card .item-header {
+            display: flex;
+            align-items: flex-start;
+            gap: 0.6rem; /* 【可调】图标与文字间距 */
+            pointer-events: none;
+        }
+
+        /* -------- 图标 -------- */
+        .item-card .item-icon {
+            width: 42px; /* 【可调】图标容器宽度 */
+            height: 42px; /* 【可调】图标容器高度（与宽度一致保持正方形） */
+            border-radius: 8px; /* 【可调】图标圆角 */
+            background: var(--icon-bg);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 0.9rem; /* 【可调】图标内文字（占位符）字号 */
+            font-weight: 600;
+            color: var(--text-secondary);
+            flex-shrink: 0;
+            overflow: hidden;
+            transition: background 0.3s, color 0.3s; /* 【可调】过渡时间 */
+            margin-top: 2px; /* 【可调】图标顶部微调（与文字对齐） */
+        }
+        .item-card .item-icon img {
+            width: 100%;
+            height: 100%;
+            object-fit: contain; /* 【可调】图标填充方式：contain(完整) / cover(裁剪) / fill(拉伸) */
+        }
+        .item-card .item-icon .fallback {
+            font-size: 18px; /* 【可调】占位文字大小 */
+            font-weight: 600;
+            color: var(--text-secondary);
+        }
+
+        /* -------- 右侧信息（名称 + 描述） -------- */
+        .item-card .item-info {
+            display: flex;
+            flex-direction: column;
+            flex: 1;
+            min-width: 0;
+        }
+
+        /* -------- 站点名称 -------- */
+        .item-card .item-title {
+            font-weight: 600;
+            font-size: 0.95rem; /* 【可调】站点名称字号 */
+            color: var(--text-primary);
+            text-decoration: none;
+            white-space: nowrap;
+            overflow: hidden;
+            text-overflow: ellipsis;
+            transition: color 0.3s; /* 【可调】颜色过渡时间 */
+            line-height: 1.3; /* 【可调】行高 */
+        }
+        .item-card .item-title a {
+            color: inherit;
+            text-decoration: none;
+            transition: 0.15s; /* 【可调】链接过渡时间 */
+            pointer-events: auto;
+        }
+        .item-card .item-title a:hover { color: #f5576c; } /* 【可调】链接悬停颜色 */
+
+        /* -------- 站点描述 -------- */
+        .item-card .item-desc {
+            font-size: 0.72rem; /* 【可调】描述字号 */
+            color: var(--text-secondary);
+            line-height: 1.3; /* 【可调】描述行高 */
+            display: -webkit-box;
+            -webkit-line-clamp: 2; /* 【可调】描述最大显示行数（2行，超出省略号） */
+            -webkit-box-orient: vertical;
+            overflow: hidden;
+            pointer-events: none;
+            transition: color 0.3s; /* 【可调】颜色过渡时间 */
+            margin-top: 0.05rem; /* 【可调】描述与名称的间距 */
+        }
+
+        /* ================================================================
+           页脚
+           ================================================================ */
+        .footer {
+            margin-top: 3.5rem; /* 【可调】页脚顶部外边距 */
+            padding-top: 1.8rem; /* 【可调】页脚顶部内边距（与边框距离） */
+            border-top: 1px solid var(--border-color); /* 【可调】页脚上边框粗细 + 颜色 */
+            display: flex;
+            justify-content: space-between;
+            flex-wrap: wrap;
+            gap: 1rem; /* 【可调】页脚各元素间距 */
+            font-size: 0.85rem; /* 【可调】页脚字号 */
+            align-items: flex-end; /* 让子元素在垂直方向靠下对齐 */
+            color: var(--text-footer);
+            transition: border-color 0.3s, color 0.3s; /* 【可调】过渡时间 */
+        }
+        .footer a {
+            color: var(--text-footer);
+            text-decoration: none;
+            transition: 0.2s; /* 【可调】过渡时间 */
+        }
+        .footer a:hover { color: #f5576c; } /* 【可调】页脚链接悬停颜色 */
+        .footer .socials a {
+            font-size: 1.35rem; /* 【可调】社交图标大小 */
+            margin-left: 0.8rem; /* 【可调】社交图标间距 */
+            color:rgba(255, 255, 255, 0.75); /* 自定义社交图标颜色，不依赖变量 */
+            transition: 0.2s; /* 【可调】过渡时间 */
+            text-decoration: none;  /* 去除下划线 */
+        }
+        .footer .socials i:hover { color: #f5576c; } /* 【可调】社交图标悬停颜色 */
+
+        /* ================================================================
+           搜索无结果提示
+           ================================================================ */
+        .no-result {
+            grid-column: 1/-1;
+            text-align: center;
+            padding: 3rem 0; /* 【可调】无结果提示内边距 */
+            color: var(--text-muted);
+        }
+        .no-result i {
+            font-size: 2rem; /* 【可调】无结果图标大小 */
+            display: block;
+            margin-bottom: 0.5rem; /* 【可调】图标与文字间距 */
+        }
+
+        /* ================================================================
+           响应式（手机/平板适配）
+           ================================================================ */
+        @media (max-width: 768px) {
+            body { padding: 1rem 0.8rem; } /* 【可调】手机端页面内边距 */
+            .container { padding-left: 0; } /* 手机端取消左侧留白 */
+
+            /* -------- 侧栏改为底部横条 -------- */
+            #sidebar {
+                position: fixed;
+                left: 0; right: 0; top: auto; bottom: 0;
+                transform: none;
+                flex-direction: row;
+                justify-content: center;
+                gap: 4px; /* 【可调】手机端侧栏项间距 */
+                padding: 8px 6px; /* 【可调】手机端侧栏内边距 */
+                border-radius: 20px 20px 0 0; /* 【可调】手机端侧栏圆角（顶部圆角） */
+                max-height: 60px; /* 【可调】手机端侧栏最大高度 */
+                overflow-x: auto;
+                overflow-y: hidden;
+                background: var(--bg-sidebar);
+                backdrop-filter: blur(6px);
+                box-shadow: 0 -2px 12px var(--shadow-color);
+                border: none;
+                border-top: 1px solid var(--border-color);
+                z-index: 999;
+                transition: background 0.3s, border-color 0.3s, box-shadow 0.3s;
+            }
+            #sidebar a {
+                font-size: 0.65rem; /* 【可调】手机端导航字号 */
+                padding: 2px 8px; /* 【可调】手机端导航内边距 */
+                white-space: nowrap;
+            }
+
+            .header {
+                flex-direction: column;
+                align-items: stretch;
+                gap: 0.8rem; /* 【可调】手机端头部间距 */
+            }
+            .logo img { height: 34px; } /* 【可调】手机端 Logo 高度 */
+            .logo .slogan { font-size: 0.8rem; } /* 【可调】手机端标语字号 */
+            .search-box input { width: 100px; } /* 【可调】手机端搜索框宽度 */
+            .search-box button {
+                padding: 0.3rem 0.9rem; /* 【可调】手机端搜索按钮内边距 */
+                font-size: 0.75rem; /* 【可调】手机端搜索按钮字号 */
+            }
+            .category-card {
+                padding: 1.2rem 1rem 1.5rem; /* 【可调】手机端分类卡片内边距 */
+                background: var(--bg-container);
+            }
+            .category-title { font-size: 1.2rem; } /* 【可调】手机端分类标题字号 */
+            .items-grid {
+                grid-template-columns: repeat(auto-fill, minmax(160px, 1fr)); /* 【可调】手机端每列最小宽度 */
+                gap: 0.8rem; /* 【可调】手机端站点卡片间距 */
+            }
+            .item-card {
+                padding: 0.7rem 0.7rem 0.6rem; /* 【可调】手机端站点卡片内边距 */
+            }
+            .item-card .item-title { font-size: 0.85rem; } /* 【可调】手机端站点名称字号 */
+            .item-card .item-desc { font-size: 0.65rem; } /* 【可调】手机端描述字号 */
+            .footer {
+                flex-direction: column;
+                align-items: center;
+                text-align: center;
+                margin-bottom: 70px; /* 【可调】手机端页脚底部留白（给底部导航留空间） */
+            }
+            .theme-toggle .toggle-label { display: none; } /* 手机端隐藏切换按钮文字 */
+        }
+
+        @media (max-width: 480px) {
+            .items-grid {
+                grid-template-columns: 1fr 1fr; /* 【可调】小屏手机每行 2 列 */
+                gap: 0.6rem; /* 【可调】小屏手机站点卡片间距 */
+            }
+            .search-box input {
+                width: 70px; /* 【可调】小屏手机搜索框宽度 */
+                font-size: 0.8rem; /* 【可调】小屏手机搜索框字号 */
+            }
+        }
+    </style>
+</head>
+<body>
+
+    <!-- 侧栏导航 -->
+    <nav id="sidebar"></nav>
+
+    <div class="container" id="app">
+        <header class="header">
+            <div class="logo">
+                <a href="/" title="ACG导航 首页">
+                    <img src="./logo.svg" alt="ACG 导航" />
+                </a>
+                <span class="slogan">                                           </span>
+            </div>
+            <div class="header-meta">
+                <span class="badge"><i class="fas fa-star"></i> 今日热推</span>
+                <button class="theme-toggle" id="themeToggle" aria-label="切换暗色模式">
+                    <i class="fas fa-moon" id="themeIcon"></i>
+                    <span class="toggle-label" id="themeLabel">暗色</span>
+                </button>
+                <div class="search-box">
+                    <input type="text" placeholder="搜站点…" id="searchInput" />
+                    <button id="searchBtn"><i class="fas fa-search"></i> 搜索</button>
+                </div>
+            </div>
+        </header>
+
+        <div class="category-grid" id="categoryGrid"></div>
+
+<footer class="footer">
+    <span>© 2026 ACG 导航 · 用 ❤️ 为二次元引路</span>
+    <span>站长邮箱: <a href="mailto:your_email@example.com">your_email@example.com</a></span>
+    <div class="socials">
+        <a href="https://space.bilibili.com/" target="_blank" rel="noopener" title="B站"><i class="fab fa-bilibili"></i></a>
+        <a href="https://music.163.com/playlist?id=370324112&uct2=U2FsdGVkX1/MQ47KiSW6GCNTQ+GzV7lj6sO+YJj4kLY=" target="_blank" rel="noopener" title="网易云"><i class="fa-solid fa-compact-disc"></i></a>
+        <a href="https://github.com/ohu00" target="_blank" rel="noopener" title="GitHub"><i class="fab fa-github"></i></a>
+        <a href="/feed.xml" target="_blank" rel="noopener" title="RSS"><i class="fas fa-rss"></i></a>
+    </div>
+</footer>
+    </div>
+
+    <script>
+        // ================================================================
+        //  ACG 数据（共 9 个分类，站点列表）
+        //  所有站点均包含：标题、链接、图标路径、标签、描述
+        //  修改站点时请确保 icon 路径正确，如缺失会显示首字母占位
+        // ================================================================
+        const navData = [
+            // -------- 1. 动画追番 --------
+            {
+                "category": "🎬 动画追番",
+                "items": [
+                    { "title": "Bilibili", "link": "https://www.bilibili.com", "icon": "./icon/bili.png", "tags": ["弹幕", "社区", "追番"], "desc": "国内最大ACG视频社区，追番、二创、直播一站式" },
+                    { "title": "AcFun", "link": "https://www.acfun.cn", "icon": "./icon/ac.ico", "tags": ["弹幕", "怀旧", "社区"], "desc": "弹幕文化发源地，硬核二次元聚集地" },
+                    { "title": "樱花动漫", "link": "http://www.yinghuadm.io/", "icon": "./icon/yhdm.ico", "tags": ["在线观看", "新番"], "desc": "海量动漫在线观看，更新快画质优" },
+                    { "title": "Anime1", "link": "https://anime1.me", "icon": "./icon/anime1.ico", "tags": ["新番", "追番表"], "desc": "新番动画追踪，每周更新列表清晰" },
+                    { "title": "青空次元", "link": "https://www.sorani.net/", "icon": "./icon/qkcy.png", "tags": ["在线观看", "高清"], "desc": "青空次元，悠于青空之上" },
+                    { "title": "次元城动画", "link": "https://www.cycani.org/", "icon": "./icon/cyc.ico", "tags": ["蓝光", "免费"], "desc": "次元城动画，海量蓝光番剧免费看" },
+                    { "title": "AniCh", "link": "https://anich.emmmm.eu.org/", "icon": "./icon/anich.ico", "tags": ["弹幕", "在线"], "desc": "AniCh动漫弹幕网" },
+                    { "title": "4K动漫", "link": "https://cn.agekkkk.com/", "icon": "./icon/4kdm.ico", "tags": ["4K", "在线"], "desc": "4K动漫，超清在线观看" },
+                    { "title": "稀饭动漫", "link": "https://dick.xfani.com/", "icon": "./icon/xfdm.png", "tags": ["免费", "高清"], "desc": "稀饭动漫，免费高清动漫分享" },
+                    { "title": "二矿动漫", "link": "https://www.2rk.cc/", "icon": "./icon/2rk.ico", "tags": ["在线观看", "新番"], "desc": "二矿，在线观看2k动画" },
+                    { "title": "哔咪动漫 (M站)", "link": "https://www.bimiacg.icu/", "icon": "./icon/bimi.ico", "tags": ["在线观看", "弹幕"], "desc": "哔咪动漫，弹幕番剧平台" },
+                    { "title": "girigiri愛動漫", "link": "https://anime.girigirilove.top/", "icon": "./icon/giri.png", "tags": ["在线观看", "弹幕"], "desc": "girigiri愛動漫，高清弹幕番剧平台" },
+                    { "title": "AGE动漫", "link": "https://www.agedm.io", "icon": "./icon/age.ico", "tags": ["在线观看", "弹幕"], "desc": "在线动漫观看，弹幕互动体验" },
+                    { "title": "E站弹幕网", "link": "https://www.ezdmw.org/", "icon": "./icon/ezdmw.ico", "tags": ["在线观看", "搞笑"], "desc": "轻松看番，弹幕氛围" },
+                    { "title": "粵漫之家", "link": "https://www.ymvid.com/", "icon": "./icon/ymzj.ico", "tags": ["资讯", "社区", "漫画"], "desc": "为热爱粤语文化的观众提供高质量的观看体验" },
+                    { "title": "观影", "link": "https://www.xn--wcv59z.com/", "icon": "./icon/gy.png", "tags": ["影视", "动漫"], "desc": "观影，综合影视动漫站" },
+                    { "title": "虚位以待", "link": "", "icon": "./icon/摊手..jpeg", "tags": [], "desc": "此处风景甚好，静待有缘人" }
+                ]
+            },
+            // -------- 2. 二次元社区 --------
+            {
+                "category": "💬 二次元社区",
+                "items": [
+                    { "title": "番组百科", "link": "https://www.anibk.com/", "icon": "./icon/anibk.ico", "tags": ["百科", "番组"], "desc": "番组百科，动画番组信息" },
+                    { "title": "次元狗", "link": "https://www.acgndog.com/", "icon": "./icon/cyg.png", "tags": ["资讯", "社区"], "desc": "次元狗，ACG资讯与分享" },
+                    { "title": "萌娘百科", "link": "https://zh.moegirl.org.cn", "icon": "./icon/mnbk.png", "tags": ["百科", "二次元"], "desc": "最全二次元百科，ACG文化宝典" },
+                    { "title": "Anime字幕论坛", "link": "https://bbs.acgrip.com/", "icon": "./icon/sub.ico", "tags": ["字幕", "论坛"], "desc": "Anime字幕论坛，字幕分享与讨论" },
+                    { "title": "动漫花园", "link": "https://dmhy.org", "icon": "./icon/dmhy.ico", "tags": ["资源", "分享"], "desc": "动漫资源分享站，经典BT发布" },
+                    { "title": "米麓星", "link": "https://www.miluxing.com/", "icon": "./icon/mlx.webp", "tags": ["在线观看", "资源"], "desc": "米麓星，动漫资源站" },
+                    { "title": "爱恋动漫BT", "link": "http://www.kisssub.org/", "icon": "./icon/kisssub.ico", "tags": ["BT下载", "动漫"], "desc": "爱恋动漫BT下载站，资源丰富" },
+                    { "title": "漫猫", "link": "https://www.comicat.org/", "icon": "./icon/cat.ico", "tags": ["漫画", "在线"], "desc": "漫猫，漫画在线阅读平台" },
+                    { "title": "蜜柑计划", "link": "https://mikanani.me", "icon": "./icon/mikan.ico", "tags": ["资源聚合", "下载"], "desc": "动漫资源聚合站，BDRip/WebRip 一网打尽" },
+                    { "title": "ACG Secrets.HK", "link": "https://acgsecrets.hk/", "icon": "./icon/acghk.png", "tags": ["资讯", "资源"], "desc": "ACG秘密基地，提供资讯与资源" },
+                    { "title": "YuC's AnimeList", "link": "https://yuc.wiki/", "icon": "./icon/yuc.png", "tags": ["动漫列表", "资料"], "desc": "YuC's AnimeList，动漫列表与资料" },
+                    { "title": "NGA", "link": "https://nga.178.com", "icon": "./icon/nga.ico", "tags": ["游戏", "讨论"], "desc": "国内头部游戏社区，硬核攻略讨论" },
+                    { "title": "Bangumi", "link": "https://bgm.tv", "icon": "./icon/bgm.ico", "tags": ["追番", "记录"], "desc": "追番记录工具，动画评分社区" },
+                    { "title": "ACG.RIP", "link": "https://acg.rip/", "icon": "./icon/rip.ico", "tags": ["资源", "聚合"], "desc": "动漫资源聚合，新番/剧场版" },
+                    { "title": "AniFun", "link": "https://anifun.cn/", "icon": "./icon/anifun.jpg", "tags": ["发现", "乐趣"], "desc": "AniFun，一起发现动漫与ACG的乐趣" }
+
+                ]
+            },
+            // -------- 3. 漫画阅读 --------
+            {
+                "category": "📚 漫画阅读",
+                "items": [
+                    {"title":"包子漫画","link":"https://www.baozimh.com/","icon":"./icon/baozi.png","tags":["国产","日漫","韩漫","免费"],"desc":"提供国产漫画、日漫、韩漫的综合型免费在线观看漫画网站"},
+                    {"title":"MYCOMIC","link":"https://mycomic.com/cn","icon":"./icon/mycomic.webp","tags":["国漫","日漫","韩漫","欧美","免费"],"desc":"国漫、日漫、韩漫、欧美漫画免费在线阅读的网站"},
+                    {"title":"Goda漫画","link":"https://godamh.com/","icon":"./icon/goda.ico","tags":["国漫","日漫","韩漫","欧美","免费"],"desc":"提供国漫、日漫、韩漫以及欧美漫画的在线免费阅读网站"},
+                    {"title":"读漫屋","link":"http://dumanwu1.com/","icon":"./icon/dmw.ico","tags":["日漫","韩漫","在线"],"desc":"提供日漫、韩漫、韩漫资源的在线漫画网站"},
+                    {"title":"爱韩漫","link":"https://www.ihanman.com/","icon":"./icon/ihanman.ico","tags":["韩漫","日漫","国漫","在线"],"desc":"以韩漫、日漫、国漫为主的在线漫画网站"},
+                    {"title":"YY漫画","link":"https://www.yymanhua.com/","icon":"./icon/manga.ico","tags":["日漫","专注"],"desc":"专注日本漫画在线阅读的网站"},
+                    {"title":"漫画狗","link":"https://www.manhuagou.net/","icon":"./icon/manhuagou.ico","tags":["国漫","日漫","韩漫","美漫","免费"],"desc":"提供国漫、日漫、韩漫、美漫免费在线阅读的网站"},
+                    {"title":"漫本","link":"https://www.manben.com/","icon":"./icon/manben.ico","tags":["原创","华人","分享"],"desc":"瑛麒动漫打造的华人原创漫画作品分享平台"}
+                ]
+            },
+            // -------- 4. 游戏天地 --------
+            {
+                "category": "🎮 游戏天地",
+                "items": [
+                    { "title": "Steam", "link": "https://store.steampowered.com", "icon": "./icon/steam.ico", "tags": ["游戏平台", "正版"], "desc": "全球最大PC游戏平台，海量单机/联机游戏" },
+                    { "title": "小黑盒", "link": "https://www.xiaoheihe.cn/app/bbs/home", "icon": "./icon/xiaoheihe.ico", "tags": ["游戏", "社区"], "desc": "小黑盒，玩家高能聚集地" },
+                    { "title": "老游戏在线玩", "link": "https://zaixianwan.app/", "icon": "./icon/laoyouxi.ico", "tags": ["怀旧", "网页"], "desc": "老游戏在线玩，经典游戏网页版" },
+                    { "title": "Koyso", "link": "https://koysobackup.com/", "icon": "./icon/playzip.ico", "tags": ["下载", "PC"], "desc": "Koyso - PC Games Free Download" },
+                    { "title": "Epic游戏商城", "link": "https://store.epicgames.com/zh-CN/", "icon": "./icon/epic.ico", "tags": ["平台", "免费"], "desc": "Epic游戏商城，每周免费游戏" },
+                    { "title": "Switch520", "link": "https://www.gamer520.com/", "icon": "./icon/s520.png", "tags": ["Switch", "下载"], "desc": "Switch520，Switch游戏下载" },
+                    { "title": "蒸汽游戏宝库", "link": "https://www.steambk.com/", "icon": "./icon/zqyxbk.ico", "tags": ["Steam", "下载"], "desc": "蒸汽游戏宝库，高质量Steam单机游戏下载" },
+                    { "title": "123资源库", "link": "https://www.123zyk.com/", "icon": "./icon/123.png", "tags": ["游戏资源", "免费"], "desc": "123资源库，免费高质量游戏资源" }
+                ]
+            },
+            // -------- 5. 插画创作 --------
+            {
+                "category": "🎨 插画创作",
+                "items": [
+                    { "title": "Pixiv", "link": "https://www.pixiv.net", "icon": "./icon/pixiv.ico", "tags": ["插画", "日本"], "desc": "全球最大二次元插画社区，画师圣地" },
+                    { "title": "ArtStation", "link": "https://www.artstation.com", "icon": "./icon/artstation.svg", "tags": ["艺术", "CG"], "desc": "CG艺术社区，概念设计/3D作品" },
+                    { "title": "半次元", "link": "https://bcy.net", "icon": "./icon/bcy.svg", "tags": ["二次元", "同人"], "desc": "二次元同人社区，绘画/小说/cos" },
+                    { "title": "DeviantArt", "link": "https://www.deviantart.com", "icon": "./icon/deviantart.svg", "tags": ["艺术", "全球"], "desc": "全球最大艺术社区，风格多元" },
+                    { "title": "涂鸦王国", "link": "https://www.paintking.com", "icon": "./icon/paintking.svg", "tags": ["插画", "国风"], "desc": "国内插画平台，国风/二次元作品" },
+                    { "title": "堆糖", "link": "https://www.duitang.com", "icon": "./icon/duitang.ico", "tags": ["图片分享", "素材"], "desc": "图片分享社区，美图/壁纸/素材" },
+                    { "title": "花瓣网", "link": "https://huaban.com", "icon": "./icon/huaban.ico", "tags": ["设计灵感", "素材"], "desc": "设计灵感采集，海量优质图片" },
+                    { "title": "站酷", "link": "https://www.zcool.com.cn", "icon": "./icon/zcool.ico", "tags": ["设计", "插画"], "desc": "国内设计师社区，插画/UI/平面" }
+                ]
+            },
+            // -------- 6. 免费音乐 --------
+            {
+                "category": "🎵 免费音乐",
+                "items": [
+                    { "title": "猫耳FM", "link": "https://www.missevan.com", "icon": "./icon/mefm.png", "tags": ["广播剧", "有声"], "desc": "广播剧/有声漫平台，声控天堂" },
+                    { "title": "网易云音乐", "link": "https://music.163.com", "icon": "./icon/wyy.ico", "tags": ["音乐", "ACG"], "desc": "ACG音乐宝库，歌单/评论文化" },
+                    { "title": "哔哩哔哩音乐", "link": "https://music.bilibili.com/pc/rank", "icon": "./icon/bili.ico", "tags": ["音乐", "翻唱"], "desc": "B站音乐区，翻唱/Vocaloid" },
+                    { "title": "酷狗音乐", "link": "https://www.kugou.com", "icon": "./icon/kugou.ico", "tags": ["音乐", "ACG"], "desc": "ACG曲库丰富，音质优秀" },
+                    { "title": "5sing", "link": "https://5sing.kugou.com", "icon": "./icon/5sing.ico", "tags": ["原创音乐", "翻唱"], "desc": "原创音乐/翻唱平台，古风/二次元" },
+                    { "title": "QQ音乐", "link": "https://y.qq.com", "icon": "./icon/qqmusic.ico", "tags": ["音乐", "ACG"], "desc": "ACG音乐版权丰富，日音/国漫OST" },
+                    { "title": "SPlayer", "link": "https://splayer.uncley.cc/#/", "icon": "./icon/splayer.ico", "tags": ["音乐播放", "在线"], "desc": "SPlayer，在线音乐播放器" },
+                    { "title": "下歌吧", "link": "https://xiageba.liumingye.cn/", "icon": "./icon/xgb.ico", "tags": ["音乐下载", "MP3"], "desc": "下歌吧，免费下载高品质MP3与FLAC" }
+                ]
+            },
+            // -------- 7. 轻小说文库 --------
+            {
+                "category": "📕 轻小说文库",
+                "items": [
+                    { "title": "哔哩轻小说", "link": "https://www.linovelib.com/", "icon": "./icon/blqxs.ico", "tags": ["轻小说", "阅读"], "desc": "轻小说阅读平台，日轻/国轻均有" },
+                    { "title": "轻之国度", "link": "https://www.lightnovel.cn", "icon": "./icon/qzgd.ico", "tags": ["轻小说", "论坛"], "desc": "轻小说爱好者论坛，翻译/讨论" },
+                    { "title": "幻梦轻小说", "link": "https://www.huanmengacg.com/", "icon": "./icon/huanmeng.jpg", "tags": ["轻小说", "国轻"], "desc": "日本轻小说平台，原创作品丰富" },
+                    { "title": "起点中文网", "link": "https://www.qidian.com", "icon": "./icon/qidian.ico", "tags": ["网络小说", "二次元"], "desc": "网文巨头，二次元/同人分类" },
+                    { "title": "刺猬猫", "link": "https://www.ciweimao.com", "icon": "./icon/ciweimao.png", "tags": ["二次元", "同人"], "desc": "二次元同人小说平台，轻小说风格" }
+                ]
+            },
+            // -------- 8. 工具资源 --------
+            {
+                "category": "🛠️ 工具资源",
+                "items": [
+                    { "title": "cloudflare", "link": "https://dash.cloudflare.com/", "icon": "./icon/cloudflare.svg", "tags": ["资源", "资讯"], "desc": "域名购买管理，一站式门户" },
+                    { "title": "异次元", "link": "https://www.iplaysoft.com", "icon": "./icon/iplaysoft.svg", "tags": ["软件", "工具"], "desc": "软件分享站，ACG相关工具推荐" },
+                    { "title": "SteamDB", "link": "https://steamdb.info/", "icon": "./icon/default.svg", "tags": ["Steam", "数据库"], "desc": "SteamDB，Steam游戏数据统计" },
+                    { "title": "果核剥壳", "link": "https://www.ghxi.com/", "icon": "./icon/ghxi.ico", "tags": ["软件下载", "绿色"], "desc": "果核剥壳，软件资源分享" },
+                    { "title": "扩展搜搜", "link": "https://www.crxsoso.com/", "icon": "./icon/crx.ico", "tags": ["浏览器扩展", "搜索"], "desc": "扩展搜搜，浏览器扩展搜索" },
+                    { "title": "423Down", "link": "https://www.423down.com/", "icon": "./icon/default.svg", "tags": ["软件下载", "免费"], "desc": "423Down，软件下载站" },
+                    { "title": "硬核指南", "link": "https://yinghezhinan.com/", "icon": "./icon/default.svg", "tags": ["高清", "资源"], "desc": "硬核指南，高清资源分享" },
+                    { "title": "小众技术资源库", "link": "https://www.xiaozhongjishu.com/", "icon": "./icon/default.svg", "tags": ["技术", "资源"], "desc": "小众技术资源库" },
+                    { "title": "小刀娱乐网", "link": "https://www.x6g.com/", "icon": "./icon/default.svg", "tags": ["活动", "软件"], "desc": "小刀娱乐网，专注活动、软件、教程" },
+                    { "title": "刘明野的工具箱", "link": "https://tools.liumingye.cn/", "icon": "./icon/default.svg", "tags": ["在线工具", "实用"], "desc": "刘明野的工具箱，提供好用易用的工具" },
+                    { "title": "Github", "link": "https://github.com/", "icon": "./icon/github.svg", "tags": ["代码托管", "开源"], "desc": "GitHub，全球最大代码托管平台" },
+                    { "title": "Greasy", "link": "https://greasyfork.org/zh-CN", "icon": "./icon/tampermonkey.svg", "tags": ["油猴", "脚本"], "desc": "GreasyFork，用户脚本分享站" },
+                    { "title": "聚合图床", "link": "https://www.superbed.cn/", "icon": "./icon/juhe.svg", "tags": ["图床", "图片托管"], "desc": "聚合图床，专业图片托管服务" },
+                    { "title": "七味", "link": "https://www.qwnull.com/", "icon": "./icon/7wei.ico", "tags": ["资源", "分享"], "desc": "七味网，综合资源站" },
+                    { "title": "在线弹幕解析", "link": "https://feiyudo.com/caption/scrolling/bilibili", "icon": "./icon/feiyu.ico", "tags": ["弹幕", "解析"], "desc": "飞鱼视频下载助手，弹幕解析" },
+                    { "title": "文叔叔", "link": "https://www.wenshushu.cn/", "icon": "./icon/wenss.ico", "tags": ["文件传输", "临时"], "desc": "文叔叔，文件传输与分享" },
+                    { "title": "吾爱破解论坛", "link": "https://www.52pojie.cn/", "icon": "./icon/wuai.svg", "tags": ["技术", "破解"], "desc": "吾爱破解论坛，技术交流与分享" }
+                ]
+            },
+            // -------- 9. AI工具库 --------
+            {
+                "category": "🤖 AI工具库",
+                "items": [
+                    { "title": "Google Gemini", "link": "https://gemini.google.com", "icon": "./icon/gemini.svg", "tags": ["AI", "聊天"], "desc": "Google Gemini，Google AI 助手" },
+                    { "title": "ChatGPT", "link": "https://chatgpt.com", "icon": "./icon/chatgpt.svg", "tags": ["AI", "聊天"], "desc": "ChatGPT，OpenAI 智能对话" },
+                    { "title": "DeepSeek", "link": "https://chat.deepseek.com/", "icon": "./icon/ds.svg", "tags": ["AI", "编程"], "desc": "DeepSeek，深度求索 AI 助手" },
+                    { "title": "grok", "link": "https://grok.com/", "icon": "./icon/grok.svg", "tags": ["AI", "聊天"], "desc": "grok，xAI 旗下 AI 聊天机器人" },
+                    { "title": "Claude", "link": "https://claude.ai", "icon": "./icon/claude.svg", "tags": ["AI", "聊天"], "desc": "Anthropic旗下AI助手，擅长推理与编码" },
+                    { "title": "Perplexity", "link": "https://www.perplexity.ai", "icon": "./icon/default.svg", "tags": ["AI搜索", "问答"], "desc": "结合生成式AI与实时搜索的答案引擎" },
+                    { "title": "文心一言", "link": "https://yiyan.baidu.com", "icon": "./icon/wenxin.svg", "tags": ["AI", "中文"], "desc": "百度旗下知识增强大语言模型" },
+                    { "title": "讯飞星火", "link": "https://xinghuo.xfyun.cn", "icon": "./icon/xinghuo.ico", "tags": ["AI", "中文"], "desc": "科大讯飞推出的认知大模型" },
+                    { "title": "通义千问", "link": "https://tongyi.aliyun.com", "icon": "./icon/qwen.svg", "tags": ["AI", "中文"], "desc": "阿里云研发的超大规模语言模型" },
+                    { "title": "智谱清言", "link": "https://chatglm.cn", "icon": "./icon/glm.ico", "tags": ["AI", "中文"], "desc": "智谱AI推出的双语对话模型" },
+                    { "title": "Kimi", "link": "https://www.kimi.com", "icon": "./icon/kimi.svg", "tags": ["AI", "长文本"], "desc": "月之暗面旗下，超长上下文AI助手" },
+                    { "title": "豆包", "link": "https://www.doubao.com", "icon": "./icon/doubao.svg", "tags": ["AI", "中文"], "desc": "字节跳动旗下AI智能助手" },
+                    { "title": "元宝", "link": "https://yuanbao.tencent.com", "icon": "./icon/yuanbao.ico", "tags": ["AI", "中文"], "desc": "腾讯旗下全能AI助手" },
+                    { "title": "Microsoft Copilot", "link": "https://copilot.microsoft.com", "icon": "./icon/Microsoft.svg", "tags": ["AI", "编程"], "desc": "微软与OpenAI联合推出的AI编程助手" },
+                    { "title": "Midjourney", "link": "https://www.midjourney.com", "icon": "./icon/midj.png", "tags": ["AI绘画", "图像生成"], "desc": "知名AI图像生成工具" },
+                    { "title": "Poe", "link": "https://poe.com", "icon": "./icon/poe.svg", "tags": ["AI聚合", "聊天"], "desc": "Quora旗下AI聊天聚合平台" },
+                    { "title": "Hugging Face", "link": "https://huggingface.co", "icon": "./icon/hugging.ico", "tags": ["AI社区", "模型库"], "desc": "全球最大AI模型社区与开源平台" }
+                ]
+            }
+        ];
+
+        // ================================================================
+        //  渲染引擎（含平滑滚动）
+        //  以下函数用于生成页面内容、侧栏导航，并实现滚动跟随
+        // ================================================================
+        const grid = document.getElementById('categoryGrid');
+        const sidebar = document.getElementById('sidebar');
+        let navLinks = [];
+        let categoryCards = [];
+        let scrollTimer = null;
+        let isScrolling = false;
+        let activeIndex = 0;
+        let followTimer = null;
+
+        /**
+         * 自定义平滑滚动函数
+         * @param {Element} targetElement - 目标元素
+         * @param {Window|Element} container - 滚动容器（window 或侧栏）
+         * @param {number} offset - 滚动偏移量（像素）
+         * @param {number} duration - 动画持续时间（毫秒）
+         */
+        function smoothScrollTo(targetElement, container = window, offset = 0, duration = 600) {
+            return new Promise((resolve) => {
+                const start = container === window ? window.pageYOffset : container.scrollTop;
+                const rect = targetElement.getBoundingClientRect();
+                const target = start + rect.top - offset;
+                const startTime = performance.now();
+                function step(currentTime) {
+                    const elapsed = currentTime - startTime;
+                    const progress = Math.min(elapsed / duration, 1);
+                    // easeInOutQuad 缓动函数
+                    const ease = progress < 0.5 ? 2 * progress * progress : 1 - Math.pow(-2 * progress + 2, 2) / 2;
+                    const newPos = start + (target - start) * ease;
+                    if (container === window) { window.scrollTo(0, newPos); } else { container.scrollTop = newPos; }
+                    if (progress < 1) { requestAnimationFrame(step); } else { resolve(); }
+                }
+                requestAnimationFrame(step);
+            });
+        }
+
+        /**
+         * 侧栏滚动到指定导航项（居中）
+         */
+        function scrollSidebarToLink(linkElement, duration = 400) {
+            const container = sidebar;
+            const linkRect = linkElement.getBoundingClientRect();
+            const containerRect = container.getBoundingClientRect();
+            const offset = linkRect.top - containerRect.top - container.clientHeight / 2 + linkRect.height / 2;
+            const targetScroll = container.scrollTop + offset;
+            const start = container.scrollTop;
+            const startTime = performance.now();
+            return new Promise((resolve) => {
+                function step(currentTime) {
+                    const elapsed = currentTime - startTime;
+                    const progress = Math.min(elapsed / duration, 1);
+                    const ease = progress < 0.5 ? 2 * progress * progress : 1 - Math.pow(-2 * progress + 2, 2) / 2;
+                    container.scrollTop = start + (targetScroll - start) * ease;
+                    if (progress < 1) { requestAnimationFrame(step); } else { resolve(); }
+                }
+                requestAnimationFrame(step);
+            });
+        }
+
+        /**
+         * 渲染主函数：根据数据生成分类卡片和侧栏导航
+         */
+        function render(data) {
+            grid.innerHTML = '';
+            sidebar.innerHTML = '';
+            navLinks = [];
+            categoryCards = [];
+
+            data.forEach((cat, index) => {
+                // ---- 分类卡片 ----
+                const card = document.createElement('div');
+                card.className = 'category-card';
+                card.id = `category-${index}`;
+
+                const titleDiv = document.createElement('div');
+                titleDiv.className = 'category-title';
+                const iconMatch = cat.category.match(/^(.+?)\s/);
+                const iconHtml = iconMatch ? iconMatch[1] : '📌';
+                const name = cat.category.replace(/^.+?\s/, '');
+                titleDiv.innerHTML = `
+                    <span>${iconHtml}</span>
+                    ${name}
+                    <span class="count">${cat.items.length} 个站点</span>
+                `;
+                card.appendChild(titleDiv);
+
+                const itemsGrid = document.createElement('div');
+                itemsGrid.className = 'items-grid';
+                cat.items.forEach(item => {
+                    const cardEl = document.createElement('div');
+                    cardEl.className = 'item-card';
+                    cardEl.dataset.link = item.link;
+
+                    const headerDiv = document.createElement('div');
+                    headerDiv.className = 'item-header';
+
+                    // 图标
+                    const iconContainer = document.createElement('div');
+                    iconContainer.className = 'item-icon';
+                    const img = document.createElement('img');
+                    img.src = item.icon;
+                    img.alt = item.title;
+                    img.onerror = function() {
+                        this.style.display = 'none';
+                        const fallback = document.createElement('span');
+                        fallback.className = 'fallback';
+                        fallback.textContent = item.title.charAt(0).toUpperCase();
+                        iconContainer.appendChild(fallback);
+                    };
+                    iconContainer.appendChild(img);
+                    headerDiv.appendChild(iconContainer);
+
+                    // 信息区（名称 + 描述）
+                    const infoDiv = document.createElement('div');
+                    infoDiv.className = 'item-info';
+
+                    const titleLink = document.createElement('div');
+                    titleLink.className = 'item-title';
+                    const a = document.createElement('a');
+                    a.href = item.link;
+                    a.target = '_blank';
+                    a.rel = 'noopener';
+                    a.textContent = item.title;
+                    titleLink.appendChild(a);
+                    infoDiv.appendChild(titleLink);
+
+                    const descDiv = document.createElement('div');
+                    descDiv.className = 'item-desc';
+                    descDiv.textContent = item.desc || '';
+                    infoDiv.appendChild(descDiv);
+
+                    headerDiv.appendChild(infoDiv);
+                    cardEl.appendChild(headerDiv);
+
+                    // 点击卡片（整卡可点，排除内部链接）
+                    cardEl.addEventListener('click', function(e) {
+                        if (e.target.closest('a')) return;
+                        const link = this.dataset.link;
+                        if (link) window.open(link, '_blank');
+                    });
+
+                    itemsGrid.appendChild(cardEl);
+                });
+
+                card.appendChild(itemsGrid);
+                grid.appendChild(card);
+                categoryCards.push(card);
+
+                // ---- 侧栏导航链接 ----
+                const navLink = document.createElement('a');
+                navLink.href = `#category-${index}`;
+                navLink.textContent = name;
+                navLink.dataset.index = index;
+
+                navLink.addEventListener('click', async function(e) {
+                    e.preventDefault();
+                    if (isScrolling) return;
+                    isScrolling = true;
+                    const idx = parseInt(this.dataset.index);
+                    const target = document.getElementById(`category-${idx}`);
+                    if (target) {
+                        await smoothScrollTo(target, window, 20, 600); // 页面滚动
+                        await scrollSidebarToLink(this, 400);          // 侧栏滚动
+                    }
+                    isScrolling = false;
+                });
+
+                sidebar.appendChild(navLink);
+                navLinks.push(navLink);
+            });
+
+            // 启动侧栏跟随滚动
+            setupSidebarFollow();
+        }
+
+        // ================================================================
+        //  侧栏跟随滚动（页面滚动时自动将对应链接滚到侧栏中央）
+        // ================================================================
+        function setupSidebarFollow() {
+            window.removeEventListener('scroll', handleScroll);
+            window.addEventListener('scroll', handleScroll, { passive: true });
+            handleScroll();
+        }
+
+        function handleScroll() {
+            if (followTimer) return;
+            followTimer = requestAnimationFrame(() => {
+                const cards = categoryCards;
+                if (!cards.length) { followTimer = null; return; }
+                let newIndex = 0;
+                let found = false;
+                for (let i = 0; i < cards.length; i++) {
+                    const rect = cards[i].getBoundingClientRect();
+                    if (rect.top < 20) continue;
+                    newIndex = i;
+                    found = true;
+                    break;
+                }
+                if (!found && cards.length > 0) newIndex = cards.length - 1;
+                if (newIndex !== activeIndex) {
+                    activeIndex = newIndex;
+                    const link = navLinks[activeIndex];
+                    if (link) scrollSidebarToLink(link, 300);
+                }
+                followTimer = null;
+            });
+        }
+
+        // ================================================================
+        //  搜索功能（实时过滤站点）
+        // ================================================================
+        const searchInput = document.getElementById('searchInput');
+        const searchBtn = document.getElementById('searchBtn');
+
+        function doSearch() {
+            const keyword = searchInput.value.trim().toLowerCase();
+            if (!keyword) { render(navData); return; }
+            const filtered = navData
+                .map(cat => {
+                    const matchedItems = cat.items.filter(item =>
+                        item.title.toLowerCase().includes(keyword) ||
+                        (item.desc && item.desc.toLowerCase().includes(keyword)) ||
+                        (item.tags && item.tags.some(t => t.toLowerCase().includes(keyword)))
+                    );
+                    if (matchedItems.length === 0) return null;
+                    return { ...cat, items: matchedItems };
+                })
+                .filter(Boolean);
+
+            if (filtered.length === 0) {
+                grid.innerHTML = `
+                    <div class="no-result">
+                        <i class="fas fa-search"></i>
+                        没有找到「${keyword}」相关站点，试试其他关键词～
+                    </div>
+                `;
+                sidebar.innerHTML = '';
+                navLinks = [];
+                categoryCards = [];
+                window.removeEventListener('scroll', handleScroll);
+            } else {
+                render(filtered);
+            }
+        }
+
+        searchBtn.addEventListener('click', doSearch);
+        searchInput.addEventListener('keyup', (e) => {
+            if (e.key === 'Enter') doSearch();
+        });
+
+        // ================================================================
+        //  暗色模式切换（偏好自动保存到 localStorage）
+        // ================================================================
+        const themeToggle = document.getElementById('themeToggle');
+        const themeIcon = document.getElementById('themeIcon');
+        const themeLabel = document.getElementById('themeLabel');
+
+        const savedTheme = localStorage.getItem('theme');
+        if (savedTheme === 'dark') {
+            document.body.classList.add('dark-mode');
+            updateToggleUI(true);
+        }
+
+        function updateToggleUI(isDark) {
+            if (isDark) {
+                themeIcon.className = 'fas fa-sun';
+                themeLabel.textContent = '亮色';
+            } else {
+                themeIcon.className = 'fas fa-moon';
+                themeLabel.textContent = '暗色';
+            }
+        }
+
+        themeToggle.addEventListener('click', function() {
+            const isDark = document.body.classList.toggle('dark-mode');
+            localStorage.setItem('theme', isDark ? 'dark' : 'light');
+            updateToggleUI(isDark);
+        });
+
+        // ================================================================
+        //  启动程序
+        // ================================================================
+        render(navData);
+    </script>
+
+</body>
+</html>
