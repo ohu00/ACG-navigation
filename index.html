@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>ACG 导航 · 二次元汇聚地</title>
+    <title>ACG百科|导航 · 二次元汇聚地</title>
     <!-- 添加 favicon -->
     <link rel="icon" href="./favicon.png" type="image/x-icon" />
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css" />
@@ -21,7 +21,7 @@
             --bg-body: #ffffff; /* 【可调】页面整体背景色（亮色） */
             --bg-container: rgba(255, 255, 255, 0.35); /* 【可调】分类卡片背景色 + 透明度（0.92=92%不透明，可调0~1） */
             --bg-card: rgba(252, 249, 246, 0.8); /* 【可调】站点卡片背景色 + 透明度 */
-            --bg-sidebar: rgba(255, 253, 251, 0.85); /* 【可调】侧栏背景色 + 透明度 */
+            --bg-sidebar: rgba(255, 253, 251, 0.65); /* 【可调】侧栏背景色 + 透明度 */
             --bg-sidebar-hover: #f5576c; /* 【可调】侧栏悬停背景色 */
             --bg-search: #ffffff; /* 【可调】搜索框背景色 */
             --bg-badge: #2d2a24; /* 【可调】"今日热推" 徽标背景色 */
@@ -105,7 +105,7 @@
         .container {
             max-width: 1440px; /* 【可调】页面最大宽度 */
             margin: 0 auto;
-            padding-left: 80px; /* 【可调】为左侧栏留出的空间（侧栏宽度） */
+            padding: 0 20px; /* 左右对称内边距，内容居中 */
             position: relative;
             z-index: 1;
         }
@@ -115,7 +115,7 @@
            ================================================================ */
         #sidebar {
             position: fixed;
-            left: 16px; /* 【可调】侧栏距离左侧距离 */
+            left: 12px; /* 【可调】侧栏距离左侧距离 */
             top: 50%;
             transform: translateY(-50%);
             z-index: 1000;
@@ -479,85 +479,215 @@
             margin-bottom: 0.5rem; /* 【可调】图标与文字间距 */
         }
 
-        /* ================================================================
-           响应式（手机/平板适配）
-           ================================================================ */
-        @media (max-width: 768px) {
-            body { padding: 1rem 0.8rem; } /* 【可调】手机端页面内边距 */
-            .container { padding-left: 0; } /* 手机端取消左侧留白 */
+/* ================================================================
+   响应式（手机/平板适配）
+   ================================================================ */
+@media (max-width: 768px) {
+    /* -------- 全局调整 -------- */
+    body { padding: 1rem 0.8rem; }
+    .container { padding-left: 0; }
 
-            /* -------- 侧栏改为底部横条 -------- */
-            #sidebar {
-                position: fixed;
-                left: 0; right: 0; top: auto; bottom: 0;
-                transform: none;
-                flex-direction: row;
-                justify-content: center;
-                gap: 4px; /* 【可调】手机端侧栏项间距 */
-                padding: 8px 6px; /* 【可调】手机端侧栏内边距 */
-                border-radius: 20px 20px 0 0; /* 【可调】手机端侧栏圆角（顶部圆角） */
-                max-height: 60px; /* 【可调】手机端侧栏最大高度 */
-                overflow-x: auto;
-                overflow-y: hidden;
-                background: var(--bg-sidebar);
-                backdrop-filter: blur(6px);
-                box-shadow: 0 -2px 12px var(--shadow-color);
-                border: none;
-                border-top: 1px solid var(--border-color);
-                z-index: 999;
-                transition: background 0.3s, border-color 0.3s, box-shadow 0.3s;
-            }
-            #sidebar a {
-                font-size: 0.65rem; /* 【可调】手机端导航字号 */
-                padding: 2px 8px; /* 【可调】手机端导航内边距 */
-                white-space: nowrap;
-            }
+    /* -------- 隐藏侧栏导航（移动端完全隐藏） -------- */
+    #sidebar { display: none; }
 
-            .header {
-                flex-direction: column;
-                align-items: stretch;
-                gap: 0.8rem; /* 【可调】手机端头部间距 */
-            }
-            .logo img { height: 34px; } /* 【可调】手机端 Logo 高度 */
-            .logo .slogan { font-size: 0.8rem; } /* 【可调】手机端标语字号 */
-            .search-box input { width: 100px; } /* 【可调】手机端搜索框宽度 */
-            .search-box button {
-                padding: 0.3rem 0.9rem; /* 【可调】手机端搜索按钮内边距 */
-                font-size: 0.75rem; /* 【可调】手机端搜索按钮字号 */
-            }
-            .category-card {
-                padding: 1.2rem 1rem 1.5rem; /* 【可调】手机端分类卡片内边距 */
-                background: var(--bg-container);
-            }
-            .category-title { font-size: 1.2rem; } /* 【可调】手机端分类标题字号 */
-            .items-grid {
-                grid-template-columns: repeat(auto-fill, minmax(160px, 1fr)); /* 【可调】手机端每列最小宽度 */
-                gap: 0.8rem; /* 【可调】手机端站点卡片间距 */
-            }
-            .item-card {
-                padding: 0.7rem 0.7rem 0.6rem; /* 【可调】手机端站点卡片内边距 */
-            }
-            .item-card .item-title { font-size: 0.85rem; } /* 【可调】手机端站点名称字号 */
-            .item-card .item-desc { font-size: 0.65rem; } /* 【可调】手机端描述字号 */
-            .footer {
-                flex-direction: column;
-                align-items: center;
-                text-align: center;
-                margin-bottom: 70px; /* 【可调】手机端页脚底部留白（给底部导航留空间） */
-            }
-            .theme-toggle .toggle-label { display: none; } /* 手机端隐藏切换按钮文字 */
-        }
+    /* -------- 头部：Logo 独占第一行，功能按钮+搜索框第二行水平排列 -------- */
+    .header {
+        flex-direction: row;
+        flex-wrap: wrap;
+        align-items: center;
+        gap: 0.5rem;
+        margin-bottom: 1.5rem;
+    }
+    .logo {
+        width: 100%;
+        display: flex;
+        align-items: center;
+        gap: 0.3rem;
+    }
+    .logo img { height: 34px; }
+    .logo .slogan { font-size: 0.8rem; }
 
-        @media (max-width: 480px) {
-            .items-grid {
-                grid-template-columns: 1fr 1fr; /* 【可调】小屏手机每行 2 列 */
-                gap: 0.6rem; /* 【可调】小屏手机站点卡片间距 */
-            }
-            .search-box input {
-                width: 70px; /* 【可调】小屏手机搜索框宽度 */
-                font-size: 0.8rem; /* 【可调】小屏手机搜索框字号 */
-            }
-        }
+    .header-meta {
+        width: 100%;
+        display: flex;
+        flex-wrap: nowrap;
+        align-items: center;
+        gap: 0.5rem;
+    }
+    .header-meta .badge {
+        font-size: 0.6rem;
+        padding: 0.2rem 0.6rem;
+        white-space: nowrap;
+        flex-shrink: 0;
+    }
+    .theme-toggle {
+        padding: 0.2rem 0.5rem;
+        font-size: 0.9rem;
+        flex-shrink: 0;
+    }
+    .theme-toggle .toggle-label { display: none; }
+
+    /* 搜索框 flex 修复：输入框撑满，按钮固定在右侧 */
+    .search-box {
+        flex: 1;
+        min-width: 0;
+        padding: 0.2rem 0.2rem 0.2rem 0.6rem;
+        display: flex;
+        align-items: center;
+        background: var(--bg-search);
+        border: 1px solid var(--border-color);
+        border-radius: 30px;
+        transition: 0.25s, border-color 0.3s, background 0.3s;
+    }
+    .search-box input {
+        flex: 1;
+        min-width: 40px;
+        font-size: 0.8rem;
+        padding: 0.2rem 0;
+        border: none;
+        outline: none;
+        background: transparent;
+        color: var(--text-primary);
+    }
+    .search-box input::placeholder { color: var(--text-muted); }
+    .search-box button {
+        flex-shrink: 0;
+        padding: 0.2rem 0.6rem;
+        font-size: 0.7rem;
+        background: #f5576c;
+        border: none;
+        color: #fff;
+        border-radius: 30px;
+        cursor: pointer;
+        transition: 0.2s;
+        font-weight: 500;
+        margin-left: 0.3rem;
+    }
+    .search-box button:hover { background: #d94356; }
+
+    /* -------- 分类卡片 -------- */
+    .category-card {
+        padding: 1.2rem 1rem 1.5rem;
+        background: var(--bg-container);
+    }
+    .category-title { font-size: 1.2rem; }
+
+    /* -------- 站点卡片网格 -------- */
+    .items-grid {
+        grid-template-columns: repeat(auto-fill, minmax(160px, 1fr));
+        gap: 0.8rem;
+        max-width: 100%;
+        overflow: hidden;
+    }
+
+    /* -------- 站点卡片（固定高度，防止高低不齐） -------- */
+    .item-card {
+        padding: 0.5rem 0.6rem 0.4rem;
+        max-width: 100%;
+        box-sizing: border-box;
+        height: 68px; /* 【可调】底部留白 根据实际内容微调 */
+        display: flex;
+        flex-direction: column;
+        overflow: hidden;
+        background: var(--bg-card);
+        border-radius: 16px;
+        transition: 0.2s ease;
+        border: 1px solid transparent;
+        cursor: pointer;
+    }
+    .item-card .item-header {
+        display: flex;
+        align-items: flex-start;
+        gap: 0.6rem;
+        pointer-events: none;
+        flex-shrink: 0;
+    }
+    .item-card .item-icon {
+        width: 28px;
+        height: 28px;
+        border-radius: 8px;
+        background: var(--icon-bg);
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        font-size: 0.8rem;
+        font-weight: 600;
+        color: var(--text-secondary);
+        flex-shrink: 0;
+        overflow: hidden;
+        transition: background 0.3s, color 0.3s;
+        margin-top: 2px;
+    }
+    .item-card .item-icon img {
+        width: 100%;
+        height: 100%;
+        object-fit: contain;
+    }
+    .item-card .item-icon .fallback {
+        font-size: 12px;
+        font-weight: 600;
+        color: var(--text-secondary);
+    }
+    .item-card .item-title {
+        font-size: 0.85rem;
+        font-weight: 600;
+        color: var(--text-primary);
+        white-space: nowrap;
+        overflow: hidden;
+        text-overflow: ellipsis;
+        transition: color 0.3s;
+        line-height: 1.3;
+        flex-shrink: 0;
+    }
+    .item-card .item-info {
+        display: flex;
+        flex-direction: column;
+        flex: 1;
+        min-width: 0;
+        min-height: 0;
+    }
+    .item-card .item-desc {
+        font-size: 0.65rem;
+        color: var(--text-secondary);
+        line-height: 1.3;
+        flex: 1;
+        min-height: 0;
+        display: -webkit-box;
+        -webkit-line-clamp: 2;
+        -webkit-box-orient: vertical;
+        overflow: hidden;
+        text-overflow: ellipsis;
+        word-break: break-word;
+        pointer-events: none;
+        transition: color 0.3s;
+    }
+
+    /* -------- 页脚 -------- */
+    .footer {
+        flex-direction: column;
+        align-items: center;
+        text-align: center;
+        margin-bottom: 20px;
+    }
+}
+
+/* ================================================================
+   小屏手机（宽度 ≤ 480px）
+   ================================================================ */
+@media (max-width: 480px) {
+    .items-grid {
+        grid-template-columns: 1fr 1fr; /* 每行 2 列 */
+        gap: 0.6rem;
+    }
+    .search-box input {
+        min-width: 30px;
+        font-size: 0.75rem;
+    }
+    .search-box button {
+        padding: 0.15rem 0.5rem;
+        font-size: 0.65rem;
+    }
+}
     </style>
 </head>
 <body>
@@ -568,7 +698,7 @@
     <div class="container" id="app">
         <header class="header">
             <div class="logo">
-                <a href="/" title="ACG导航 首页">
+                <a href="/" title="ACG百科|导航">
                     <img src="./logo.svg" alt="ACG 导航" />
                 </a>
                 <span class="slogan">                                           </span>
@@ -590,11 +720,11 @@
 
 <footer class="footer">
     <span>© 2026 ACG 导航 · 用 ❤️ 为二次元引路</span>
-    <span>站长邮箱: <a href="mailto:your_email@example.com">your_email@example.com</a></span>
+    <span>站长邮箱: <a href="mailto:u@anibk.eu.cc">u@anibk.eu.cc</a></span>
     <div class="socials">
         <a href="https://space.bilibili.com/" target="_blank" rel="noopener" title="B站"><i class="fab fa-bilibili"></i></a>
         <a href="https://music.163.com/playlist?id=370324112&uct2=U2FsdGVkX1/MQ47KiSW6GCNTQ+GzV7lj6sO+YJj4kLY=" target="_blank" rel="noopener" title="网易云"><i class="fa-solid fa-compact-disc"></i></a>
-        <a href="https://github.com/ohu00" target="_blank" rel="noopener" title="GitHub"><i class="fab fa-github"></i></a>
+        <a href="https://github.com/ohu00/ACG-navigation" target="_blank" rel="noopener" title="GitHub"><i class="fab fa-github"></i></a>
         <a href="/feed.xml" target="_blank" rel="noopener" title="RSS"><i class="fas fa-rss"></i></a>
     </div>
 </footer>
@@ -627,7 +757,7 @@
                     { "title": "E站弹幕网", "link": "https://www.ezdmw.org/", "icon": "./icon/ezdmw.ico", "tags": ["在线观看", "搞笑"], "desc": "轻松看番，弹幕氛围" },
                     { "title": "粵漫之家", "link": "https://www.ymvid.com/", "icon": "./icon/ymzj.ico", "tags": ["资讯", "社区", "漫画"], "desc": "为热爱粤语文化的观众提供高质量的观看体验" },
                     { "title": "观影", "link": "https://www.xn--wcv59z.com/", "icon": "./icon/gy.png", "tags": ["影视", "动漫"], "desc": "观影，综合影视动漫站" },
-                    { "title": "虚位以待", "link": "", "icon": "./icon/摊手..jpeg", "tags": [], "desc": "此处风景甚好，静待有缘人" }
+                    { "title": "虚位以待", "link": "", "icon": "./icon/xwyd.png", "tags": [], "desc": "此处风景甚好，静待有缘人" }
                 ]
             },
             // -------- 2. 二次元社区 --------
@@ -685,13 +815,12 @@
                 "category": "🎨 插画创作",
                 "items": [
                     { "title": "Pixiv", "link": "https://www.pixiv.net", "icon": "./icon/pixiv.ico", "tags": ["插画", "日本"], "desc": "全球最大二次元插画社区，画师圣地" },
-                    { "title": "ArtStation", "link": "https://www.artstation.com", "icon": "./icon/artstation.svg", "tags": ["艺术", "CG"], "desc": "CG艺术社区，概念设计/3D作品" },
-                    { "title": "半次元", "link": "https://bcy.net", "icon": "./icon/bcy.svg", "tags": ["二次元", "同人"], "desc": "二次元同人社区，绘画/小说/cos" },
-                    { "title": "DeviantArt", "link": "https://www.deviantart.com", "icon": "./icon/deviantart.svg", "tags": ["艺术", "全球"], "desc": "全球最大艺术社区，风格多元" },
-                    { "title": "涂鸦王国", "link": "https://www.paintking.com", "icon": "./icon/paintking.svg", "tags": ["插画", "国风"], "desc": "国内插画平台，国风/二次元作品" },
+                    { "title": "pixivic", "link": "https://pixivic.com/", "icon": "./icon/pzjx.png", "tags": ["艺术", "CG"], "desc": "Pixiv镜像，支持浏览，但分类和搜索功能有限，所有作品混合显示 " },
+                    { "title": "触站", "link": "https://www.huashi6.com/", "icon": "./icon/cz.ico", "tags": ["二次元", "同人"], "desc": "包含P站(pixiv)画师与认证画师，作品涵盖动漫图片、动漫壁纸、插画、CG原画等作品" },
                     { "title": "堆糖", "link": "https://www.duitang.com", "icon": "./icon/duitang.ico", "tags": ["图片分享", "素材"], "desc": "图片分享社区，美图/壁纸/素材" },
                     { "title": "花瓣网", "link": "https://huaban.com", "icon": "./icon/huaban.ico", "tags": ["设计灵感", "素材"], "desc": "设计灵感采集，海量优质图片" },
-                    { "title": "站酷", "link": "https://www.zcool.com.cn", "icon": "./icon/zcool.ico", "tags": ["设计", "插画"], "desc": "国内设计师社区，插画/UI/平面" }
+                    { "title": "站酷", "link": "https://www.zcool.com.cn", "icon": "./icon/zcool.ico", "tags": ["设计", "插画"], "desc": "国内设计师社区，插画/UI/平面" },
+                    { "title": "虚位以待", "link": "", "icon": "./icon/xwyd.png", "tags": [], "desc": "此处风景甚好，静待有缘人" }
                 ]
             },
             // -------- 6. 免费音乐 --------
@@ -724,15 +853,15 @@
                 "category": "🛠️ 工具资源",
                 "items": [
                     { "title": "cloudflare", "link": "https://dash.cloudflare.com/", "icon": "./icon/cloudflare.svg", "tags": ["资源", "资讯"], "desc": "域名购买管理，一站式门户" },
-                    { "title": "异次元", "link": "https://www.iplaysoft.com", "icon": "./icon/iplaysoft.svg", "tags": ["软件", "工具"], "desc": "软件分享站，ACG相关工具推荐" },
-                    { "title": "SteamDB", "link": "https://steamdb.info/", "icon": "./icon/default.svg", "tags": ["Steam", "数据库"], "desc": "SteamDB，Steam游戏数据统计" },
+                    { "title": "异次元", "link": "https://www.iplaysoft.com", "icon": "./icon/ycy32.png", "tags": ["软件", "工具"], "desc": "软件分享站，ACG相关工具推荐" },
+                    { "title": "SteamDB", "link": "https://steamdb.info/", "icon": "./icon/sdb.ico", "tags": ["Steam", "数据库"], "desc": "SteamDB，Steam游戏数据统计" },
                     { "title": "果核剥壳", "link": "https://www.ghxi.com/", "icon": "./icon/ghxi.ico", "tags": ["软件下载", "绿色"], "desc": "果核剥壳，软件资源分享" },
                     { "title": "扩展搜搜", "link": "https://www.crxsoso.com/", "icon": "./icon/crx.ico", "tags": ["浏览器扩展", "搜索"], "desc": "扩展搜搜，浏览器扩展搜索" },
-                    { "title": "423Down", "link": "https://www.423down.com/", "icon": "./icon/default.svg", "tags": ["软件下载", "免费"], "desc": "423Down，软件下载站" },
-                    { "title": "硬核指南", "link": "https://yinghezhinan.com/", "icon": "./icon/default.svg", "tags": ["高清", "资源"], "desc": "硬核指南，高清资源分享" },
-                    { "title": "小众技术资源库", "link": "https://www.xiaozhongjishu.com/", "icon": "./icon/default.svg", "tags": ["技术", "资源"], "desc": "小众技术资源库" },
-                    { "title": "小刀娱乐网", "link": "https://www.x6g.com/", "icon": "./icon/default.svg", "tags": ["活动", "软件"], "desc": "小刀娱乐网，专注活动、软件、教程" },
-                    { "title": "刘明野的工具箱", "link": "https://tools.liumingye.cn/", "icon": "./icon/default.svg", "tags": ["在线工具", "实用"], "desc": "刘明野的工具箱，提供好用易用的工具" },
+                    { "title": "423Down", "link": "https://www.423down.com/", "icon": "./icon/423.ico", "tags": ["软件下载", "免费"], "desc": "423Down，软件下载站" },
+                    { "title": "硬核指南", "link": "https://yinghezhinan.com/", "icon": "./icon/yhzn.png", "tags": ["高清", "资源"], "desc": "硬核指南，高清资源分享" },
+                    { "title": "小众技术资源库", "link": "https://www.xiaozhongjishu.com/", "icon": "./icon/xzjs.png", "tags": ["技术", "资源"], "desc": "小众技术资源库" },
+                    { "title": "小刀娱乐网", "link": "https://www.x6g.com/", "icon": "./icon/xiaodao.ico", "tags": ["活动", "软件"], "desc": "小刀娱乐网，专注活动、软件、教程" },
+                    { "title": "临时邮箱", "link": "https://mail.td/zh", "icon": "./icon/lsyx.ico", "tags": ["在线工具", "实用"], "desc": "你的收件箱， 专为收邮件而构建。" },
                     { "title": "Github", "link": "https://github.com/", "icon": "./icon/github.svg", "tags": ["代码托管", "开源"], "desc": "GitHub，全球最大代码托管平台" },
                     { "title": "Greasy", "link": "https://greasyfork.org/zh-CN", "icon": "./icon/tampermonkey.svg", "tags": ["油猴", "脚本"], "desc": "GreasyFork，用户脚本分享站" },
                     { "title": "聚合图床", "link": "https://www.superbed.cn/", "icon": "./icon/juhe.svg", "tags": ["图床", "图片托管"], "desc": "聚合图床，专业图片托管服务" },
