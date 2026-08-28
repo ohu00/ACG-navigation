@@ -2,11 +2,10 @@
 
 > 一个专为二次元爱好者设计的优雅导航站，聚合动漫、游戏、社区、AI 工具等优质资源。
 
-**🌐 在线访问：[https://anibk.eu.cc/](https://anibk.eu.cc/)**
+**🌐 在线访问：[ACG百科|导航 ](https://anibk.eu.cc/)**
 
 [![GitHub stars](https://img.shields.io/github/stars/ohu00/ACG-navigation?style=flat-square)](https://github.com/ohu00/ACG-navigation/stargazers)
 [![GitHub forks](https://img.shields.io/github/forks/ohu00/ACG-navigation?style=flat-square)](https://github.com/ohu00/ACG-navigation/network)
-[![GitHub license](https://img.shields.io/github/license/ohu00/ACG-navigation?style=flat-square)](https://github.com/ohu00/ACG-navigation/blob/main/LICENSE)
 [![Website](https://img.shields.io/website?url=https%3A%2F%2Fanibk.eu.cc%2F&style=flat-square)](https://anibk.eu.cc/)
 
 ---
