@@ -23,7 +23,7 @@
             --bg-card: rgba(252, 249, 246, 0.8); /* 【可调】站点卡片背景色 + 透明度 */
             --bg-sidebar: rgba(255, 253, 251, 0.65); /* 【可调】侧栏背景色 + 透明度 */
             --bg-sidebar-hover: #f5576c; /* 【可调】侧栏悬停背景色 */
-            --bg-search: #ffffff; /* 【可调】搜索框背景色 */
+            --bg-search: rgba(255, 255, 255, 0.7); /* 【可调】搜索框背景色 */
             --bg-badge: #2d2a24; /* 【可调】"今日热推" 徽标背景色 */
 
             /* -------- 文字颜色（亮色） -------- */
@@ -90,6 +90,18 @@
             min-height: 100vh; /* 【可调】最小高度 */
             transition: background-color 0.3s, color 0.3s; /* 【可调】颜色过渡时间 */
         }
+        /* PC端（宽屏）暗色模式专用壁纸 */
+        @media (min-width: 769px) {
+        body.dark-mode {
+            background-image: url('./background-dark.jpg');
+            background-size: cover;
+            background-position: center;
+            background-attachment: fixed;
+            background-repeat: no-repeat;
+        /* 如果您希望暗色壁纸本身偏暗，可以降低遮罩透明度 */
+        --bg-overlay: rgba(0, 0, 0, 0.2);  
+    }
+}
 
         /* -------- 背景图遮罩层（用于暗色模式变暗） -------- */
         body::before {
@@ -235,7 +247,7 @@
             outline: none;
             background: transparent;
             font-size: 0.9rem; /* 【可调】搜索框输入字号 */
-            padding: 0.4rem 0; /* 【可调】搜索框输入上下内边距 */
+            padding: 0rem 0; /* 【可调】搜索框输入上下内边距 */
             width: 160px; /* 【可调】搜索框输入宽度 */
             color: var(--text-primary);
             transition: color 0.3s; /* 【可调】颜色过渡时间 */
@@ -483,6 +495,14 @@
    响应式（手机/平板适配）
    ================================================================ */
 @media (max-width: 768px) {
+body {
+        background-image: url('./background-mobile.jpg'); /* 移动端专用壁纸 */
+        /* 其他背景属性可以沿用，也可单独调整 */
+        background-size: cover;
+        background-position: center;
+        background-attachment: fixed;
+        background-repeat: no-repeat;
+    }
     /* -------- 全局调整 -------- */
     body { padding: 1rem 0.8rem; }
     .container { padding: 0 16px; } /* 或 padding: 0 1rem; */
@@ -1053,18 +1073,27 @@
                 navLink.textContent = name;
                 navLink.dataset.index = index;
 
-                navLink.addEventListener('click', async function(e) {
-                    e.preventDefault();
-                    if (isScrolling) return;
-                    isScrolling = true;
-                    const idx = parseInt(this.dataset.index);
-                    const target = document.getElementById(`category-${idx}`);
-                    if (target) {
-                        await smoothScrollTo(target, window, 20, 600); // 页面滚动
-                        await scrollSidebarToLink(this, 400);          // 侧栏滚动
-                    }
-                    isScrolling = false;
-                });
+navLink.addEventListener('click', async function(e) {
+    e.preventDefault();
+    if (isScrolling) return;
+    isScrolling = true;
+    const idx = parseInt(this.dataset.index);
+    
+    // 判断是否为第一个分类（索引 0）
+    if (idx === 0) {
+        // 点击“动画追番”直接滚动到页面顶部
+        await smoothScrollTo(document.documentElement, window, 0, 600);
+    } else {
+        const target = document.getElementById(`category-${idx}`);
+        if (target) {
+            await smoothScrollTo(target, window, 20, 600);
+        }
+    }
+    
+    // 侧栏滚动到该链接居中
+    await scrollSidebarToLink(this, 400);
+    isScrolling = false;
+});
 
                 sidebar.appendChild(navLink);
                 navLinks.push(navLink);
