@@ -1,734 +1,820 @@
 <!DOCTYPE html>
 <html lang="zh-CN">
 <head>
+    <!-- 字符编码：UTF-8（支持中文） -->
     <meta charset="UTF-8" />
+    <!-- 移动端视口适配（宽度=设备宽度，初始缩放=1，禁止用户缩放） -->
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <!-- 浏览器标签页标题 -->
     <title>ACG百科|导航 · 二次元汇聚地</title>
-    <!-- 添加 favicon -->
+    <!-- 浏览器标签页图标（favicon）路径 ./favicon.png -->
     <link rel="icon" href="./favicon.png" type="image/x-icon" />
+    <!-- Font Awesome 6.0 图标库 CDN 外链（需联网加载） -->
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css" />
-    <!-- 其他样式... -->
-</head>
     
     <style>
         /* ================================================================
            【可调】CSS 变量（亮色/暗色主题）
-           搜索 "【可调" 快速定位所有可调整项
-           每个变量后均附有详细说明
+           搜索 "【可调】" 快速定位所有可调整项
+           所有颜色均使用 rgba(r,g,b,a) 格式，方便单独调整透明度（a值 0~1）
            ================================================================ */
+
+        /* ===== 亮色模式变量（默认） ===== */
         :root {
-            /* -------- 背景颜色（亮色） -------- */
-            --bg-body: #ffffff; /* 【可调】页面整体背景色（亮色） */
-            --bg-container: rgba(255, 255, 255, 0.35); /* 【可调】分类卡片背景色 + 透明度（0.92=92%不透明，可调0~1） */
-            --bg-card: rgba(252, 249, 246, 0.8); /* 【可调】站点卡片背景色 + 透明度 */
-            --bg-sidebar: rgba(255, 253, 251, 0.65); /* 【可调】侧栏背景色 + 透明度 */
-            --bg-sidebar-hover: #f5576c; /* 【可调】侧栏悬停背景色 */
-            --bg-search: rgba(255, 255, 255, 0.7); /* 【可调】搜索框背景色 */
-            --bg-badge: #2d2a24; /* 【可调】"今日热推" 徽标背景色 */
+            /* ---------- 亮色背景颜色 ---------- */
+            --bg-body: rgba(255, 255, 255, 1); /* 页面整体背景色（纯白） */
+            --bg-container: rgba(255, 255, 255, 0.35); /* 分类卡片背景色 + 35%不透明度（透出背景图） */
+            --bg-card: rgba(252, 249, 246, 0.8); /* 站点卡片背景色 + 80%不透明度（暖白半透） */
+            --bg-sidebar: rgba(255, 253, 251, 0.65); /* 侧栏背景色 + 65%不透明度 */
+            --bg-sidebar-hover: rgba(245, 87, 108, 1); /* 侧栏/按钮悬停背景色（固定粉色） */
+            --bg-search: rgba(255, 255, 255, 0.7); /* 搜索框背景色 + 70%不透明度（半透明白） */
+            --bg-badge: rgba(45, 42, 36, 1); /* "关于本站" 徽标背景色（深灰黑） */
 
-            /* -------- 文字颜色（亮色） -------- */
-            --text-primary: #2d2a24; /* 【可调】主标题/正文颜色 */
-            --text-secondary: #8a7a6a; /* 【可调】次要文字/描述颜色 */
-            --text-muted: #b0a292; /* 【可调】灰色/辅助文字颜色 */
-            --text-footer: rgba(255, 255, 255, 0.75); /* 【可调】页脚文字颜色 + 透明度 */
+            /* ---------- 亮色文字颜色 ---------- */
+            --text-primary: rgba(45, 42, 36, 1); /* 主标题/正文颜色（深灰黑） */
+            --text-secondary: rgba(138, 122, 106, 1); /* 次要文字/描述颜色（暖灰） */
+            --text-muted: rgba(176, 162, 146, 1); /* 灰色/辅助文字颜色（浅灰） */
+            --text-footer: rgba(255, 255, 255, 0.75); /* 页脚文字颜色（白色 + 75%不透明） */
 
-            /* -------- 边框 & 阴影 -------- */
-            --border-color: rgba(232, 221, 208, 0.6); /* 【可调】边框颜色 + 透明度 */
-            --border-hover: rgba(224, 212, 200, 0.8); /* 【可调】悬停边框颜色 + 透明度 */
-            --shadow-color: rgba(0, 0, 0, 0.06); /* 【可调】阴影颜色 + 透明度（数值越大阴影越深） */
+            /* ---------- 亮色边框 & 阴影 ---------- */
+            --border-color: rgba(232, 221, 208, 0.6); /* 边框颜色（暖灰）+ 60%不透明 */
+            --border-hover: rgba(224, 212, 200, 0.8); /* 悬停边框颜色（比普通边框略深）+ 80%不透明 */
+            --shadow-color: rgba(0, 0, 0, 0.06); /* 卡片阴影（黑色 + 6%不透明，非常淡） */
 
-            /* -------- 图标 & 标签 -------- */
-            --icon-bg: rgba(240, 232, 224, 0.7); /* 【可调】图标背景色 + 透明度 */
+            /* ---------- 亮色图标 & 标签 ---------- */
+            --icon-bg: rgba(240, 232, 224, 0.7); /* 站点图标背景色 + 70%不透明 */
 
-            /* -------- 暗色模式遮罩（背景图变暗） -------- */
-            --bg-overlay: rgba(0, 0, 0, 0.1); /* 【可调】亮色模式下背景图遮罩（0 = 无遮罩） */
+            /* ---------- 亮色背景图遮罩 ---------- */
+            --bg-overlay: rgba(0, 0, 0, 0.1); /* 亮色模式下背景图遮罩（黑色 + 10%不透明，轻微压暗） */
         }
 
-        /* ================================================================
-           暗色模式（覆盖上述变量）
-           ================================================================ */
+        /* ===== 暗色模式变量（覆盖亮色变量） ===== */
         body.dark-mode {
-            /* -------- 背景颜色（暗色） -------- */
-            --bg-body: #1a1a1e;
-            --bg-container: rgba(30, 30, 35, 0.35);
-            --bg-card: rgba(40, 40, 46, 0.8);
-            --bg-sidebar: rgba(30, 30, 35, 0.92);
-            --bg-sidebar-hover: #f5576c;
-            --bg-search: #2a2a30;
-            --bg-badge: #f0e8e0;
+            /* ---------- 暗色背景颜色 ---------- */
+            --bg-body: rgba(26, 26, 30, 1); /* 暗色页面背景（深灰黑） */
+            --bg-container: rgba(30, 30, 35, 0.35); /* 暗色分类卡片背景 + 35%不透明 */
+            --bg-card: rgba(40, 40, 46, 0.8); /* 暗色站点卡片背景 + 80%不透明 */
+            --bg-sidebar: rgba(30, 30, 35, 0.92); /* 暗色侧栏背景 + 92%不透明 */
+            --bg-sidebar-hover: rgba(245, 87, 108, 1); /* 暗色悬停色不变（粉色醒目） */
+            --bg-search: rgba(42, 42, 48, 1); /* 暗色搜索框背景（深灰） */
+            --bg-badge: rgba(240, 232, 224, 1); /* 暗色徽标背景（亮色，与暗色背景形成对比） */
 
-            --text-primary: #e8e4e0;
-            --text-secondary: #bfb6ae;
-            --text-muted: #8f857a;
-            --text-footer: rgba(255, 255, 255, 0.75);
+            /* ---------- 暗色文字颜色 ---------- */
+            --text-primary: rgba(232, 228, 224, 1); /* 暗色主文字（亮灰白） */
+            --text-secondary: rgba(191, 182, 174, 1); /* 暗色次要文字（浅灰） */
+            --text-muted: rgba(143, 133, 122, 1); /* 暗色辅助文字（中灰） */
+            --text-footer: rgba(255, 255, 255, 0.75); /* 暗色页脚文字（与亮色保持一致） */
 
-            --border-color: rgba(60, 56, 52, 0.6);
-            --border-hover: rgba(100, 90, 80, 0.8);
-            --shadow-color: rgba(0, 0, 0, 0.3);
+            /* ---------- 暗色边框 & 阴影 ---------- */
+            --border-color: rgba(60, 56, 52, 0.6); /* 暗色边框（深色）+ 60%不透明 */
+            --border-hover: rgba(100, 90, 80, 0.8); /* 暗色悬停边框（比普通边框亮一些）+ 80%不透明 */
+            --shadow-color: rgba(0, 0, 0, 0.3); /* 暗色阴影（黑色 + 30%不透明，更深） */
 
-            --icon-bg: rgba(60, 56, 52, 0.6);
+            /* ---------- 暗色图标 & 标签 ---------- */
+            --icon-bg: rgba(60, 56, 52, 0.6); /* 暗色图标背景（深灰）+ 60%不透明 */
 
-            --bg-overlay: rgba(0, 0, 0, 0.5);
+            /* ---------- 暗色背景图遮罩 ---------- */
+            --bg-overlay: rgba(0, 0, 0, 0.5); /* 暗色模式下背景图遮罩（黑色 + 50%不透明，明显变暗） */
         }
 
         /* ================================================================
            全局重置 & 基础样式
            ================================================================ */
-        * { margin: 0; padding: 0; box-sizing: border-box; }
+        * {
+            margin: 0; /* 清除所有元素默认外边距 */
+            padding: 0; /* 清除所有元素默认内边距 */
+            box-sizing: border-box; /* 宽高计算包含 padding 和 border（不撑大元素） */
+        }
 
+        /* ===== 页面主体 ===== */
         body {
+            /* 字体栈：优先 Segoe UI (Win) → PingFang SC (Mac) → Roboto (Android) → 系统默认 */
             font-family: 'Segoe UI', 'PingFang SC', Roboto, 'Helvetica Neue', sans-serif;
-            background-image: url('./background.jpg'); /* 【可调】背景图片路径（替换文件名即可） */
-            background-size: cover; /* 【可调】背景尺寸：cover(铺满) / contain(完整) / 100% 100% */
-            background-position: center; /* 【可调】背景位置：center / top / bottom / left / right */
-            background-attachment: fixed; /* 【可调】背景固定：fixed(固定) / scroll(滚动) */
-            background-repeat: no-repeat; /* 【可调】背景重复：no-repeat / repeat / repeat-x / repeat-y */
-            position: relative;
-            color: var(--text-primary);
-            padding: 2rem 1.5rem; /* 【可调】页面内边距（上下 2rem，左右 1.5rem） */
-            line-height: 1.6; /* 【可调】行高 */
-            min-height: 100vh; /* 【可调】最小高度 */
-            transition: background-color 0.3s, color 0.3s; /* 【可调】颜色过渡时间 */
+            
+            /* 背景图片路径（可替换为其他图片） */
+            background-image: url('./background.jpg');
+            background-size: cover; /* 背景图铺满整个视口（可能裁剪边缘） */
+            background-position: center; /* 背景图居中显示 */
+            background-attachment: fixed; /* 背景图固定不随滚动（视差效果） */
+            background-repeat: no-repeat; /* 背景图不重复平铺 */
+            
+            position: relative; /* 为伪元素 ::before 提供定位基准 */
+            color: var(--text-primary); /* 主文字颜色（由变量控制） */
+            padding: 2rem 1.5rem; /* 页面内边距：上下 32px，左右 24px */
+            line-height: 1.6; /* 行高 1.6（默认阅读舒适） */
+            min-height: 100vh; /* 页面最小高度占满一屏 */
+            transition: background-color 0.3s, color 0.3s; /* 背景色/文字色变化过渡 0.3 秒 */
         }
-        /* PC端（宽屏）暗色模式专用壁纸 */
+
+        /* ===== PC端暗色模式专用壁纸（宽度 ≥ 769px） ===== */
         @media (min-width: 769px) {
-        body.dark-mode {
-            background-image: url('./background-dark.jpg');
-            background-size: cover;
-            background-position: center;
-            background-attachment: fixed;
-            background-repeat: no-repeat;
-        /* 如果您希望暗色壁纸本身偏暗，可以降低遮罩透明度 */
-        --bg-overlay: rgba(0, 0, 0, 0.2);  
-    }
-}
-
-        /* -------- 背景图遮罩层（用于暗色模式变暗） -------- */
-        body::before {
-            content: '';
-            position: fixed;
-            top: 0; left: 0; right: 0; bottom: 0;
-            background-color: var(--bg-overlay); /* 透明度由 --bg-overlay 控制 */
-            pointer-events: none;
-            z-index: 0;
-            transition: background-color 0.3s; /* 【可调】遮罩过渡时间 */
+            body.dark-mode {
+                background-image: url('./background-dark.jpg'); /* 暗色模式专用壁纸路径 */
+                background-size: cover; /* 铺满 */
+                background-position: center; /* 居中 */
+                background-attachment: fixed; /* 固定 */
+                background-repeat: no-repeat; /* 不重复 */
+                /* 降低遮罩透明度让暗色壁纸本身显示更多 */
+                --bg-overlay: rgba(0, 0, 0, 0.2); /* 暗色壁纸遮罩（黑色 + 20%不透明，较轻） */
+            }
         }
 
+        /* ===== 背景图遮罩层（位于背景图片上方，内容下方） ===== */
+        body::before {
+            content: ''; /* 伪元素必须设置 content 才能显示 */
+            position: fixed; /* 固定定位，不随滚动条滚动 */
+            top: 0; /* 上边缘贴顶 */
+            left: 0; /* 左边缘贴左 */
+            right: 0; /* 右边缘贴右 */
+            bottom: 0; /* 下边缘贴底 */
+            background-color: var(--bg-overlay); /* 遮罩颜色 + 透明度（由变量控制） */
+            pointer-events: none; /* 遮罩不拦截鼠标点击事件 */
+            z-index: 0; /* 位于内容下方（数值小于 .container） */
+            transition: background-color 0.3s; /* 遮罩颜色变化过渡 0.3 秒 */
+        }
+
+        /* ===== 主容器 ===== */
         .container {
-            max-width: 1440px; /* 【可调】页面最大宽度 */
-            margin: 0 auto;
-            padding: 0 20px; /* 左右对称内边距，内容居中 */
-            position: relative;
-            z-index: 1;
+            max-width: 1440px; /* 页面最大宽度 1440px（适配大屏） */
+            margin: 0 auto; /* 水平居中 */
+            padding: 0 20px; /* 左右对称内边距各 20px（内容不贴边） */
+            position: relative; /* 定位基准 */
+            z-index: 1; /* 位于遮罩层上方（数值大于 ::before） */
         }
 
         /* ================================================================
            侧栏导航（左侧固定）
            ================================================================ */
         #sidebar {
-            position: fixed;
-            left: 12px; /* 【可调】侧栏距离左侧距离 */
-            top: 50%;
-            transform: translateY(-50%);
-            z-index: 1000;
-            display: flex;
-            flex-direction: column;
-            gap: 10px; /* 【可调】侧栏导航项之间的间距 */
-            background: var(--bg-sidebar);
-            backdrop-filter: blur(0.5px); /* 【可调】侧栏毛玻璃模糊度（px 越大越模糊） */
-            padding: 12px 8px; /* 【可调】侧栏内边距（上下 12px，左右 8px） */
-            border-radius: 20px; /* 【可调】侧栏圆角 */
-            box-shadow: 0 4px 20px var(--shadow-color); /* 【可调】侧栏阴影（水平 垂直 模糊 颜色） */
-            border: 1px solid var(--border-color); /* 【可调】侧栏边框粗细 + 颜色 */
-            max-height: 80vh; /* 【可调】侧栏最大高度（80%视口高度） */
-            overflow-y: auto; /* 【可调】溢出滚动：auto / hidden / scroll */
-            transition: background 0.3s, border-color 0.3s, box-shadow 0.3s; /* 【可调】过渡时间 */
+            position: fixed; /* 固定定位，不随页面滚动 */
+            left: 12px; /* 距离浏览器左侧 12px */
+            top: 50%; /* 顶部距离视口 50% */
+            transform: translateY(-50%); /* 向上偏移自身高度的一半（实现垂直居中） */
+            z-index: 1000; /* 层级最高（位于所有元素之上） */
+            display: flex; /* 弹性布局（子元素垂直排列） */
+            flex-direction: column; /* 主轴方向垂直（从上到下） */
+            gap: 10px; /* 子元素（导航项）间距 10px */
+            background: var(--bg-sidebar); /* 侧栏背景色 + 透明度（由变量控制） */
+            backdrop-filter: blur(0.5px); /* 毛玻璃模糊度 0.5px（几乎无模糊） */
+            padding: 12px 8px; /* 内边距：上下 12px，左右 8px */
+            border-radius: 20px; /* 圆角 20px */
+            box-shadow: 0 4px 20px var(--shadow-color); /* 阴影：水平0 垂直4px 模糊20px 颜色由变量控制 */
+            border: 1px solid var(--border-color); /* 边框：粗细1px 颜色由变量控制 */
+            max-height: 80vh; /* 最大高度 = 视口高度的 80% */
+            overflow-y: auto; /* 内容超出时垂直方向自动滚动 */
+            transition: background 0.3s, border-color 0.3s, box-shadow 0.3s; /* 背景/边框/阴影变化过渡 0.3 秒 */
         }
 
         #sidebar a {
-            display: block;
-            padding: 4px 10px; /* 【可调】导航项内边距 */
-            font-size: 0.9rem; /* 【可调】导航项字号 */
-            font-weight: 500; /* 【可调】导航项字重 */
-            color: var(--text-secondary);
-            text-decoration: none;
-            border-radius: 30px; /* 【可调】导航项圆角 */
-            transition: background 0.2s, color 0.2s; /* 【可调】悬停过渡时间 */
-            white-space: nowrap;
-            text-align: center;
-            letter-spacing: 0.3px; /* 【可调】字间距 */
-            cursor: pointer;
+            display: block; /* 块级显示（占满整行） */
+            padding: 4px 10px; /* 内边距：上下 4px，左右 10px */
+            font-size: 0.9rem; /* 字号 14.4px */
+            font-weight: 500; /* 字重 500（中等） */
+            color: var(--text-secondary); /* 文字颜色（次要色，由变量控制） */
+            text-decoration: none; /* 去掉下划线 */
+            border-radius: 30px; /* 圆角 30px（药丸形状） */
+            transition: background 0.2s, color 0.2s; /* 背景/颜色变化过渡 0.2 秒 */
+            white-space: nowrap; /* 文字不换行 */
+            text-align: center; /* 文字居中 */
+            letter-spacing: 0.3px; /* 字间距 0.3px（略微分散） */
+            cursor: pointer; /* 鼠标悬停变为手型 */
         }
         #sidebar a:hover {
-            background: var(--bg-sidebar-hover);
-            color: #fff;
+            background: var(--bg-sidebar-hover); /* 悬停背景色（粉色） */
+            color: rgba(255, 255, 255, 1); /* 悬停文字变为纯白 */
         }
 
-        /* 侧栏滚动条 */
+        /* 侧栏滚动条样式（WebKit 内核） */
         #sidebar::-webkit-scrollbar {
-            width: 3px; /* 【可调】滚动条宽度 */
+            width: 3px; /* 滚动条宽度 3px */
         }
         #sidebar::-webkit-scrollbar-track {
-            background: transparent;
+            background: rgba(0, 0, 0, 0); /* 滚动条轨道背景透明 */
         }
         #sidebar::-webkit-scrollbar-thumb {
-            background: var(--text-muted);
-            border-radius: 10px; /* 【可调】滚动条圆角 */
+            background: var(--text-muted); /* 滚动条滑块颜色（由变量控制） */
+            border-radius: 10px; /* 滚动条滑块圆角 10px */
         }
 
         /* ================================================================
            头部（Logo + 搜索 + 暗色切换）
            ================================================================ */
         .header {
-            display: flex;
-            align-items: center;
-            justify-content: space-between;
-            flex-wrap: wrap;
-            gap: 1rem; /* 【可调】头部各元素间距 */
-            margin-bottom: 2.5rem; /* 【可调】头部底部外边距 */
-            padding-bottom: 1.5rem; /* 【可调】头部底部内边距（与边框距离） */
-            border-bottom: 2px solid var(--border-color); /* 【可调】头部下边框粗细 + 颜色 */
-            transition: border-color 0.3s; /* 【可调】边框颜色过渡时间 */
+            display: flex; /* 弹性布局 */
+            align-items: center; /* 子元素垂直居中 */
+            justify-content: space-between; /* 子元素两端对齐（Logo左，按钮右） */
+            flex-wrap: wrap; /* 空间不足时允许换行 */
+            gap: 1rem; /* 子元素间距 16px */
+            margin-bottom: 2.5rem; /* 底部外边距 40px */
+            padding-bottom: 1.5rem; /* 底部内边距 24px（与边框距离） */
+            border-bottom: 2px solid var(--border-color); /* 下边框：粗细2px 颜色由变量控制 */
+            transition: border-color 0.3s; /* 边框颜色变化过渡 0.3 秒 */
         }
 
-        .logo { display: flex; align-items: center; gap: 8rem; } /* 【可调】Logo 图片与标语间距 */
-        .logo a { display: inline-block; line-height: 0; }
+        /* ----- Logo 区域 ----- */
+        .logo {
+            display: flex; /* 弹性布局 */
+            align-items: center; /* 子元素垂直居中 */
+            gap: 8rem; /* Logo 图片与标语间距 128px（实际标语为空，可忽略） */
+        }
+        .logo a {
+            display: inline-block; /* 行内块级元素 */
+            line-height: 0; /* 行高为0，消除图片底部多余间隙 */
+        }
         .logo img {
-            height: 128px; /* 【可调】Logo 图片高度（宽度自动等比） */
-            width: auto;
-            vertical-align: middle;
-            transition: opacity 0.2s; /* 【可调】悬停过渡时间 */
+            height: 128px; /* Logo 图片高度 128px（宽度自动等比缩放） */
+            width: auto; /* 宽度自动适应高度比例 */
+            vertical-align: middle; /* 垂直居中对齐 */
+            transition: opacity 0.2s; /* 透明度变化过渡 0.2 秒（悬停动画速度） */
         }
-        .logo img:hover { opacity: 0.8; } /* 【可调】Logo 悬停透明度 */
+        .logo img:hover {
+            opacity: 0.8; /* 悬停透明度变为 80%（轻微变暗） */
+        }
         .logo .slogan {
-            font-size: 1.95rem; /* 【可调】标语字号 */
-            color: var(--text-secondary);
-            font-weight: 400;
-            margin-left: 0.25rem; /* 【可调】标语左间距 */
-            transition: color 0.3s; /* 【可调】颜色过渡时间 */
+            font-size: 1.95rem; /* 标语字号 31.2px（实际为空，可忽略） */
+            color: var(--text-secondary); /* 标语颜色（次要色，由变量控制） */
+            font-weight: 400; /* 字重 400（常规） */
+            margin-left: 0.25rem; /* 标语左间距 4px */
+            transition: color 0.3s; /* 颜色变化过渡 0.3 秒 */
         }
 
+        /* ----- 头部右侧功能区域 ----- */
         .header-meta {
-            display: flex;
-            align-items: center;
-            gap: 1.2rem; /* 【可调】头部右侧各元素间距 */
-            flex-wrap: wrap;
+            display: flex; /* 弹性布局 */
+            align-items: center; /* 子元素垂直居中 */
+            gap: 1.2rem; /* 各元素间距 19.2px */
+            flex-wrap: wrap; /* 空间不足时换行 */
         }
 
-        /* -------- "今日热推" 徽标 -------- */
-        .header-meta .badge {
-            background: var(--bg-badge);
-            color: var(--bg-body);
-            padding: 0.3rem 1rem; /* 【可调】徽标内边距 */
-            border-radius: 20px; /* 【可调】徽标圆角 */
-            font-size: 0.8rem; /* 【可调】徽标字号 */
-            font-weight: 500;
-            letter-spacing: 0.3px; /* 【可调】徽标字间距 */
-            transition: background 0.3s, color 0.3s; /* 【可调】过渡时间 */
-        }
-        .header-meta .badge i { margin-right: 6px; } /* 【可调】徽标图标右间距 */
+        /* "关于本站" 徽标 */
+.header-meta .badge {
+    background: var(--bg-search); /* 徽标背景色（由CSS变量控制） */
+    color: var(--text-primary); /* 徽标文字颜色（与页面背景色相反，保证可读性） */
+    padding: 0.3rem 1rem; /* 内边距：上下 4.8px，左右 16px（控制按钮大小） */
+    border-radius: 20px; /* 圆角 20px（药丸形状） */
+    font-size: 0.8rem; /* 字号 12.8px */
+    font-weight: 500; /* 字重 500（中等粗细） */
+    letter-spacing: 0.3px; /* 字间距 0.3px（略微分散） */
+    transition: all 0.3s ease; /* 所有属性变化过渡 0.3 秒（缓动效果） */
+    text-decoration: none; /* 去掉下划线（因为是链接） */
+    border: 1px solid transparent; /* 默认边框透明（占位，悬停时显示颜色） */
+}
 
-        /* -------- 搜索框 -------- */
+.header-meta .badge:hover {
+    border-color: rgba(245, 87, 108, 1); /* 悬停时边框变为粉色（不透明） */
+    background: var(--bg-sidebar-hover); /* 悬停时背景变为粉色（与暗色按钮保持一致） */
+    color: #fff; /* 悬停时文字变为纯白色 */
+}
+        .header-meta .badge i {
+            margin-right: 6px; /* 徽标图标右间距 6px */
+        }
+
+        /* ----- 搜索框 ----- */
         .search-box {
-            display: flex;
-            align-items: center;
-            background: var(--bg-search);
-            border: 1px solid var(--border-color); /* 【可调】搜索框边框粗细 + 颜色 */
-            border-radius: 30px; /* 【可调】搜索框圆角 */
-            padding: 0.3rem 0.3rem 0.3rem 1.2rem; /* 【可调】搜索框内边距（左 1.2rem，右 0.3rem） */
-            transition: 0.25s, border-color 0.3s, background 0.3s; /* 【可调】过渡时间 */
+            display: flex; /* 弹性布局（子元素水平排列） */
+            align-items: center; /* 子元素垂直居中 */
+            background: var(--bg-search); /* 搜索框背景色（由变量控制） */
+            border: 1px solid var(--border-color); /* 边框：粗细1px 颜色由变量控制 */
+            border-radius: 30px; /* 圆角 30px（药丸形状） */
+            padding: 0rem 0rem 0rem 1.2rem; /* 内边距：上4.8px 右4.8px 下4.8px 左19.2px */
+            transition: 0.25s, border-color 0.3s, background 0.3s; /* 所有属性 0.25秒 + 边框/背景 0.3秒 */
         }
         .search-box:focus-within {
-            border-color: #f5576c; /* 【可调】搜索框聚焦时边框颜色 */
-            box-shadow: 0 0 0 3px rgba(245, 87, 108, 0.15); /* 【可调】聚焦时外发光（大小 + 颜色 + 透明度） */
+            border-color: rgba(245, 87, 108, 1); /* 聚焦时边框变为粉色 */
+            box-shadow: 0 0 0 3px rgba(245, 87, 108, 0.15); /* 聚焦外发光：扩散3px 粉色 + 15%不透明 */
         }
         .search-box input {
-            border: none;
-            outline: none;
-            background: transparent;
-            font-size: 0.9rem; /* 【可调】搜索框输入字号 */
-            padding: 0rem 0; /* 【可调】搜索框输入上下内边距 */
-            width: 160px; /* 【可调】搜索框输入宽度 */
-            color: var(--text-primary);
-            transition: color 0.3s; /* 【可调】颜色过渡时间 */
+            border: none; /* 去掉默认边框 */
+            outline: none; /* 去掉聚焦轮廓 */
+            background: rgba(0, 0, 0, 0); /* 背景完全透明（继承父级） */
+            font-size: 0.9rem; /* 输入字号 14.4px */
+            padding: 0rem 0; /* 上下内边距 0（原有为0，保持） */
+            width: 130px; /* 输入框宽度 160px */
+            color: var(--text-primary); /* 输入文字颜色（由变量控制） */
+            transition: color 0.3s; /* 颜色变化过渡 0.3 秒 */
         }
-        .search-box input::placeholder { color: var(--text-muted); }
+        .search-box input::placeholder {
+            color: var(--text-muted); /* 占位符文字颜色（辅助色，由变量控制） */
+        }
         .search-box button {
-            background: #f5576c; /* 【可调】搜索按钮背景色 */
-            border: none;
-            color: #fff;
-            padding: 0.4rem 1.2rem; /* 【可调】搜索按钮内边距 */
-            border-radius: 30px; /* 【可调】搜索按钮圆角 */
-            font-size: 0.85rem; /* 【可调】搜索按钮字号 */
-            cursor: pointer;
-            transition: 0.2s; /* 【可调】按钮过渡时间 */
-            font-weight: 500;
+            background: rgba(245, 87, 108, 1); /* 搜索按钮背景色（粉色） */
+            border: none; /* 去掉默认边框 */
+            color: rgba(255, 255, 255, 1); /* 按钮文字颜色（纯白） */
+            padding: 0.4rem 1.2rem; /* 按钮内边距：上下 6.4px，左右 19.2px */
+            border-radius: 30px; /* 按钮圆角 30px（药丸形状） */
+            font-size: 0.85rem; /* 按钮字号 13.6px */
+            cursor: pointer; /* 鼠标悬停变为手型 */
+            transition: 0.2s; /* 所有属性变化过渡 0.2 秒 */
+            font-weight: 500; /* 字重 500（中等） */
         }
-        .search-box button:hover { background: #d94356; } /* 【可调】搜索按钮悬停背景色 */
+        .search-box button:hover {
+            background: rgba(217, 67, 86, 1); /* 按钮悬停背景色（比粉色略深） */
+        }
 
-        /* -------- 暗色模式切换按钮 -------- */
+        /* ----- 暗色模式切换按钮 ----- */
         .theme-toggle {
-            background: var(--bg-search);
-            border: 1px solid var(--border-color); /* 【可调】切换按钮边框粗细 + 颜色 */
-            border-radius: 30px; /* 【可调】切换按钮圆角 */
-            padding: 0.3rem 0.8rem; /* 【可调】切换按钮内边距 */
-            font-size: 1.1rem; /* 【可调】切换按钮图标大小 */
-            cursor: pointer;
-            color: var(--text-primary);
-            transition: 0.3s; /* 【可调】过渡时间 */
-            display: flex;
-            align-items: center;
-            gap: 0.3rem; /* 【可调】图标与文字间距 */
-            line-height: 1.4;
+            background: var(--bg-search); /* 按钮背景色（由变量控制） */
+            border: 1px solid var(--border-color); /* 边框：粗细1px 颜色由变量控制 */
+            border-radius: 30px; /* 圆角 30px（药丸形状） */
+            padding: 0.3rem 0.8rem; /* 内边距：上下 4.8px，左右 12.8px */
+            font-size: 1.1rem; /* 图标大小 17.6px */
+            cursor: pointer; /* 鼠标悬停变为手型 */
+            color: var(--text-primary); /* 图标/文字颜色（由变量控制） */
+            transition: 0.3s; /* 所有属性变化过渡 0.3 秒 */
+            display: flex; /* 弹性布局 */
+            align-items: center; /* 子元素垂直居中 */
+            gap: 0.3rem; /* 图标与文字间距 4.8px */
+            line-height: 1.4; /* 行高 1.4 */
         }
         .theme-toggle:hover {
-            border-color: #f5576c;
-            background: var(--bg-sidebar-hover);
-            color: #fff;
+            border-color: rgba(245, 87, 108, 1); /* 悬停边框变为粉色 */
+            background: var(--bg-sidebar-hover); /* 悬停背景色（粉色） */
+            color: rgba(255, 255, 255, 1); /* 悬停文字变为纯白 */
         }
         .theme-toggle .toggle-label {
-            font-size: 0.75rem; /* 【可调】切换按钮文字大小 */
-            font-weight: 500;
+            font-size: 0.75rem; /* 切换按钮文字大小 12px */
+            font-weight: 500; /* 字重 500（中等） */
         }
 
         /* ================================================================
            分类卡片
            ================================================================ */
-        .category-grid { display: flex; flex-direction: column; gap: 2.5rem; } /* 【可调】分类卡片之间的间距 */
+        .category-grid {
+            display: flex; /* 弹性布局 */
+            flex-direction: column; /* 主轴垂直（从上到下） */
+            gap: 2.5rem; /* 分类卡片之间的间距 40px */
+        }
 
         .category-card {
-            background: var(--bg-container);
-            backdrop-filter: blur(2px); /* 【可调】分类卡片毛玻璃模糊度 */
-            border-radius: 24px; /* 【可调】分类卡片圆角 */
-            padding: 1.8rem 2rem 2rem; /* 【可调】分类卡片内边距（上 1.8rem，左右 2rem，下 2rem） */
-            box-shadow: 0 4px 20px var(--shadow-color); /* 【可调】分类卡片阴影 */
-            border: 1px solid var(--border-color); /* 【可调】分类卡片边框粗细 + 颜色 */
-            transition: 0.3s; /* 【可调】分类卡片过渡时间 */
-            scroll-margin-top: 20px; /* 【可调】滚动定位时距顶部的偏移量 */
+            background: var(--bg-container); /* 分类卡片背景色 + 透明度（由变量控制） */
+            backdrop-filter: blur(2px); /* 毛玻璃模糊度 2px（轻微模糊透出背景） */
+            border-radius: 24px; /* 分类卡片圆角 24px */
+            padding: 1.8rem 2rem 2rem; /* 内边距：上 28.8px，左右 32px，下 32px */
+            box-shadow: 0 4px 20px var(--shadow-color); /* 阴影：水平0 垂直4px 模糊20px 颜色由变量控制 */
+            border: 1px solid var(--border-color); /* 边框：粗细1px 颜色由变量控制 */
+            transition: 0.3s; /* 所有属性变化过渡 0.3 秒 */
+            scroll-margin-top: 20px; /* 锚点滚动时距顶部偏移 20px */
         }
         .category-card:hover {
-            border-color: var(--border-hover);
-            box-shadow: 0 8px 32px var(--shadow-color); /* 【可调】悬停时阴影（更大） */
+            border-color: var(--border-hover); /* 悬停边框颜色（比普通边框深） */
+            box-shadow: 0 8px 32px var(--shadow-color); /* 悬停阴影：垂直8px 模糊32px（比默认大） */
         }
 
-        /* -------- 分类标题 -------- */
+        /* ----- 分类标题 ----- */
         .category-title {
-            display: flex;
-            align-items: center;
-            gap: 0.6rem; /* 【可调】标题图标与文字间距 */
-            font-size: 1.5rem; /* 【可调】分类标题字号 */
-            font-weight: 600;
-            margin-bottom: 1.5rem; /* 【可调】标题底部外边距 */
-            padding-bottom: 0.6rem; /* 【可调】标题底部内边距（与边框距离） */
-            border-bottom: 2px dashed var(--border-color); /* 【可调】标题下边框粗细 + 样式（dashed/dotted/solid） */
-            transition: border-color 0.3s; /* 【可调】过渡时间 */
-            color: var(--text-primary);
+            display: flex; /* 弹性布局 */
+            align-items: center; /* 子元素垂直居中 */
+            gap: 0.6rem; /* 标题图标与文字间距 9.6px */
+            font-size: 1.5rem; /* 分类标题字号 24px */
+            font-weight: 600; /* 字重 600（半粗） */
+            margin-bottom: 1.5rem; /* 标题底部外边距 24px */
+            padding-bottom: 0.6rem; /* 标题底部内边距 9.6px（与边框距离） */
+            border-bottom: 2px dashed var(--border-color); /* 下边框：粗细2px 虚线 颜色由变量控制 */
+            transition: border-color 0.3s; /* 边框颜色变化过渡 0.3 秒 */
+            color: var(--text-primary); /* 标题文字颜色（由变量控制） */
         }
         .category-title i {
-            color: #f5576c; /* 【可调】标题图标颜色 */
-            font-size: 1.4rem; /* 【可调】标题图标大小 */
-            width: 2rem; /* 【可调】标题图标宽度（保证对齐） */
-            text-align: center;
+            color: rgba(245, 87, 108, 1); /* 标题图标固定粉色 */
+            font-size: 1.4rem; /* 标题图标大小 22.4px */
+            width: 2rem; /* 标题图标固定宽度 32px（保证所有图标对齐） */
+            text-align: center; /* 图标居中 */
         }
         .category-title .count {
-            font-size: 0.8rem; /* 【可调】站点数量字号 */
-            font-weight: 400;
-            color: var(--text-muted);
-            margin-left: auto;
-            background: var(--icon-bg);
-            padding: 0.1rem 0.9rem; /* 【可调】数量标签内边距 */
-            border-radius: 30px; /* 【可调】数量标签圆角 */
-            transition: background 0.3s, color 0.3s; /* 【可调】过渡时间 */
+            font-size: 0.8rem; /* 站点数量字号 12.8px */
+            font-weight: 400; /* 字重 400（常规） */
+            color: var(--text-muted); /* 站点数量颜色（辅助色，由变量控制） */
+            margin-left: auto; /* 自动左外边距（推到最右侧） */
+            background: var(--icon-bg); /* 数量标签背景色（由变量控制） */
+            padding: 0.1rem 0.9rem; /* 数量标签内边距：上下 1.6px，左右 14.4px */
+            border-radius: 30px; /* 数量标签圆角 30px（药丸形状） */
+            transition: background 0.3s, color 0.3s; /* 背景/文字颜色变化过渡 0.3 秒 */
         }
 
         /* ================================================================
            站点卡片（左图标 + 右上名称 + 右下描述）
            ================================================================ */
         .items-grid {
-            display: grid;
-            grid-template-columns: repeat(auto-fill, minmax(180px, 1fr)); /* 【可调】每列最小宽度（210px），自动填充 */
-            gap: 1.1rem; /* 【可调】站点卡片之间的间距 */
+            display: grid; /* 网格布局 */
+            grid-template-columns: repeat(auto-fill, minmax(180px, 1fr)); /* 自动填充列，每列最小 180px，最大 1fr */
+            gap: 1.1rem; /* 站点卡片之间的间距 17.6px */
         }
 
         .item-card {
-            background: var(--bg-card);
-            border-radius: 16px; /* 【可调】站点卡片圆角 */
-            padding: 0.8rem 0.9rem 0.7rem; /* 【可调】站点卡片内边距（上 0.8rem，左右 0.9rem，下 0.7rem） */
-            transition: 0.2s ease; /* 【可调】过渡时间 */
-            border: 1px solid transparent; /* 【可调】默认边框（透明） */
-            display: flex;
-            flex-direction: column;
-            cursor: pointer;
+            background: var(--bg-card); /* 站点卡片背景色 + 透明度（由变量控制） */
+            border-radius: 16px; /* 站点卡片圆角 16px */
+            padding: 0.8rem 0.9rem 0.7rem; /* 内边距：上 12.8px，左右 14.4px，下 11.2px */
+            transition: 0.2s ease; /* 所有属性变化过渡 0.2 秒（缓动） */
+            border: 1px solid rgba(0, 0, 0, 0); /* 默认边框透明（不可见） */
+            display: flex; /* 弹性布局 */
+            flex-direction: column; /* 主轴垂直（从上到下） */
+            cursor: pointer; /* 鼠标悬停变为手型 */
         }
         .item-card:hover {
-            background: var(--bg-container);
-            border-color: var(--border-hover);
-            transform: translateY(-2px); /* 【可调】悬停上浮距离 */
-            box-shadow: 0 8px 24px var(--shadow-color); /* 【可调】悬停阴影 */
+            background: var(--bg-container); /* 悬停背景色变为分类卡片背景色（变透） */
+            border-color: var(--border-hover); /* 悬停边框颜色（比普通边框深） */
+            transform: translateY(-2px); /* 悬停上浮 2px（微动效） */
+            box-shadow: 0 8px 24px var(--shadow-color); /* 悬停阴影：垂直8px 模糊24px */
         }
 
-        /* -------- 卡片头部（图标 + 文字信息） -------- */
+        /* ----- 卡片头部（图标 + 文字信息） ----- */
         .item-card .item-header {
-            display: flex;
-            align-items: flex-start;
-            gap: 0.6rem; /* 【可调】图标与文字间距 */
-            pointer-events: none;
+            display: flex; /* 弹性布局 */
+            align-items: flex-start; /* 子元素顶部对齐（图标与文字顶部对齐） */
+            gap: 0.6rem; /* 图标与文字间距 9.6px */
+            pointer-events: none; /* 子元素不拦截点击事件（由父级统一处理） */
         }
 
-        /* -------- 图标 -------- */
+        /* ----- 站点图标 ----- */
         .item-card .item-icon {
-            width: 42px; /* 【可调】图标容器宽度 */
-            height: 42px; /* 【可调】图标容器高度（与宽度一致保持正方形） */
-            border-radius: 8px; /* 【可调】图标圆角 */
-            background: var(--icon-bg);
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            font-size: 0.9rem; /* 【可调】图标内文字（占位符）字号 */
-            font-weight: 600;
-            color: var(--text-secondary);
-            flex-shrink: 0;
-            overflow: hidden;
-            transition: background 0.3s, color 0.3s; /* 【可调】过渡时间 */
-            margin-top: 2px; /* 【可调】图标顶部微调（与文字对齐） */
+            width: 42px; /* 图标容器宽度 42px */
+            height: 42px; /* 图标容器高度 42px（正方形） */
+            border-radius: 8px; /* 图标圆角 8px */
+            background: var(--icon-bg); /* 图标背景色（由变量控制） */
+            display: flex; /* 弹性布局（内部居中） */
+            align-items: center; /* 垂直居中 */
+            justify-content: center; /* 水平居中 */
+            font-size: 0.9rem; /* 占位文字字号 14.4px（当图片加载失败时显示） */
+            font-weight: 600; /* 占位文字字重 600（半粗） */
+            color: var(--text-secondary); /* 占位文字颜色（次要色） */
+            flex-shrink: 0; /* 不收缩（保持固定宽度） */
+            overflow: hidden; /* 超出部分隐藏 */
+            transition: background 0.3s, color 0.3s; /* 背景/颜色变化过渡 0.3 秒 */
+            margin-top: 2px; /* 顶部微调 2px（与文字顶部对齐） */
         }
         .item-card .item-icon img {
-            width: 100%;
-            height: 100%;
-            object-fit: contain; /* 【可调】图标填充方式：contain(完整) / cover(裁剪) / fill(拉伸) */
+            width: 100%; /* 图片宽度占满容器 */
+            height: 100%; /* 图片高度占满容器 */
+            object-fit: contain; /* 图片填充方式：contain（完整显示，不裁剪） */
         }
         .item-card .item-icon .fallback {
-            font-size: 18px; /* 【可调】占位文字大小 */
-            font-weight: 600;
-            color: var(--text-secondary);
+            font-size: 18px; /* 占位文字大小 18px（当图片404时） */
+            font-weight: 600; /* 占位文字字重 600（半粗） */
+            color: var(--text-secondary); /* 占位文字颜色（次要色） */
         }
 
-        /* -------- 右侧信息（名称 + 描述） -------- */
+        /* ----- 右侧信息（名称 + 描述） ----- */
         .item-card .item-info {
-            display: flex;
-            flex-direction: column;
-            flex: 1;
-            min-width: 0;
+            display: flex; /* 弹性布局 */
+            flex-direction: column; /* 主轴垂直（名称在上，描述在下） */
+            flex: 1; /* 占据剩余空间 */
+            min-width: 0; /* 允许内容收缩（防止溢出） */
         }
 
-        /* -------- 站点名称 -------- */
+        /* ----- 站点名称 ----- */
         .item-card .item-title {
-            font-weight: 600;
-            font-size: 0.95rem; /* 【可调】站点名称字号 */
-            color: var(--text-primary);
-            text-decoration: none;
-            white-space: nowrap;
-            overflow: hidden;
-            text-overflow: ellipsis;
-            transition: color 0.3s; /* 【可调】颜色过渡时间 */
-            line-height: 1.3; /* 【可调】行高 */
+            font-weight: 600; /* 字重 600（半粗） */
+            font-size: 0.95rem; /* 名称字号 15.2px */
+            color: var(--text-primary); /* 名称颜色（由变量控制） */
+            text-decoration: none; /* 去掉下划线 */
+            white-space: nowrap; /* 文字不换行 */
+            overflow: hidden; /* 超出部分隐藏 */
+            text-overflow: ellipsis; /* 超出显示省略号（...） */
+            transition: color 0.3s; /* 颜色变化过渡 0.3 秒 */
+            line-height: 1.3; /* 行高 1.3 */
         }
         .item-card .item-title a {
-            color: inherit;
-            text-decoration: none;
-            transition: 0.15s; /* 【可调】链接过渡时间 */
-            pointer-events: auto;
+            color: inherit; /* 链接颜色继承父级 */
+            text-decoration: none; /* 去掉下划线 */
+            transition: 0.15s; /* 所有属性变化过渡 0.15 秒 */
+            pointer-events: auto; /* 链接可点击（不受父级 pointer-events:none 影响） */
         }
-        .item-card .item-title a:hover { color: #f5576c; } /* 【可调】链接悬停颜色 */
+        .item-card .item-title a:hover {
+            color: rgba(245, 87, 108, 1); /* 链接悬停变为粉色 */
+        }
 
-        /* -------- 站点描述 -------- */
+        /* ----- 站点描述 ----- */
         .item-card .item-desc {
-            font-size: 0.72rem; /* 【可调】描述字号 */
-            color: var(--text-secondary);
-            line-height: 1.3; /* 【可调】描述行高 */
-            display: -webkit-box;
-            -webkit-line-clamp: 2; /* 【可调】描述最大显示行数（2行，超出省略号） */
-            -webkit-box-orient: vertical;
-            overflow: hidden;
-            pointer-events: none;
-            transition: color 0.3s; /* 【可调】颜色过渡时间 */
-            margin-top: 0.05rem; /* 【可调】描述与名称的间距 */
+            font-size: 0.72rem; /* 描述字号 11.52px */
+            color: var(--text-secondary); /* 描述颜色（次要色） */
+            line-height: 1.3; /* 描述行高 1.3 */
+            display: -webkit-box; /* WebKit 弹性盒子（用于多行截断） */
+            -webkit-line-clamp: 2; /* 限制最多显示 2 行 */
+            -webkit-box-orient: vertical; /* 垂直排列（配合 line-clamp） */
+            overflow: hidden; /* 超出部分隐藏 */
+            pointer-events: none; /* 不拦截点击事件 */
+            transition: color 0.3s; /* 颜色变化过渡 0.3 秒 */
+            margin-top: 0.05rem; /* 描述与名称的间距 0.8px */
         }
 
         /* ================================================================
            页脚
            ================================================================ */
         .footer {
-            margin-top: 3.5rem; /* 【可调】页脚顶部外边距 */
-            padding-top: 1.8rem; /* 【可调】页脚顶部内边距（与边框距离） */
-            border-top: 1px solid var(--border-color); /* 【可调】页脚上边框粗细 + 颜色 */
-            display: flex;
-            justify-content: space-between;
-            flex-wrap: wrap;
-            gap: 1rem; /* 【可调】页脚各元素间距 */
-            font-size: 0.85rem; /* 【可调】页脚字号 */
-            align-items: flex-end; /* 让子元素在垂直方向靠下对齐 */
-            color: var(--text-footer);
-            transition: border-color 0.3s, color 0.3s; /* 【可调】过渡时间 */
+            margin-top: 3.5rem; /* 顶部外边距 56px */
+            padding-top: 1.8rem; /* 顶部内边距 28.8px（与边框距离） */
+            border-top: 1px solid var(--border-color); /* 上边框：粗细1px 颜色由变量控制 */
+            display: flex; /* 弹性布局 */
+            justify-content: space-between; /* 子元素两端对齐 */
+            flex-wrap: wrap; /* 空间不足时换行 */
+            gap: 1rem; /* 子元素间距 16px */
+            font-size: 0.85rem; /* 页脚字号 13.6px */
+            align-items: flex-end; /* 子元素底部对齐 */
+            color: var(--text-footer); /* 页脚文字颜色（由变量控制） */
+            transition: border-color 0.3s, color 0.3s; /* 边框/文字颜色变化过渡 0.3 秒 */
         }
         .footer a {
-            color: var(--text-footer);
-            text-decoration: none;
-            transition: 0.2s; /* 【可调】过渡时间 */
+            color: var(--text-footer); /* 页脚链接颜色（由变量控制） */
+            text-decoration: none; /* 去掉下划线 */
+            transition: 0.2s; /* 所有属性变化过渡 0.2 秒 */
         }
-        .footer a:hover { color: #f5576c; } /* 【可调】页脚链接悬停颜色 */
+        .footer a:hover {
+            color: rgba(245, 87, 108, 1); /* 页脚链接悬停变为粉色 */
+        }
+
+        /* 页脚社交图标 */
         .footer .socials a {
-            font-size: 1.35rem; /* 【可调】社交图标大小 */
-            margin-left: 0.8rem; /* 【可调】社交图标间距 */
-            color:rgba(255, 255, 255, 0.75); /* 自定义社交图标颜色，不依赖变量 */
-            transition: 0.2s; /* 【可调】过渡时间 */
-            text-decoration: none;  /* 去除下划线 */
+            font-size: 1.35rem; /* 社交图标大小 21.6px */
+            margin-left: 0.8rem; /* 图标左间距 12.8px（用于间隔多个图标） */
+            color: rgba(255, 255, 255, 0.75); /* 图标颜色固定为白色 + 75%不透明（不依赖变量） */
+            transition: 0.2s; /* 所有属性变化过渡 0.2 秒 */
+            text-decoration: none; /* 去掉下划线 */
         }
-        .footer .socials i:hover { color: #f5576c; } /* 【可调】社交图标悬停颜色 */
+        .footer .socials a:hover {
+            color: rgba(245, 87, 108, 1); /* 图标悬停变为粉色 */
+        }
 
         /* ================================================================
            搜索无结果提示
            ================================================================ */
         .no-result {
-            grid-column: 1/-1;
-            text-align: center;
-            padding: 3rem 0; /* 【可调】无结果提示内边距 */
-            color: var(--text-muted);
+            grid-column: 1 / -1; /* 占满整行 */
+            text-align: center; /* 文字居中 */
+            padding: 3rem 0; /* 内边距：上下 48px，左右0 */
+            color: var(--text-muted); /* 文字颜色（辅助色） */
         }
         .no-result i {
-            font-size: 2rem; /* 【可调】无结果图标大小 */
-            display: block;
-            margin-bottom: 0.5rem; /* 【可调】图标与文字间距 */
+            font-size: 2rem; /* 图标大小 32px */
+            display: block; /* 块级显示（独占一行） */
+            margin-bottom: 0.5rem; /* 图标与文字间距 8px */
         }
 
-/* ================================================================
-   响应式（手机/平板适配）
-   ================================================================ */
-@media (max-width: 768px) {
-body {
-        background-image: url('./background-mobile.jpg'); /* 移动端专用壁纸 */
-        /* 其他背景属性可以沿用，也可单独调整 */
-        background-size: cover;
-        background-position: center;
-        background-attachment: fixed;
-        background-repeat: no-repeat;
-    }
-    /* -------- 全局调整 -------- */
-    body { padding: 1rem 0.8rem; }
-    .container { padding: 0 16px; } /* 或 padding: 0 1rem; */
+        /* ================================================================
+           响应式（手机/平板适配）屏幕宽度 ≤ 768px
+           ================================================================ */
+        @media (max-width: 768px) {
+            /* 移动端专用壁纸 */
+            body {
+                background-image: url('./background-mobile.jpg'); /* 移动端壁纸路径 */
+                background-size: cover; /* 铺满 */
+                background-position: center; /* 居中 */
+                background-attachment: fixed; /* 固定 */
+                background-repeat: no-repeat; /* 不重复 */
+            }
+            
+            /* 移动端页面内边距缩小 */
+            body {
+                padding: 1rem 0.8rem; /* 上下 16px，左右 12.8px */
+            }
+            .container {
+                padding: 0 16px; /* 左右内边距 16px（对称） */
+            }
 
-    /* -------- 隐藏侧栏导航（移动端完全隐藏） -------- */
-    #sidebar { display: none; }
+            /* ----- 移动端隐藏侧栏导航 ----- */
+            #sidebar {
+                display: none; /* 完全隐藏（用户手动滑动页面） */
+            }
 
-    /* -------- 头部：Logo 独占第一行，功能按钮+搜索框第二行水平排列 -------- */
-    .header {
-        flex-direction: row;
-        flex-wrap: wrap;
-        align-items: center;
-        gap: 0.5rem;
-        margin-bottom: 1.5rem;
-    }
-    .logo {
-        width: 100%;
-        display: flex;
-        align-items: center;
-        gap: 0.3rem;
-    }
-    .logo img { height: 34px; }
-    .logo .slogan { font-size: 0.8rem; }
+            /* ----- 移动端头部：Logo 独占第一行，功能按钮+搜索框第二行水平排列 ----- */
+            .header {
+                flex-direction: row; /* 保持水平排列（不堆叠） */
+                flex-wrap: wrap; /* 允许换行 */
+                align-items: center; /* 垂直居中 */
+                gap: 0.5rem; /* 子元素间距缩小为 8px */
+                margin-bottom: 1.5rem; /* 底部外边距缩小为 24px */
+            }
+            .logo {
+                width: 100%; /* 占满整行 */
+                display: flex; /* 弹性布局 */
+                align-items: center; /* 垂直居中 */
+                gap: 0.3rem; /* Logo 与标语间距 4.8px */
+            }
+            .logo img {
+                height: 34px; /* 移动端 Logo 高度缩小为 34px */
+            }
+            .logo .slogan {
+                font-size: 0.8rem; /* 移动端标语字号缩小为 12.8px */
+            }
 
-    .header-meta {
-        width: 100%;
-        display: flex;
-        flex-wrap: nowrap;
-        align-items: center;
-        gap: 0.5rem;
-    }
-    .header-meta .badge {
-        font-size: 0.6rem;
-        padding: 0.2rem 0.6rem;
-        white-space: nowrap;
-        flex-shrink: 0;
-    }
-    .theme-toggle {
-        padding: 0.2rem 0.5rem;
-        font-size: 0.9rem;
-        flex-shrink: 0;
-    }
-    .theme-toggle .toggle-label { display: none; }
+            /* 移动端第二行：功能按钮水平排列 */
+            .header-meta {
+                width: 100%; /* 占满整行 */
+                display: flex; /* 弹性布局 */
+                flex-wrap: nowrap; /* 不换行（强行一行） */
+                align-items: center; /* 垂直居中 */
+                gap: 0.5rem; /* 各元素间距 8px */
+            }
+            .header-meta .badge {
+                font-size: 0.6rem; /* 徽标字号 9.6px */
+                padding: 0.2rem 0.6rem; /* 徽标内边距缩小 */
+                white-space: nowrap; /* 文字不换行 */
+                flex-shrink: 0; /* 不收缩（保持固定宽度） */
+            }
+            .theme-toggle {
+                padding: 0.2rem 0.5rem; /* 切换按钮内边距缩小 */
+                font-size: 0.9rem; /* 切换按钮图标缩小为 14.4px */
+                flex-shrink: 0; /* 不收缩 */
+            }
+            .theme-toggle .toggle-label {
+                display: none; /* 移动端隐藏切换按钮文字（只留图标） */
+            }
 
-    /* 搜索框 flex 修复：输入框撑满，按钮固定在右侧 */
-    .search-box {
-        flex: 1;
-        min-width: 0;
-        padding: 0.2rem 0.2rem 0.2rem 0.6rem;
-        display: flex;
-        align-items: center;
-        background: var(--bg-search);
-        border: 1px solid var(--border-color);
-        border-radius: 30px;
-        transition: 0.25s, border-color 0.3s, background 0.3s;
-    }
-    .search-box input {
-        flex: 1;
-        min-width: 40px;
-        font-size: 0.8rem;
-        padding: 0.2rem 0;
-        border: none;
-        outline: none;
-        background: transparent;
-        color: var(--text-primary);
-    }
-    .search-box input::placeholder { color: var(--text-muted); }
-    .search-box button {
-        flex-shrink: 0;
-        padding: 0.2rem 0.6rem;
-        font-size: 0.7rem;
-        background: #f5576c;
-        border: none;
-        color: #fff;
-        border-radius: 30px;
-        cursor: pointer;
-        transition: 0.2s;
-        font-weight: 500;
-        margin-left: 0.3rem;
-    }
-    .search-box button:hover { background: #d94356; }
+            /* 移动端搜索框 flex 修复：输入框撑满，按钮固定在右侧 */
+            .search-box {
+                flex: 1; /* 占据剩余宽度 */
+                min-width: 0; /* 允许收缩 */
+                padding: 0.2rem 0.2rem 0.2rem 0.6rem; /* 内边距缩小 */
+                display: flex; /* 弹性布局 */
+                align-items: center; /* 垂直居中 */
+                background: var(--bg-search); /* 背景色由变量控制 */
+                border: 1px solid var(--border-color); /* 边框由变量控制 */
+                border-radius: 30px; /* 圆角 30px */
+                transition: 0.25s, border-color 0.3s, background 0.3s; /* 过渡时间 */
+            }
+            .search-box input {
+                flex: 1; /* 输入框占据剩余宽度 */
+                min-width: 40px; /* 最小宽度 40px */
+                font-size: 0.8rem; /* 输入字号 12.8px */
+                padding: 0.2rem 0; /* 上下内边距 3.2px */
+                border: none; /* 去掉边框 */
+                outline: none; /* 去掉聚焦轮廓 */
+                background: rgba(0, 0, 0, 0); /* 背景透明 */
+                color: var(--text-primary); /* 文字颜色由变量控制 */
+            }
+            .search-box input::placeholder {
+                color: var(--text-muted); /* 占位符颜色由变量控制 */
+            }
+            .search-box button {
+                flex-shrink: 0; /* 按钮不收缩 */
+                padding: 0.2rem 0.6rem; /* 按钮内边距缩小 */
+                font-size: 0.7rem; /* 按钮字号 11.2px */
+                background: rgba(245, 87, 108, 1); /* 背景粉色 */
+                border: none; /* 去掉边框 */
+                color: rgba(255, 255, 255, 1); /* 文字白色 */
+                border-radius: 30px; /* 圆角 30px */
+                cursor: pointer; /* 手型 */
+                transition: 0.2s; /* 过渡 0.2 秒 */
+                font-weight: 500; /* 字重 500 */
+                margin-left: 0.3rem; /* 按钮与输入框间距 4.8px */
+            }
+            .search-box button:hover {
+                background: rgba(217, 67, 86, 1); /* 悬停背景略深 */
+            }
 
-    /* -------- 分类卡片 -------- */
-    .category-card {
-        padding: 1.2rem 1rem 1.5rem;
-        background: var(--bg-container);
-    }
-    .category-title { font-size: 1.2rem; }
+            /* ----- 移动端分类卡片 ----- */
+            .category-card {
+                padding: 1.2rem 1rem 1.5rem; /* 内边距缩小：上19.2px 左右16px 下24px */
+                background: var(--bg-container); /* 背景由变量控制 */
+            }
+            .category-title {
+                font-size: 1.2rem; /* 移动端分类标题字号 19.2px */
+            }
 
-    /* -------- 站点卡片网格 -------- */
-    .items-grid {
-        grid-template-columns: repeat(auto-fill, minmax(160px, 1fr));
-        gap: 0.8rem;
-        max-width: 100%;
-        overflow: hidden;
-    }
+            /* ----- 移动端站点卡片网格 ----- */
+            .items-grid {
+                grid-template-columns: repeat(auto-fill, minmax(160px, 1fr)); /* 每列最小 160px */
+                gap: 0.8rem; /* 卡片间距 12.8px */
+                max-width: 100%; /* 最大宽度 100% */
+                overflow: hidden; /* 超出隐藏（防止横向滚动） */
+            }
 
-    /* -------- 站点卡片（固定高度，防止高低不齐） -------- */
-    .item-card {
-        padding: 0.5rem 0.6rem 0.4rem;
-        max-width: 100%;
-        box-sizing: border-box;
-        height: 68px; /* 【可调】底部留白 根据实际内容微调 */
-        display: flex;
-        flex-direction: column;
-        overflow: hidden;
-        background: var(--bg-card);
-        border-radius: 16px;
-        transition: 0.2s ease;
-        border: 1px solid transparent;
-        cursor: pointer;
-    }
-    .item-card .item-header {
-        display: flex;
-        align-items: flex-start;
-        gap: 0.6rem;
-        pointer-events: none;
-        flex-shrink: 0;
-    }
-    .item-card .item-icon {
-        width: 28px;
-        height: 28px;
-        border-radius: 8px;
-        background: var(--icon-bg);
-        display: flex;
-        align-items: center;
-        justify-content: center;
-        font-size: 0.8rem;
-        font-weight: 600;
-        color: var(--text-secondary);
-        flex-shrink: 0;
-        overflow: hidden;
-        transition: background 0.3s, color 0.3s;
-        margin-top: 2px;
-    }
-    .item-card .item-icon img {
-        width: 100%;
-        height: 100%;
-        object-fit: contain;
-    }
-    .item-card .item-icon .fallback {
-        font-size: 12px;
-        font-weight: 600;
-        color: var(--text-secondary);
-    }
-    .item-card .item-title {
-        font-size: 0.85rem;
-        font-weight: 600;
-        color: var(--text-primary);
-        white-space: nowrap;
-        overflow: hidden;
-        text-overflow: ellipsis;
-        transition: color 0.3s;
-        line-height: 1.3;
-        flex-shrink: 0;
-    }
-    .item-card .item-info {
-        display: flex;
-        flex-direction: column;
-        flex: 1;
-        min-width: 0;
-        min-height: 0;
-    }
-    .item-card .item-desc {
-        font-size: 0.65rem;
-        color: var(--text-secondary);
-        line-height: 1.3;
-        flex: 1;
-        min-height: 0;
-        display: -webkit-box;
-        -webkit-line-clamp: 2;
-        -webkit-box-orient: vertical;
-        overflow: hidden;
-        text-overflow: ellipsis;
-        word-break: break-word;
-        pointer-events: none;
-        transition: color 0.3s;
-    }
+            /* ----- 移动端站点卡片（固定高度，防止高低不齐） ----- */
+            .item-card {
+                padding: 0.5rem 0.6rem 0.4rem; /* 内边距缩小 */
+                max-width: 100%; /* 最大宽度 100% */
+                box-sizing: border-box; /* 宽高包含内边距 */
+                height: 68px; /* 固定高度 68px（可根据内容微调） */
+                display: flex; /* 弹性布局 */
+                flex-direction: column; /* 垂直排列 */
+                overflow: hidden; /* 超出隐藏 */
+                background: var(--bg-card); /* 背景由变量控制 */
+                border-radius: 16px; /* 圆角 16px */
+                transition: 0.2s ease; /* 过渡 0.2 秒 */
+                border: 1px solid rgba(0, 0, 0, 0); /* 默认边框透明 */
+                cursor: pointer; /* 手型 */
+            }
+            .item-card .item-header {
+                display: flex; /* 弹性布局 */
+                align-items: flex-start; /* 顶部对齐 */
+                gap: 0.6rem; /* 间距 9.6px */
+                pointer-events: none; /* 不拦截点击 */
+                flex-shrink: 0; /* 不收缩 */
+            }
+            .item-card .item-icon {
+                width: 28px; /* 图标宽度 28px */
+                height: 28px; /* 图标高度 28px */
+                border-radius: 8px; /* 圆角 8px */
+                background: var(--icon-bg); /* 背景由变量控制 */
+                display: flex; /* 弹性布局 */
+                align-items: center; /* 垂直居中 */
+                justify-content: center; /* 水平居中 */
+                font-size: 0.8rem; /* 占位字号 12.8px */
+                font-weight: 600; /* 字重 600 */
+                color: var(--text-secondary); /* 颜色由变量控制 */
+                flex-shrink: 0; /* 不收缩 */
+                overflow: hidden; /* 超出隐藏 */
+                transition: background 0.3s, color 0.3s; /* 过渡 0.3 秒 */
+                margin-top: 2px; /* 顶部微调 2px */
+            }
+            .item-card .item-icon img {
+                width: 100%; /* 宽100% */
+                height: 100%; /* 高100% */
+                object-fit: contain; /* 完整显示 */
+            }
+            .item-card .item-icon .fallback {
+                font-size: 12px; /* 占位文字 12px */
+                font-weight: 600; /* 字重 600 */
+                color: var(--text-secondary); /* 颜色由变量控制 */
+            }
+            .item-card .item-title {
+                font-size: 0.85rem; /* 名称字号 13.6px */
+                font-weight: 600; /* 字重 600 */
+                color: var(--text-primary); /* 颜色由变量控制 */
+                white-space: nowrap; /* 不换行 */
+                overflow: hidden; /* 超出隐藏 */
+                text-overflow: ellipsis; /* 超出省略号 */
+                transition: color 0.3s; /* 过渡 0.3 秒 */
+                line-height: 1.3; /* 行高 1.3 */
+                flex-shrink: 0; /* 不收缩 */
+            }
+            .item-card .item-info {
+                display: flex; /* 弹性布局 */
+                flex-direction: column; /* 垂直排列 */
+                flex: 1; /* 占据剩余空间 */
+                min-width: 0; /* 允许收缩 */
+                min-height: 0; /* 允许收缩 */
+            }
+            .item-card .item-desc {
+                font-size: 0.65rem; /* 描述字号 10.4px */
+                color: var(--text-secondary); /* 颜色由变量控制 */
+                line-height: 1.3; /* 行高 1.3 */
+                flex: 1; /* 占据剩余空间 */
+                min-height: 0; /* 允许收缩 */
+                display: -webkit-box; /* WebKit 弹性盒子 */
+                -webkit-line-clamp: 2; /* 限制 2 行 */
+                -webkit-box-orient: vertical; /* 垂直排列 */
+                overflow: hidden; /* 超出隐藏 */
+                text-overflow: ellipsis; /* 超出省略号 */
+                word-break: break-word; /* 长单词/URL 强制换行 */
+                pointer-events: none; /* 不拦截点击 */
+                transition: color 0.3s; /* 过渡 0.3 秒 */
+            }
 
-    /* -------- 页脚 -------- */
-    .footer {
-        flex-direction: column;
-        align-items: center;
-        text-align: center;
-        margin-bottom: 20px;
-    }
-}
+            /* ----- 移动端页脚 ----- */
+            .footer {
+                flex-direction: column; /* 垂直排列 */
+                align-items: center; /* 居中 */
+                text-align: center; /* 文字居中 */
+                margin-bottom: 20px; /* 底部留白 20px */
+            }
+        }
 
-/* ================================================================
-   小屏手机（宽度 ≤ 480px）
-   ================================================================ */
-@media (max-width: 480px) {
-    .items-grid {
-        grid-template-columns: 1fr 1fr; /* 每行 2 列 */
-        gap: 0.6rem;
-    }
-    .search-box input {
-        min-width: 30px;
-        font-size: 0.75rem;
-    }
-    .search-box button {
-        padding: 0.15rem 0.5rem;
-        font-size: 0.65rem;
-    }
-}
+        /* ================================================================
+           小屏手机（宽度 ≤ 480px）
+           ================================================================ */
+        @media (max-width: 480px) {
+            .items-grid {
+                grid-template-columns: 1fr 1fr; /* 每行强制 2 列 */
+                gap: 0.6rem; /* 卡片间距 9.6px */
+            }
+            .search-box input {
+                min-width: 30px; /* 输入框最小宽度 30px */
+                font-size: 0.75rem; /* 输入字号 12px */
+            }
+            .search-box button {
+                padding: 0.15rem 0.5rem; /* 按钮内边距缩小 */
+                font-size: 0.65rem; /* 按钮字号 10.4px */
+            }
+        }
     </style>
 </head>
 <body>
 
-    <!-- 侧栏导航 -->
+    <!-- 侧栏导航（PC端显示，移动端隐藏） -->
     <nav id="sidebar"></nav>
 
     <div class="container" id="app">
+        <!-- ===== 头部 ===== -->
         <header class="header">
+            <!-- Logo 区域 -->
             <div class="logo">
                 <a href="/" title="ACG百科|导航">
                     <img src="./logo.svg" alt="ACG 导航" />
                 </a>
+                <!-- 标语（实际为空，用于占位） -->
                 <span class="slogan">                                           </span>
             </div>
+            <!-- 右侧功能区 -->
             <div class="header-meta">
-                <span class="badge"><i class="fas fa-star"></i> 今日热推</span>
+                <!-- "关于本站" 链接（替换了原来的"今日热推"） -->
+                <a href="./about.html" class="badge" style="text-decoration:none;">
+                    <i class="fas fa-info-circle"></i> 关于
+                </a>
+                <!-- 暗色模式切换按钮 -->
                 <button class="theme-toggle" id="themeToggle" aria-label="切换暗色模式">
                     <i class="fas fa-moon" id="themeIcon"></i>
                     <span class="toggle-label" id="themeLabel">暗色</span>
                 </button>
+                <!-- 搜索框 -->
                 <div class="search-box">
                     <input type="text" placeholder="搜站点…" id="searchInput" />
                     <button id="searchBtn"><i class="fas fa-search"></i> 搜索</button>
@@ -736,25 +822,27 @@ body {
             </div>
         </header>
 
+        <!-- ===== 分类卡片容器（由 JavaScript 动态渲染） ===== -->
         <div class="category-grid" id="categoryGrid"></div>
 
-<footer class="footer">
-    <span>© 2026-2027 · ACG 导航</span>
-    <span>用 ❤️ 为二次元引路 · 站长邮箱: <a href="mailto:u@anibk.eu.cc">u@anibk.eu.cc</a></span>
-    <div class="socials">
-        <a href="https://space.bilibili.com/" target="_blank" rel="noopener" title="B站"><i class="fab fa-bilibili"></i></a>
-        <a href="https://music.163.com/playlist?id=370324112&uct2=U2FsdGVkX1/MQ47KiSW6GCNTQ+GzV7lj6sO+YJj4kLY=" target="_blank" rel="noopener" title="网易云"><i class="fa-solid fa-compact-disc"></i></a>
-        <a href="https://github.com/ohu00/ACG-navigation" target="_blank" rel="noopener" title="GitHub"><i class="fab fa-github"></i></a>
-        <a href="/feed.xml" target="_blank" rel="noopener" title="RSS"><i class="fas fa-rss"></i></a>
-    </div>
-</footer>
+        <!-- ===== 页脚 ===== -->
+        <footer class="footer">
+            <span>© 2026-2027 · ACG 导航</span>
+            <span>用 ❤️ 为二次元引路 · 站长邮箱: <a href="mailto:u@anibk.eu.cc">u@anibk.eu.cc</a></span>
+            <div class="socials">
+                <a href="https://space.bilibili.com/" target="_blank" rel="noopener" title="B站"><i class="fab fa-bilibili"></i></a>
+                <a href="https://music.163.com/playlist?id=370324112&uct2=U2FsdGVkX1/MQ47KiSW6GCNTQ+GzV7lj6sO+YJj4kLY=" target="_blank" rel="noopener" title="网易云"><i class="fa-solid fa-compact-disc"></i></a>
+                <a href="https://github.com/" target="_blank" rel="noopener" title="GitHub"><i class="fab fa-github"></i></a>
+                <a href="/feed.xml" target="_blank" rel="noopener" title="RSS"><i class="fas fa-rss"></i></a>
+            </div>
+        </footer>
     </div>
 
     <script>
         // ================================================================
         //  ACG 数据（共 9 个分类，站点列表）
-        //  所有站点均包含：标题、链接、图标路径、标签、描述
-        //  修改站点时请确保 icon 路径正确，如缺失会显示首字母占位
+        //  每个站点包含：标题、链接、图标路径、标签数组、描述
+        //  注意：修改站点时需确保 icon 路径正确，图片缺失会自动显示首字母占位
         // ================================================================
         const navData = [
             // -------- 1. 动画追番 --------
@@ -799,7 +887,6 @@ body {
                     { "title": "Bangumi", "link": "https://bgm.tv", "icon": "./icon/bgm.ico", "tags": ["追番", "记录"], "desc": "追番记录工具，动画评分社区" },
                     { "title": "ACG.RIP", "link": "https://acg.rip/", "icon": "./icon/rip.ico", "tags": ["资源", "聚合"], "desc": "动漫资源聚合，新番/剧场版" },
                     { "title": "AniFun", "link": "https://anifun.cn/", "icon": "./icon/anifun.jpg", "tags": ["发现", "乐趣"], "desc": "AniFun，一起发现动漫与ACG的乐趣" }
-
                 ]
             },
             // -------- 3. 漫画阅读 --------
@@ -839,7 +926,7 @@ body {
                     { "title": "触站", "link": "https://www.huashi6.com/", "icon": "./icon/cz.ico", "tags": ["二次元", "同人"], "desc": "包含P站(pixiv)画师与认证画师，作品涵盖动漫图片、动漫壁纸、插画、CG原画等作品" },
                     { "title": "堆糖", "link": "https://www.duitang.com", "icon": "./icon/duitang.ico", "tags": ["图片分享", "素材"], "desc": "图片分享社区，美图/壁纸/素材" },
                     { "title": "花瓣网", "link": "https://huaban.com", "icon": "./icon/huaban.ico", "tags": ["设计灵感", "素材"], "desc": "设计灵感采集，海量优质图片" },
-                    { "title": "站酷", "link": "https://www.zcool.com.cn", "icon": "./icon/zcool.ico", "tags": ["设计", "插画"], "desc": "国内设计师社区，插画/UI/平面" },
+                    { "title": "站酷", "link": "https://www.zcool.com.cn", "icon": "./icon/zcool.ico", "tags": ["设计", "插画"], "desc": "国内设计师社区，插画/UI/平面" }
                 ]
             },
             // -------- 6. 免费音乐 --------
@@ -917,62 +1004,85 @@ body {
         ];
 
         // ================================================================
-        //  渲染引擎（含平滑滚动）
-        //  以下函数用于生成页面内容、侧栏导航，并实现滚动跟随
+        //  渲染引擎（生成页面内容 + 侧栏导航 + 滚动跟随）
         // ================================================================
-        const grid = document.getElementById('categoryGrid');
-        const sidebar = document.getElementById('sidebar');
-        let navLinks = [];
-        let categoryCards = [];
-        let scrollTimer = null;
-        let isScrolling = false;
-        let activeIndex = 0;
-        let followTimer = null;
+
+        const grid = document.getElementById('categoryGrid'); // 分类卡片容器
+        const sidebar = document.getElementById('sidebar'); // 侧栏导航容器
+
+        let navLinks = []; // 存储所有侧栏导航链接元素
+        let categoryCards = []; // 存储所有分类卡片元素
+        let scrollTimer = null; // 滚动节流计时器
+        let isScrolling = false; // 标记是否正在执行滚动动画（防止冲突）
+        let activeIndex = 0; // 当前高亮的侧栏索引
+        let followTimer = null; // 跟随滚动节流计时器
 
         /**
-         * 自定义平滑滚动函数
-         * @param {Element} targetElement - 目标元素
+         * 自定义平滑滚动函数（使用 requestAnimationFrame 和缓动函数）
+         * @param {Element} targetElement - 目标DOM元素
          * @param {Window|Element} container - 滚动容器（window 或侧栏）
          * @param {number} offset - 滚动偏移量（像素）
          * @param {number} duration - 动画持续时间（毫秒）
          */
         function smoothScrollTo(targetElement, container = window, offset = 0, duration = 600) {
             return new Promise((resolve) => {
+                // 获取滚动容器的起始滚动位置
                 const start = container === window ? window.pageYOffset : container.scrollTop;
+                // 计算目标元素相对于视口的位置
                 const rect = targetElement.getBoundingClientRect();
+                // 计算目标滚动位置（起始 + 元素顶部 - 偏移量）
                 const target = start + rect.top - offset;
-                const startTime = performance.now();
+                const startTime = performance.now(); // 动画开始时间
+
                 function step(currentTime) {
-                    const elapsed = currentTime - startTime;
-                    const progress = Math.min(elapsed / duration, 1);
-                    // easeInOutQuad 缓动函数
+                    const elapsed = currentTime - startTime; // 已过去的时间
+                    const progress = Math.min(elapsed / duration, 1); // 进度（0~1）
+                    // easeInOutQuad 缓动函数（先加速后减速）
                     const ease = progress < 0.5 ? 2 * progress * progress : 1 - Math.pow(-2 * progress + 2, 2) / 2;
-                    const newPos = start + (target - start) * ease;
-                    if (container === window) { window.scrollTo(0, newPos); } else { container.scrollTop = newPos; }
-                    if (progress < 1) { requestAnimationFrame(step); } else { resolve(); }
+                    const newPos = start + (target - start) * ease; // 当前应滚动到的位置
+
+                    if (container === window) {
+                        window.scrollTo(0, newPos); // 页面滚动
+                    } else {
+                        container.scrollTop = newPos; // 容器内滚动
+                    }
+
+                    if (progress < 1) {
+                        requestAnimationFrame(step); // 继续下一帧动画
+                    } else {
+                        resolve(); // 动画完成
+                    }
                 }
                 requestAnimationFrame(step);
             });
         }
 
         /**
-         * 侧栏滚动到指定导航项（居中）
+         * 侧栏滚动到指定导航项（居中显示）
+         * @param {Element} linkElement - 导航链接元素
+         * @param {number} duration - 动画持续时间（毫秒）
          */
         function scrollSidebarToLink(linkElement, duration = 400) {
             const container = sidebar;
             const linkRect = linkElement.getBoundingClientRect();
             const containerRect = container.getBoundingClientRect();
+            // 计算目标滚动偏移：使链接居中于侧栏可视区域
             const offset = linkRect.top - containerRect.top - container.clientHeight / 2 + linkRect.height / 2;
             const targetScroll = container.scrollTop + offset;
             const start = container.scrollTop;
             const startTime = performance.now();
+
             return new Promise((resolve) => {
                 function step(currentTime) {
                     const elapsed = currentTime - startTime;
                     const progress = Math.min(elapsed / duration, 1);
                     const ease = progress < 0.5 ? 2 * progress * progress : 1 - Math.pow(-2 * progress + 2, 2) / 2;
                     container.scrollTop = start + (targetScroll - start) * ease;
-                    if (progress < 1) { requestAnimationFrame(step); } else { resolve(); }
+                    if (progress < 1) {
+                        requestAnimationFrame(step);
+                    } else {
+                        resolve();
+                    }
                 }
                 requestAnimationFrame(step);
             });
@@ -982,19 +1092,21 @@ body {
          * 渲染主函数：根据数据生成分类卡片和侧栏导航
          */
         function render(data) {
-            grid.innerHTML = '';
-            sidebar.innerHTML = '';
+            grid.innerHTML = ''; // 清空卡片容器
+            sidebar.innerHTML = ''; // 清空侧栏
             navLinks = [];
             categoryCards = [];
 
             data.forEach((cat, index) => {
-                // ---- 分类卡片 ----
+                // ---- 创建分类卡片 ----
                 const card = document.createElement('div');
                 card.className = 'category-card';
-                card.id = `category-${index}`;
+                card.id = `category-${index}`; // 设置ID用于锚点定位
 
+                // 分类标题
                 const titleDiv = document.createElement('div');
                 titleDiv.className = 'category-title';
+                // 提取分类图标（如 "🎬"）和名称
                 const iconMatch = cat.category.match(/^(.+?)\s/);
                 const iconHtml = iconMatch ? iconMatch[1] : '📌';
                 const name = cat.category.replace(/^.+?\s/, '');
@@ -1005,22 +1117,26 @@ body {
                 `;
                 card.appendChild(titleDiv);
 
+                // 站点网格
                 const itemsGrid = document.createElement('div');
                 itemsGrid.className = 'items-grid';
+
                 cat.items.forEach(item => {
                     const cardEl = document.createElement('div');
                     cardEl.className = 'item-card';
-                    cardEl.dataset.link = item.link;
+                    cardEl.dataset.link = item.link; // 存储链接用于点击跳转
 
+                    // 卡片头部（图标 + 信息）
                     const headerDiv = document.createElement('div');
                     headerDiv.className = 'item-header';
 
-                    // 图标
+                    // 图标容器
                     const iconContainer = document.createElement('div');
                     iconContainer.className = 'item-icon';
                     const img = document.createElement('img');
                     img.src = item.icon;
                     img.alt = item.title;
+                    // 图片加载失败时显示首字母占位
                     img.onerror = function() {
                         this.style.display = 'none';
                         const fallback = document.createElement('span');
@@ -1053,7 +1169,7 @@ body {
                     headerDiv.appendChild(infoDiv);
                     cardEl.appendChild(headerDiv);
 
-                    // 点击卡片（整卡可点，排除内部链接）
+                    // 整卡点击事件（排除内部链接，防止重复跳转）
                     cardEl.addEventListener('click', function(e) {
                         if (e.target.closest('a')) return;
                         const link = this.dataset.link;
@@ -1067,33 +1183,32 @@ body {
                 grid.appendChild(card);
                 categoryCards.push(card);
 
-                // ---- 侧栏导航链接 ----
+                // ---- 创建侧栏导航链接 ----
                 const navLink = document.createElement('a');
                 navLink.href = `#category-${index}`;
                 navLink.textContent = name;
                 navLink.dataset.index = index;
 
-navLink.addEventListener('click', async function(e) {
-    e.preventDefault();
-    if (isScrolling) return;
-    isScrolling = true;
-    const idx = parseInt(this.dataset.index);
-    
-    // 判断是否为第一个分类（索引 0）
-    if (idx === 0) {
-        // 点击“动画追番”直接滚动到页面顶部
-        await smoothScrollTo(document.documentElement, window, 0, 600);
-    } else {
-        const target = document.getElementById(`category-${idx}`);
-        if (target) {
-            await smoothScrollTo(target, window, 20, 600);
-        }
-    }
-    
-    // 侧栏滚动到该链接居中
-    await scrollSidebarToLink(this, 400);
-    isScrolling = false;
-});
+                navLink.addEventListener('click', async function(e) {
+                    e.preventDefault();
+                    if (isScrolling) return;
+                    isScrolling = true;
+                    const idx = parseInt(this.dataset.index);
+
+                    // 特殊处理：第一个分类（索引0）滚动到页面顶部
+                    if (idx === 0) {
+                        await smoothScrollTo(document.documentElement, window, 0, 600);
+                    } else {
+                        const target = document.getElementById(`category-${idx}`);
+                        if (target) {
+                            await smoothScrollTo(target, window, 20, 600);
+                        }
+                    }
+
+                    // 侧栏滚动到该链接居中
+                    await scrollSidebarToLink(this, 400);
+                    isScrolling = false;
+                });
 
                 sidebar.appendChild(navLink);
                 navLinks.push(navLink);
@@ -1109,29 +1224,38 @@ navLink.addEventListener('click', async function(e) {
         function setupSidebarFollow() {
             window.removeEventListener('scroll', handleScroll);
             window.addEventListener('scroll', handleScroll, { passive: true });
-            handleScroll();
+            handleScroll(); // 立即执行一次定位
         }
 
         function handleScroll() {
             if (followTimer) return;
             followTimer = requestAnimationFrame(() => {
                 const cards = categoryCards;
-                if (!cards.length) { followTimer = null; return; }
+                if (!cards.length) {
+                    followTimer = null;
+                    return;
+                }
+
+                // 寻找当前可见的第一个卡片（顶部在视口内的）
                 let newIndex = 0;
                 let found = false;
                 for (let i = 0; i < cards.length; i++) {
                     const rect = cards[i].getBoundingClientRect();
-                    if (rect.top < 20) continue;
+                    if (rect.top < 20) continue; // 已滚过的跳过
                     newIndex = i;
                     found = true;
                     break;
                 }
+                // 如果所有卡片都已滚过，激活最后一个
                 if (!found && cards.length > 0) newIndex = cards.length - 1;
+
+                // 如果索引变化，滚动侧栏到对应的链接
                 if (newIndex !== activeIndex) {
                     activeIndex = newIndex;
                     const link = navLinks[activeIndex];
                     if (link) scrollSidebarToLink(link, 300);
                 }
+
                 followTimer = null;
             });
         }
@@ -1144,7 +1268,12 @@ navLink.addEventListener('click', async function(e) {
 
         function doSearch() {
             const keyword = searchInput.value.trim().toLowerCase();
-            if (!keyword) { render(navData); return; }
+            if (!keyword) {
+                render(navData); // 无关键词则恢复全部数据
+                return;
+            }
+
+            // 过滤数据（匹配标题、描述、标签）
             const filtered = navData
                 .map(cat => {
                     const matchedItems = cat.items.filter(item =>
@@ -1158,6 +1287,7 @@ navLink.addEventListener('click', async function(e) {
                 .filter(Boolean);
 
             if (filtered.length === 0) {
+                // 无结果展示提示
                 grid.innerHTML = `
                     <div class="no-result">
                         <i class="fas fa-search"></i>
@@ -1179,28 +1309,34 @@ navLink.addEventListener('click', async function(e) {
         });
 
         // ================================================================
-        //  暗色模式切换（偏好自动保存到 localStorage）
+        //  暗色模式切换（偏好保存到 localStorage）
         // ================================================================
         const themeToggle = document.getElementById('themeToggle');
         const themeIcon = document.getElementById('themeIcon');
         const themeLabel = document.getElementById('themeLabel');
 
+        // 读取已保存的主题偏好
         const savedTheme = localStorage.getItem('theme');
         if (savedTheme === 'dark') {
             document.body.classList.add('dark-mode');
             updateToggleUI(true);
         }
 
+        /**
+         * 更新切换按钮的图标和文字
+         * @param {boolean} isDark - true=暗色模式，false=亮色模式
+         */
         function updateToggleUI(isDark) {
             if (isDark) {
-                themeIcon.className = 'fas fa-sun';
+                themeIcon.className = 'fas fa-sun'; // 显示太阳（点击切换为亮色）
                 themeLabel.textContent = '亮色';
             } else {
-                themeIcon.className = 'fas fa-moon';
+                themeIcon.className = 'fas fa-moon'; // 显示月亮（点击切换为暗色）
                 themeLabel.textContent = '暗色';
             }
         }
 
+        // 点击切换主题
         themeToggle.addEventListener('click', function() {
             const isDark = document.body.classList.toggle('dark-mode');
             localStorage.setItem('theme', isDark ? 'dark' : 'light');

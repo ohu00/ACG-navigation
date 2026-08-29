@@ -1,0 +1,570 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+    <meta charset="UTF-8" />                                                 <!-- 字符编码：UTF-8 -->
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" /> <!-- 移动端视口适配 -->
+    <title>关于本站 · ACG百科|导航</title>
+    <link rel="icon" href="./favicon.png" type="image/x-icon" />            <!-- 浏览器标签页图标 -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css" /> <!-- Font Awesome 6 图标库 -->
+    <style>
+        /* ================================================================
+           所有颜色均为 rgba(r,g,b,a) 格式，最后一个值是透明度（0~1）
+           搜索 "【可调】" 快速定位所有可调整项
+           ================================================================ */
+
+        /* ===== 亮色模式变量 ===== */
+        :root {
+            --bg-body: rgba(255, 255, 255, 1);              /* 页面整体背景色 */
+            --bg-container: rgba(255, 255, 255, 0.35);       /* 内容卡片背景色 + 透明度（0.35=35%不透明） */
+            --bg-card: rgba(252, 249, 246, 0.8);             /* 备用子卡片背景色 + 透明度 */
+            --bg-sidebar: rgba(255, 253, 251, 0.65);         /* 备用侧栏背景色 + 透明度 */
+            --bg-sidebar-hover: rgba(245, 87, 108, 1);       /* 按钮/链接悬停背景色（粉色） */
+            --bg-search: rgba(255, 255, 255, 1);             /* 备用搜索框背景色 */
+            --bg-badge: rgba(45, 42, 36, 1);                 /* "关于"徽标背景色（深灰） */
+            --bg-overlay: rgba(0, 0, 0, 0.1);                /* 背景图遮罩（亮色模式下轻微压暗） */
+
+            --text-primary: rgba(45, 42, 36, 1);             /* 主标题 / 正文颜色（深灰） */
+            --text-secondary: rgba(0, 0, 0, 1);        /* 次要文字 / 描述颜色（暖灰） */
+            --text-muted: rgba(255, 255, 255, 0.65);            /* 辅助文字 / 灰色（最淡） */
+            --text-footer: rgba(255, 255, 255, 0.75);        /* 页脚文字（白色 + 75%不透明） */
+
+            --border-color: rgba(232, 221, 208, 0.6);        /* 边框颜色 + 60%不透明 */
+            --border-hover: rgba(224, 212, 200, 0.8);        /* 悬停边框颜色（比普通边框深一些） */
+            --shadow-color: rgba(0, 0, 0, 0.06);             /* 卡片阴影（黑色 + 6%不透明，非常淡） */
+            --icon-bg: rgba(240, 232, 224, 0.7);             /* 备用图标背景色 + 70%不透明 */
+        }
+
+        /* ===== 暗色模式变量（覆盖亮色变量） ===== */
+        body.dark-mode {
+            --bg-body: rgba(26, 26, 30, 1);                  /* 暗色页面背景（深灰黑） */
+            --bg-container: rgba(30, 30, 35, 0.35);           /* 暗色卡片背景 + 35%不透明 */
+            --bg-card: rgba(40, 40, 46, 0.8);                 /* 暗色子卡片背景 + 80%不透明 */
+            --bg-sidebar: rgba(30, 30, 35, 0.92);             /* 暗色侧栏背景 + 92%不透明 */
+            --bg-sidebar-hover: rgba(245, 87, 108, 1);        /* 悬停色不变（粉色醒目） */
+            --bg-search: rgba(42, 42, 48, 1);                 /* 暗色搜索框背景 */
+            --bg-badge: rgba(240, 232, 224, 1);               /* 暗色徽标背景（亮色，与暗色对比） */
+            --bg-overlay: rgba(0, 0, 0, 0.5);                /* 暗色遮罩更黑（50%不透明） */
+
+            --text-primary: rgba(232, 228, 224, 1);           /* 暗色主文字（亮灰） */
+            --text-secondary: rgba(191, 182, 174, 1);         /* 暗色次要文字（浅灰） */
+            --text-muted: rgba(143, 133, 122, 1);             /* 暗色辅助文字（中灰） */
+            --text-footer: rgba(255, 255, 255, 0.75);         /* 暗色页脚文字（与亮色一致） */
+
+            --border-color: rgba(60, 56, 52, 0.6);            /* 暗色边框（深色 + 60%不透明） */
+            --border-hover: rgba(100, 90, 80, 0.8);           /* 暗色悬停边框（变亮一些） */
+            --shadow-color: rgba(0, 0, 0, 0.3);               /* 暗色阴影更深（30%不透明） */
+            --icon-bg: rgba(60, 56, 52, 0.6);                 /* 暗色图标背景 */
+        }
+
+        /* ===== 全局重置 ===== */
+        * {
+            margin: 0;                                        /* 清除所有元素默认外边距 */
+            padding: 0;                                       /* 清除所有元素默认内边距 */
+            box-sizing: border-box;                           /* 宽高包含 padding 和 border，不撑大 */
+        }
+
+        /* ===== 页面主体 ===== */
+        body {
+            /* 字体栈：优先 Segoe UI (Win) → PingFang SC (Mac) → Roboto (Android) → 系统默认 */
+            font-family: 'Segoe UI', 'PingFang SC', Roboto, 'Helvetica Neue', sans-serif;
+
+            background-image: url('./background.jpg');        /* 背景图片路径（可换成 about 专用壁纸） */
+            background-size: cover;                           /* 图片铺满视口，可能裁剪边缘 */
+            background-position: center;                      /* 图片居中显示 */
+            background-attachment: fixed;                     /* 图片固定不随滚动（视差效果） */
+            background-repeat: no-repeat;                     /* 图片不重复平铺 */
+
+            position: relative;                               /* 为伪元素 ::before 提供定位基准 */
+            color: var(--text-primary);                       /* 主文字颜色（亮/暗由变量控制） */
+            padding: 2rem 1.5rem;                             /* 页面内边距：上下 32px，左右 24px */
+            line-height: 1.8;                                 /* 行高 1.8（比默认1.6更易读长文本） */
+            min-height: 100vh;                                /* 最小高度占满一屏 */
+            transition: background-color 0.3s, color 0.3s;    /* 背景色/文字色变化过渡 0.3 秒 */
+        }
+
+        /* ===== 背景图遮罩（覆盖在背景图片上方） ===== */
+        body::before {
+            content: '';                                      /* 伪元素必须有 content 才能显示 */
+            position: fixed;                                  /* 固定定位，不随滚动条滚动 */
+            top: 0;                                           /* 上边缘贴顶 */
+            left: 0;                                          /* 左边缘贴左 */
+            right: 0;                                         /* 右边缘贴右 */
+            bottom: 0;                                        /* 下边缘贴底 */
+            background-color: var(--bg-overlay);              /* 遮罩颜色 + 透明度（由变量控制） */
+            pointer-events: none;                             /* 遮罩不拦截鼠标点击事件 */
+            z-index: 0;                                       /* 位于内容下方（数值小） */
+            transition: background-color 0.3s;                /* 遮罩颜色变化过渡 0.3 秒 */
+        }
+
+        /* ===== 主容器 ===== */
+        .container {
+            max-width: 900px;                                 /* 内容最大宽度 900px（阅读舒适区） */
+            margin: 0 auto;                                   /* 水平居中 */
+            padding: 0 20px;                                  /* 左右内边距各 20px（防止内容贴边） */
+            position: relative;                               /* 定位基准 */
+            z-index: 1;                                       /* 位于遮罩上方（数值大于 ::before） */
+        }
+
+        /* ================================================================
+           头部（Logo + 返回按钮 + 暗色切换）
+           ================================================================ */
+        .header {
+            display: flex;                                    /* 弹性布局 */
+            align-items: center;                              /* 子元素垂直居中 */
+            justify-content: space-between;                   /* 子元素两端对齐（Logo左，按钮右） */
+            flex-wrap: wrap;                                  /* 空间不足时允许换行 */
+            gap: 1rem;                                        /* 子元素间距 16px */
+            margin-bottom: 2.5rem;                            /* 头部底部外边距 40px */
+            padding-bottom: 1.5rem;                           /* 底部内边距 24px（与边框距离） */
+            border-bottom: 2px solid var(--border-color);     /* 下边框：粗细2px，颜色由变量控制 */
+            transition: border-color 0.3s;                    /* 边框颜色变化过渡 0.3 秒 */
+        }
+
+        /* ----- Logo 区域 ----- */
+        .logo {
+            display: flex;                                    /* 弹性布局 */
+            align-items: center;                              /* 子元素垂直居中 */
+            gap: 0.5rem;                                      /* Logo 与标语间距 8px */
+        }
+        .logo a {
+            display: inline-block;                            /* 行内块级元素 */
+            line-height: 0;                                   /* 行高为0，消除图片底部多余间隙 */
+        }
+        .logo img {
+            height: 128px;                                     /* Logo 高度 48px（宽度自动等比缩放） */
+            width: auto;                                      /* 宽度自动适应高度 */
+            vertical-align: middle;                           /* 垂直居中对齐 */
+            transition: opacity 0.2s;                         /* 透明度变化过渡 0.2 秒 */
+        }
+        .logo img:hover {
+            opacity: 0.8;                                     /* 鼠标悬停时透明度变为 80%（轻微变暗） */
+        }
+        .logo .slogan {
+            font-size: 1.2rem;                                /* 标语字号 19.2px */
+            color: var(--text-secondary);                     /* 标语颜色（由变量控制） */
+            font-weight: 400;                                 /* 字重 400（常规） */
+            margin-left: 0.25rem;                             /* 标语左间距 4px */
+            transition: color 0.3s;                           /* 颜色变化过渡 0.3 秒 */
+        }
+
+        /* ----- 右侧功能区 ----- */
+        .header-meta {
+            display: flex;                                    /* 弹性布局 */
+            align-items: center;                              /* 子元素垂直居中 */
+            gap: 1rem;                                        /* 各元素间距 16px */
+            flex-wrap: wrap;                                  /* 空间不足时换行 */
+        }
+
+        /* "关于" 徽标 */
+.header-meta .badge {
+    background: var(--bg-search);
+    color: var(--text-primary); /* 改这里：从 var(--bg-body) 改为 var(--text-primary) */
+    padding: 0.3rem 1rem;
+    border-radius: 30px;
+    font-size: 0.8rem;
+    font-weight: 500;
+    letter-spacing: 0.3px;
+    transition: all 0.3s ease;
+    border: 1px solid var(--border-color);
+}
+
+.header-meta .badge:hover {
+    border-color: rgba(245, 87, 108, 1);
+    background: var(--bg-sidebar-hover);
+    color: #fff;
+}
+
+        /* 返回首页按钮 */
+        .btn-back {
+            background: var(--bg-search);                     /* 背景色（由变量控制） */
+            border: 1px solid var(--border-color);            /* 边框：粗细1px，颜色由变量控制 */
+            border-radius: 30px;                              /* 圆角 30px */
+            padding: 0.3rem 1.2rem;                           /* 内边距：上下 4.8px，左右 19.2px */
+            font-size: 0.85rem;                               /* 字号 13.6px */
+            cursor: pointer;                                  /* 鼠标悬停变为手型 */
+            color: var(--text-primary);                       /* 文字颜色（由变量控制） */
+            transition: 0.3s;                                 /* 所有属性变化过渡 0.3 秒 */
+            text-decoration: none;                            /* 去掉下划线 */
+            display: inline-flex;                             /* 行内弹性布局 */
+            align-items: center;                              /* 子元素垂直居中 */
+            gap: 0.4rem;                                      /* 图标与文字间距 6.4px */
+        }
+        .btn-back:hover {
+            border-color: rgba(245, 87, 108, 1);              /* 悬停边框变为粉色 */
+            background: var(--bg-sidebar-hover);              /* 悬停背景色（粉色） */
+            color: #fff;                                      /* 悬停文字变为白色 */
+        }
+
+        /* 暗色模式切换按钮 */
+        .theme-toggle {
+            background: var(--bg-search);                     /* 背景色（由变量控制） */
+            border: 1px solid var(--border-color);            /* 边框：粗细1px，颜色由变量控制 */
+            border-radius: 30px;                              /* 圆角 30px */
+            padding: 0.3rem 0.8rem;                           /* 内边距：上下 4.8px，左右 12.8px */
+            font-size: 1.1rem;                                /* 图标大小 17.6px */
+            cursor: pointer;                                  /* 鼠标悬停变为手型 */
+            color: var(--text-primary);                       /* 文字/图标颜色（由变量控制） */
+            transition: 0.3s;                                 /* 所有属性变化过渡 0.3 秒 */
+            display: flex;                                    /* 弹性布局 */
+            align-items: center;                              /* 子元素垂直居中 */
+            gap: 0.3rem;                                      /* 图标与文字间距 4.8px */
+            line-height: 1.4;                                 /* 行高 1.4 */
+        }
+        .theme-toggle:hover {
+            border-color: rgba(245, 87, 108, 1);              /* 悬停边框变为粉色 */
+            background: var(--bg-sidebar-hover);              /* 悬停背景色（粉色） */
+            color: #fff;                                      /* 悬停文字变为白色 */
+        }
+        .theme-toggle .toggle-label {
+            font-size: 0.75rem;                               /* 按钮文字大小 12px */
+            font-weight: 500;                                 /* 字重 500（中等） */
+        }
+
+        /* ================================================================
+           内容卡片（关于页面主体）
+           ================================================================ */
+        .about-card {
+            background: var(--bg-container);                  /* 卡片背景色 + 透明度（由变量控制） */
+            backdrop-filter: blur(2px);                       /* 毛玻璃模糊 2px（轻微模糊透出背景） */
+            border-radius: 24px;                              /* 卡片圆角 24px */
+            padding: 2.5rem 3rem;                             /* 内边距：上下 40px，左右 48px */
+            box-shadow: 0 4px 20px var(--shadow-color);       /* 阴影：水平0 垂直4px 模糊20px 颜色由变量控制 */
+            border: 1px solid var(--border-color);            /* 边框：粗细1px，颜色由变量控制 */
+            transition: 0.3s;                                 /* 所有属性变化过渡 0.3 秒 */
+            margin-bottom: 2rem;                              /* 底部外边距 32px */
+        }
+        .about-card:hover {
+            border-color: var(--border-hover);                /* 悬停边框颜色加深 */
+            box-shadow: 0 8px 32px var(--shadow-color);       /* 悬停阴影变大：垂直8px 模糊32px */
+        }
+
+        /* ----- 页面主标题 ----- */
+        .about-title {
+            font-size: 2rem;                                  /* 标题字号 32px */
+            font-weight: 700;                                 /* 字重 700（加粗） */
+            margin-bottom: 1.5rem;                            /* 底部外边距 24px */
+            color: var(--text-primary);                       /* 文字颜色（由变量控制） */
+            display: flex;                                    /* 弹性布局 */
+            align-items: center;                              /* 子元素垂直居中 */
+            gap: 0.75rem;                                     /* 图标与文字间距 12px */
+        }
+        .about-title i {
+            color: rgba(245, 87, 108, 1);                     /* 标题图标固定粉色（不随主题变化） */
+        }
+
+        /* ----- 每个内容区块 ----- */
+        .about-section {
+            margin-bottom: 2rem;                              /* 区块底部间距 32px */
+        }
+        .about-section h2 {
+            font-size: 1.2rem;                                /* 小标题字号 19.2px */
+            font-weight: 600;                                 /* 字重 600（半粗） */
+            margin-bottom: 0.8rem;                            /* 底部外边距 12.8px */
+            color: var(--text-primary);                       /* 文字颜色（由变量控制） */
+            display: flex;                                    /* 弹性布局 */
+            align-items: center;                              /* 子元素垂直居中 */
+            gap: 0.5rem;                                      /* 图标与文字间距 8px */
+        }
+        .about-section h2 i {
+            color: rgba(245, 87, 108, 1);                     /* 小标题图标固定粉色 */
+            width: 1.6rem;                                    /* 固定宽度 25.6px（保证所有图标对齐） */
+            text-align: center;                               /* 图标居中 */
+        }
+        .about-section p {
+            color: var(--text-secondary);                     /* 段落文字颜色（次要色） */
+            margin-bottom: 0.6rem;                            /* 底部外边距 9.6px */
+            padding-left: 0.5rem;                             /* 左内边距 8px（与标题缩进对齐） */
+        }
+        .about-section ul {
+            color: var(--text-secondary);                     /* 列表文字颜色（次要色） */
+            padding-left: 2rem;                               /* 左内边距 32px */
+            list-style: none;                                 /* 去掉默认的圆点样式 */
+        }
+        .about-section ul li {
+            padding: 0.3rem 0;                                /* 上下内边距 4.8px，左右0 */
+            display: flex;                                    /* 弹性布局 */
+            align-items: center;                              /* 子元素垂直居中 */
+            gap: 0.5rem;                                      /* 内容间距 8px */
+        }
+        /* 自定义列表圆点（替代默认 disc） */
+        .about-section ul li::before {
+            content: "•";                                     /* 圆点符号 */
+            color: rgba(245, 87, 108, 1);                     /* 固定粉色 */
+            font-weight: bold;                                /* 加粗 */
+            font-size: 1.2rem;                                /* 字号 19.2px */
+        }
+
+        .about-section .highlight {
+            color: rgba(245, 87, 108, 1);                     /* 高亮文字固定粉色 */
+            font-weight: 500;                                 /* 字重 500（中等） */
+        }
+
+        /* ----- 分割线 ----- */
+        .divider {
+            border: none;                                     /* 去掉默认边框 */
+            border-top: 1px dashed var(--border-color);       /* 上边框：粗细1px，虚线，颜色由变量控制 */
+            margin: 1.5rem 0;                                 /* 上下外边距 24px */
+            transition: border-color 0.3s;                    /* 边框颜色变化过渡 0.3 秒 */
+        }
+
+        /* ================================================================
+           页脚
+           ================================================================ */
+        .footer {
+            margin-top: 2rem;                                 /* 顶部外边距 32px */
+            padding-top: 1.5rem;                              /* 顶部内边距 24px（与边框距离） */
+            border-top: 1px solid var(--border-color);        /* 上边框：粗细1px，颜色由变量控制 */
+            display: flex;                                    /* 弹性布局 */
+            justify-content: space-between;                   /* 两端对齐 */
+            flex-wrap: wrap;                                  /* 空间不足时换行 */
+            gap: 1rem;                                        /* 子元素间距 16px */
+            font-size: 0.85rem;                               /* 字号 13.6px */
+            align-items: flex-end;                            /* 子元素底部对齐 */
+            color: var(--text-footer);                        /* 文字颜色（由变量控制） */
+            transition: border-color 0.3s, color 0.3s;        /* 边框/文字颜色变化过渡 0.3 秒 */
+        }
+        .footer a {
+            color: var(--text-footer);                        /* 链接颜色（由变量控制） */
+            text-decoration: none;                            /* 去掉下划线 */
+            transition: 0.2s;                                 /* 所有属性变化过渡 0.2 秒 */
+        }
+        .footer a:hover {
+            color: rgba(245, 87, 108, 1);                     /* 链接悬停变为粉色 */
+        }
+
+        /* 社交图标 */
+        .footer .socials a {
+            font-size: 1.2rem;                                /* 图标大小 19.2px */
+            margin-left: 0.6rem;                              /* 图标左间距 9.6px（用于间隔多个图标） */
+            color: rgba(255, 255, 255, 0.75);                 /* 图标颜色固定为白色 + 75%不透明 */
+            transition: 0.2s;                                 /* 所有属性变化过渡 0.2 秒 */
+            text-decoration: none;                            /* 去掉下划线 */
+        }
+        .footer .socials a:hover {
+            color: rgba(245, 87, 108, 1);                     /* 图标悬停变为粉色 */
+        }
+
+        /* ================================================================
+           响应式（手机/平板 ≤768px）
+           ================================================================ */
+        @media (max-width: 768px) {
+            body {
+                padding: 1rem 0.8rem;                          /* 手机端页面内边距缩小：上下16px，左右12.8px */
+            }
+            .container {
+                padding: 0;                                    /* 手机端容器取消左右内边距（充分利用屏幕） */
+            }
+
+            /* 头部 */
+            .header {
+                flex-direction: row;                           /* 保持水平排列（不堆叠） */
+                flex-wrap: wrap;                               /* 允许换行 */
+                gap: 0.5rem;                                   /* 手机端间距缩小为 8px */
+                margin-bottom: 1.5rem;                         /* 底部外边距缩小为 24px */
+            }
+            .logo img {
+                height: 34px;                                  /* 手机端 Logo 高度缩小为 34px */
+            }
+            .logo .slogan {
+                font-size: 0.9rem;                             /* 手机端标语字号缩小为 14.4px */
+            }
+
+            /* 内容卡片 */
+            .about-card {
+                padding: 1.5rem 1.2rem;                        /* 手机端卡片内边距：上下24px，左右19.2px */
+            }
+            .about-title {
+                font-size: 1.5rem;                             /* 手机端标题字号缩小为 24px */
+            }
+            .about-section h2 {
+                font-size: 1rem;                               /* 手机端小标题字号缩小为 16px */
+            }
+
+            /* 右侧功能区 */
+            .header-meta .badge {
+                font-size: 0.6rem;                             /* 手机端徽标字号 9.6px */
+                padding: 0.2rem 0.6rem;                        /* 手机端徽标内边距缩小 */
+            }
+            .theme-toggle .toggle-label {
+                display: none;                                 /* 手机端隐藏切换按钮的文字（只留图标） */
+            }
+            .theme-toggle {
+                padding: 0.2rem 0.5rem;                        /* 手机端切换按钮内边距缩小 */
+                font-size: 0.9rem;                             /* 手机端切换按钮图标缩小为 14.4px */
+            }
+            .btn-back {
+                font-size: 0.75rem;                            /* 手机端返回按钮字号缩小为 12px */
+                padding: 0.2rem 0.8rem;                        /* 手机端返回按钮内边距缩小 */
+            }
+
+            /* 页脚垂直排列 */
+            .footer {
+                flex-direction: column;                        /* 改为垂直排列 */
+                align-items: center;                           /* 居中 */
+                text-align: center;                            /* 文字居中 */
+            }
+        }
+
+        /* ================================================================
+           小屏手机（≤480px）
+           ================================================================ */
+        @media (max-width: 480px) {
+            .about-card {
+                padding: 1rem 0.8rem;                          /* 小屏卡片内边距更小：上下16px，左右12.8px */
+            }
+            .about-title {
+                font-size: 1.2rem;                             /* 小屏标题字号 19.2px */
+            }
+        }
+    </style>
+</head>
+<body>
+
+    <div class="container">
+
+        <!-- ===== 头部 ===== -->
+        <header class="header">
+            <div class="logo">
+                <a href="/" title="返回首页">
+                    <img src="./logo.svg" alt="ACG 导航" />
+                </a>
+            </div>
+            <div class="header-meta">
+                <span class="badge"><i class="fas fa-info-circle"></i> 关于</span>
+                <a href="/" class="btn-back"><i class="fas fa-arrow-left"></i> 返回首页</a>
+                <button class="theme-toggle" id="themeToggle" aria-label="切换暗色模式">
+                    <i class="fas fa-moon" id="themeIcon"></i>
+                    <span class="toggle-label" id="themeLabel">暗色</span>
+                </button>
+            </div>
+        </header>
+
+        <!-- ===== 关于内容 ===== -->
+        <div class="about-card">
+
+            <div class="about-title">
+                <i class="fas fa-paw"></i>
+                关于 ACG百科|导航
+            </div>
+
+            <!-- 区块1：本站简介 -->
+            <div class="about-section">
+                <h2><i class="fas fa-flag"></i> 本站简介</h2>
+                <p>
+                    <strong>ACG百科|导航</strong> 是一个专为二次元爱好者设计的导航站，
+                    聚合了动漫追番、漫画阅读、游戏天地、插画创作、免费音乐、轻小说文库、
+                    工具资源以及 AI 工具库等优质资源。
+                </p>
+                <p>
+                    我们致力于为 ACG 同好提供一个干净、高效、美观的资源入口，
+                    让每一次探索都充满乐趣。
+                </p>
+            </div>
+
+            <hr class="divider" />
+
+            <!-- 区块2：更新日志 -->
+            <div class="about-section">
+                <h2><i class="fas fa-pencil-alt"></i> 更新日志</h2>
+                <ul>
+                    <li><strong>2026.08</strong> — 网站正式上线，收录 100+ 优质 ACG 站点</li>
+                    <li><strong>2026.08</strong> — 新增 AI 工具库分类，收录国内外知名 AI 工具</li>
+                    <li><strong>2026.08</strong> — 全面适配移动端，优化卡片布局与交互体验</li>
+                </ul>
+            </div>
+
+            <hr class="divider" />
+
+            <!-- 区块3：免责声明 -->
+            <div class="about-section">
+                <h2><i class="fas fa-shield-alt"></i> 免责声明</h2>
+                <p>
+                    本站仅提供导航链接服务，所有站点内容均为第三方提供，
+                    本站不存储任何资源，也不对第三方站点内容负责。
+                </p>
+                <p>
+                    如您认为本站收录的内容侵犯了您的合法权益，
+                    请通过 <a href="mailto:u@anibk.eu.cc" style="color:rgba(245,87,108,1);">u@anibk.eu.cc</a> 联系我们，
+                    我们将在核实后尽快处理。
+                </p>
+            </div>
+
+            <hr class="divider" />
+
+            <!-- 区块4：联系方式 -->
+            <div class="about-section">
+                <h2><i class="fas fa-envelope"></i> 联系方式</h2>
+                <ul>
+                    <li><i class="fas fa-envelope" style="color:rgba(245,87,108,1); width:1.2rem;"></i> 站长邮箱：<a href="mailto:u@anibk.eu.cc" style="color:rgba(245,87,108,1); text-decoration:none;">u@anibk.eu.cc</a></li>
+                    <li><i class="fas fa-globe" style="color:rgba(245,87,108,1); width:1.2rem;"></i> 主站地址：<a href="https://anibk.eu.cc/" style="color:rgba(245,87,108,1); text-decoration:none;">anibk.eu.cc</a></li>
+                </ul>
+            </div>
+
+            <hr class="divider" />
+
+            <!-- 区块5：致谢 -->
+            <div class="about-section">
+                <h2><i class="fas fa-heart" style="color:rgba(245,87,108,1);"></i> 致谢</h2>
+                <p>
+                    感谢所有默默付出的创作者、汉化组、字幕组和社区。
+                </p>
+                <p style="font-size:0.9rem; color:var(--text-muted); margin-top:0.5rem;">
+                    感谢 <a href="https://fontawesome.com/" target="_blank" style="color:rgba(245,87,108,1);">Font Awesome</a> 提供免费图标库.
+                </p>
+            </div>
+
+        </div>
+
+        <!-- ===== 页脚 ===== -->
+        <footer class="footer">
+            <span>© 2026-2027  ACG 导航 · 用 ❤️ 为二次元引路</span>
+            <div class="socials">
+                <a href="https://space.bilibili.com/" target="_blank" title="B站"><i class="fab fa-bilibili"></i></a>
+                <a href="https://music.163.com/playlist?id=370324112&uct2=U2FsdGVkX1/MQ47KiSW6GCNTQ+GzV7lj6sO+YJj4kLY=" target="_blank" title="网易云"><i class="fa-solid fa-compact-disc"></i></a>
+                <a href="https://github.com/" target="_blank" title="GitHub"><i class="fab fa-github"></i></a>
+                <a href="/feed.xml" target="_blank" title="RSS"><i class="fas fa-rss"></i></a>
+            </div>
+        </footer>
+
+    </div>
+
+    <script>
+        // ================================================================
+        //  暗色模式切换
+        // ================================================================
+
+        const themeToggle = document.getElementById('themeToggle');        // 切换按钮
+        const themeIcon = document.getElementById('themeIcon');            // 图标元素
+        const themeLabel = document.getElementById('themeLabel');          // 文字标签
+
+        // 读取 localStorage 中保存的主题偏好
+        const savedTheme = localStorage.getItem('theme');                 // 'dark' 或 'light' 或 null
+        if (savedTheme === 'dark') {
+            document.body.classList.add('dark-mode');                     // 添加暗色类
+            updateToggleUI(true);                                         // 更新按钮图标/文字为暗色状态
+        }
+
+        /**
+         * 更新切换按钮的图标和文字
+         * @param {boolean} isDark - true=暗色模式，false=亮色模式
+         */
+        function updateToggleUI(isDark) {
+            if (isDark) {
+                themeIcon.className = 'fas fa-sun';                       // 暗色模式显示太阳（点击后变亮色）
+                themeLabel.textContent = '亮色';                          // 文字提示
+            } else {
+                themeIcon.className = 'fas fa-moon';                      // 亮色模式显示月亮（点击后变暗色）
+                themeLabel.textContent = '暗色';                          // 文字提示
+            }
+        }
+
+        // 点击切换暗色/亮色模式
+        themeToggle.addEventListener('click', function() {
+            const isDark = document.body.classList.toggle('dark-mode');   // 切换类，返回是否添加成功
+            localStorage.setItem('theme', isDark ? 'dark' : 'light');     // 保存偏好到 localStorage
+            updateToggleUI(isDark);                                        // 更新按钮状态
+        });
+    </script>
+
+</body>
+</html>
