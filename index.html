@@ -793,8 +793,6 @@
     position: fixed;
     right: 0;
     bottom: 0;
-    width: 300px;
-    height: 800px;
     z-index: 999;
     pointer-events: none;
 }
@@ -1374,8 +1372,12 @@
     <!-- ================================================================
          Live2D 小麦
          ================================================================ -->
-<canvas id="live2d" class="live2d" width="300" height="800"></canvas>
-
+<canvas
+    class="live2d"
+    id="live2d"
+    width="300"
+    height="800">
+</canvas>
 <script src="./js/live2d.js"></script>
 
 <script>
