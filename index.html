@@ -276,7 +276,7 @@
             background: var(--bg-search); /* 搜索框背景色（由变量控制） */
             border: 1px solid var(--border-color); /* 边框：粗细1px 颜色由变量控制 */
             border-radius: 30px; /* 圆角 30px（药丸形状） */
-            padding: 0rem 0rem 0rem 1.2rem; /* 内边距：上4.8px 右4.8px 下4.8px 左19.2px */
+            padding: 0.3rem 0.3rem 0.3rem 1.2rem; /* 内边距：上4.8px 右4.8px 下4.8px 左19.2px */
             transition: 0.25s, border-color 0.3s, background 0.3s; /* 所有属性 0.25秒 + 边框/背景 0.3秒 */
         }
         .search-box:focus-within {
@@ -289,7 +289,7 @@
             background: rgba(0, 0, 0, 0); /* 背景完全透明（继承父级） */
             font-size: 0.9rem; /* 输入字号 14.4px */
             padding: 0rem 0; /* 上下内边距 0（原有为0，保持） */
-            width: 130px; /* 输入框宽度 160px */
+            width: 160px; /* 输入框宽度 160px */
             color: var(--text-primary); /* 输入文字颜色（由变量控制） */
             transition: color 0.3s; /* 颜色变化过渡 0.3 秒 */
         }
@@ -785,7 +785,28 @@
                 font-size: 0.65rem; /* 按钮字号 10.4px */
             }
         }
-    </style>
+    
+        /* ================================================================
+           Live2D 小麦
+           ================================================================ */
+        .live2d {
+            position: fixed;
+            right: 0;
+            bottom: 0;
+            width: 300px;
+            height: 400px;
+            z-index: 999;
+            pointer-events: none;
+        }
+
+        /* ===== 手机端 ===== */
+        @media (max-width: 768px) {
+            .live2d {
+                width: 180px;
+                height: 240px;
+            }
+        }
+</style>
 </head>
 <body>
 
@@ -806,8 +827,8 @@
             <!-- 右侧功能区 -->
             <div class="header-meta">
                 <!-- "关于本站" 链接（替换了原来的"今日热推"） -->
-                <a href="./about.html" class="badge" style="text-decoration:none;">
-                    <i class="fas fa-info-circle"></i> 关于
+                <a href="./about.html" class="badge" style="text-decoration:none; color:var(--bg-body);">
+                    <i class="fas fa-info-circle"></i> 关于本站
                 </a>
                 <!-- 暗色模式切换按钮 -->
                 <button class="theme-toggle" id="themeToggle" aria-label="切换暗色模式">
@@ -832,7 +853,7 @@
             <div class="socials">
                 <a href="https://space.bilibili.com/" target="_blank" rel="noopener" title="B站"><i class="fab fa-bilibili"></i></a>
                 <a href="https://music.163.com/playlist?id=370324112&uct2=U2FsdGVkX1/MQ47KiSW6GCNTQ+GzV7lj6sO+YJj4kLY=" target="_blank" rel="noopener" title="网易云"><i class="fa-solid fa-compact-disc"></i></a>
-                <a href="https://github.com/" target="_blank" rel="noopener" title="GitHub"><i class="fab fa-github"></i></a>
+                <a href="https://github.com/ohu00" target="_blank" rel="noopener" title="GitHub"><i class="fab fa-github"></i></a>
                 <a href="/feed.xml" target="_blank" rel="noopener" title="RSS"><i class="fas fa-rss"></i></a>
             </div>
         </footer>
@@ -1348,6 +1369,21 @@
         // ================================================================
         render(navData);
     </script>
+
+
+    <!-- ================================================================
+         Live2D 小麦
+         ================================================================ -->
+    <canvas id="live2d" class="live2d"></canvas>
+
+<script src="./js/live2d.js"></script>
+
+<script>
+    loadlive2d(
+        "live2d",
+        "./model/xiaomai/xiaomai.model.json"
+    );
+</script>
 
 </body>
 </html>
