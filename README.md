@@ -51,4 +51,3 @@
 ## 🙏 致谢
 
 - [Font Awesome](https://fontawesome.com/) — 提供免费图标库
-- 所有为 ACG 文化默默付出的创作者和社区
