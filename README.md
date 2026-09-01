@@ -42,6 +42,12 @@
 
 ---
 
+## 📷 预览
+
+<img width="2540" height="1276" alt="20260901185042395" src="https://github.com/user-attachments/assets/668e7a79-59fb-4fd1-b82b-8dd7797ca2ec" />
+
+---
+
 ## 📄 许可证
 
 本项目基于 **MIT License** 开源，您可以自由使用、修改和分发。
