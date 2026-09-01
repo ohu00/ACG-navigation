@@ -8,7 +8,7 @@
  <!-- 浏览器标签页标题 -->
  <title>ACG百科|导航 · 二次元汇聚地</title>
  <!-- 浏览器标签页图标（favicon）路径 ./favicon.png -->
- <link rel="icon" href="./favicon.png" type="image/x-icon" />
+ <link rel="icon" href="./image/favicon.png" type="image/x-icon" />
  <!-- Font Awesome 6.0 图标库 CDN 外链（需联网加载） -->
  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css" />
  
@@ -92,7 +92,7 @@
             font-family: 'Segoe UI', 'PingFang SC', Roboto, 'Helvetica Neue', sans-serif;
             
             /* 背景图片路径（可替换为其他图片） */
-            background-image: url('./background.jpg');
+            background-image: url('./image/background.jpg');
             background-size: cover; /* 背景图铺满整个视口（可能裁剪边缘） */
             background-position: center; /* 背景图居中显示 */
             background-attachment: fixed; /* 背景图固定不随滚动（视差效果） */
@@ -109,7 +109,7 @@
         /* ===== PC端暗色模式专用壁纸（宽度 ≥ 769px） ===== */
         @media (min-width: 769px) {
             body.dark-mode {
-                background-image: url('./background-dark.jpg'); /* 暗色模式专用壁纸路径 */
+                background-image: url('./image/background-dark.jpg'); /* 暗色模式专用壁纸路径 */
                 background-size: cover; /* 铺满 */
                 background-position: center; /* 居中 */
                 background-attachment: fixed; /* 固定 */
@@ -554,7 +554,7 @@
         @media (max-width: 768px) {
             /* 移动端专用壁纸 */
             body {
-                background-image: url('./background-mobile.jpg'); /* 移动端壁纸路径 */
+                background-image: url('./image/background-mobile.jpg'); /* 移动端壁纸路径 */
                 background-size: cover; /* 铺满 */
                 background-position: center; /* 居中 */
                 background-attachment: fixed; /* 固定 */
@@ -620,9 +620,9 @@
 
             /* 移动端搜索框 flex 修复：输入框撑满，按钮固定在右侧 */
             .search-box {
-                flex: 1; /* 占据剩余宽度 */
+                flex: 0.8; /* 占据剩余宽度 */
                 min-width: 0; /* 允许收缩 */
-                padding: 0.2rem 0.2rem 0.2rem 0.6rem; /* 内边距缩小 */
+                padding: 0rem 0rem 0rem 0rem; /* 内边距缩小 */
                 display: flex; /* 弹性布局 */
                 align-items: center; /* 垂直居中 */
                 background: var(--bg-search); /* 背景色由变量控制 */
@@ -654,13 +654,29 @@
                 cursor: pointer; /* 手型 */
                 transition: 0.2s; /* 过渡 0.2 秒 */
                 font-weight: 500; /* 字重 500 */
-                margin-left: 0.3rem; /* 按钮与输入框间距 4.8px */
+                margin-left: 0rem; /* 按钮与输入框间距 4.8px */
             }
             .search-box button:hover {
                 background: rgba(217, 67, 86, 1); /* 悬停背景略深 */
             }
 
             /* ----- 移动端分类卡片 ----- */
+@media (max-width: 768px) {
+    /* -------- 分类卡片 -------- */
+    .category-card {
+        padding: 1.2rem 1rem 1.5rem;
+        background: var(--bg-container);
+    }
+    .category-title { font-size: 1.2rem; }
+
+    /* ✅ 添加这一行：控制移动端大分类卡片间距 */
+    .category-grid {
+        gap: 1.5rem; /* 【可调】移动端分类卡片间距 */
+    }
+
+    /* -------- 站点卡片网格 -------- */
+    .items-grid { ... }
+}
             .category-card {
                 padding: 1.2rem 1rem 1.5rem; /* 内边距缩小：上19.2px 左右16px 下24px */
                 background: var(--bg-container); /* 背景由变量控制 */
@@ -682,7 +698,7 @@
                 padding: 0.5rem 0.6rem 0.4rem; /* 内边距缩小 */
                 max-width: 100%; /* 最大宽度 100% */
                 box-sizing: border-box; /* 宽高包含内边距 */
-                height: 68px; /* 固定高度 68px（可根据内容微调） */
+                height: 60px; /* 固定高度 68px（可根据内容微调） */
                 display: flex; /* 弹性布局 */
                 flex-direction: column; /* 垂直排列 */
                 overflow: hidden; /* 超出隐藏 */
@@ -700,8 +716,8 @@
                 flex-shrink: 0; /* 不收缩 */
             }
             .item-card .item-icon {
-                width: 28px; /* 图标宽度 28px */
-                height: 28px; /* 图标高度 28px */
+                width: 32px; /* 图标宽度 28px */
+                height: 32px; /* 图标高度 28px */
                 border-radius: 8px; /* 圆角 8px */
                 background: var(--icon-bg); /* 背景由变量控制 */
                 display: flex; /* 弹性布局 */
@@ -808,7 +824,7 @@
             z-index: 999;
 
             /* 不阻挡网页按钮、链接等鼠标操作 */
-            pointer-events: none;
+          /*  pointer-events: none; */
         }
 /* ===== 移动端 Live2D ===== */
 @media (max-width: 768px) {
@@ -820,6 +836,14 @@
         bottom: -40px; /* 上下 */
     }
 }
+/* ===== 左下角 Live2D ===== */
+@media (max-width: 768px) {
+  #live2d-widget {
+    left: -80px !important;    /* 移动端水平位置（负数往左，正数往右） */
+    bottom: -160px !important;  /* 移动端垂直位置（负数往下沉，正数往上抬） */
+  }
+}
+
 </style>
 </head>
 <body>
@@ -833,7 +857,7 @@
             <!-- Logo 区域 -->
             <div class="logo">
                 <a href="/" title="ACG百科|导航">
-                    <img src="./logo.svg" alt="ACG 导航" />
+                    <img src="./image/logo.svg" alt="ACG 导航" />
                 </a>
                 <!-- 标语（实际为空，用于占位） -->
                 <span class="slogan">                                           </span>
@@ -884,156 +908,156 @@
             {
                 "category": "🎬 动画追番",
                 "items": [
-                    { "title": "Bilibili", "link": "https://www.bilibili.com", "icon": "./icon/bili.png", "tags": ["弹幕", "社区", "追番"], "desc": "国内最大ACG视频社区，追番、二创、直播一站式" },
-                    { "title": "AcFun", "link": "https://www.acfun.cn", "icon": "./icon/ac.ico", "tags": ["弹幕", "怀旧", "社区"], "desc": "弹幕文化发源地，硬核二次元聚集地" },
-                    { "title": "樱花动漫", "link": "http://www.yinghuadm.io/", "icon": "./icon/yhdm.ico", "tags": ["在线观看", "新番"], "desc": "海量动漫在线观看，更新快画质优" },
-                    { "title": "Anime1", "link": "https://anime1.me", "icon": "./icon/anime1.ico", "tags": ["新番", "追番表"], "desc": "新番动画追踪，每周更新列表清晰" },
-                    { "title": "青空次元", "link": "https://www.sorani.net/", "icon": "./icon/qkcy.png", "tags": ["在线观看", "高清"], "desc": "青空次元，悠于青空之上" },
-                    { "title": "次元城动画", "link": "https://www.cycani.org/", "icon": "./icon/cyc.ico", "tags": ["蓝光", "免费"], "desc": "次元城动画，海量蓝光番剧免费看" },
-                    { "title": "AniCh", "link": "https://anich.emmmm.eu.org/", "icon": "./icon/anich.ico", "tags": ["弹幕", "在线"], "desc": "AniCh动漫弹幕网" },
-                    { "title": "4K动漫", "link": "https://cn.agekkkk.com/", "icon": "./icon/4kdm.ico", "tags": ["4K", "在线"], "desc": "4K动漫，超清在线观看" },
-                    { "title": "稀饭动漫", "link": "https://dick.xfani.com/", "icon": "./icon/xfdm.png", "tags": ["免费", "高清"], "desc": "稀饭动漫，免费高清动漫分享" },
-                    { "title": "二矿动漫", "link": "https://www.2rk.cc/", "icon": "./icon/2rk.ico", "tags": ["在线观看", "新番"], "desc": "二矿，在线观看2k动画" },
-                    { "title": "哔咪动漫 (M站)", "link": "https://www.bimiacg.icu/", "icon": "./icon/bimi.ico", "tags": ["在线观看", "弹幕"], "desc": "哔咪动漫，弹幕番剧平台" },
-                    { "title": "girigiri愛動漫", "link": "https://anime.girigirilove.top/", "icon": "./icon/giri.png", "tags": ["在线观看", "弹幕"], "desc": "girigiri愛動漫，高清弹幕番剧平台" },
-                    { "title": "AGE动漫", "link": "https://www.agedm.io", "icon": "./icon/age.ico", "tags": ["在线观看", "弹幕"], "desc": "在线动漫观看，弹幕互动体验" },
-                    { "title": "E站弹幕网", "link": "https://www.ezdmw.org/", "icon": "./icon/ezdmw.ico", "tags": ["在线观看", "搞笑"], "desc": "轻松看番，弹幕氛围" },
-                    { "title": "粵漫之家", "link": "https://www.ymvid.com/", "icon": "./icon/ymzj.ico", "tags": ["资讯", "社区", "漫画"], "desc": "为热爱粤语文化的观众提供高质量的观看体验" },
-                    { "title": "观影", "link": "https://www.xn--wcv59z.com/", "icon": "./icon/gy.png", "tags": ["影视", "动漫"], "desc": "观影，综合影视动漫站" },
-                    { "title": "虚位以待", "link": "", "icon": "./icon/xwyd.png", "tags": [], "desc": "此处风景甚好，静待有缘人" }
+                    { "title": "Bilibili", "link": "https://www.bilibili.com", "icon": "./image/icon/bili.png", "tags": ["弹幕", "社区", "追番"], "desc": "国内最大ACG视频社区，追番、二创、直播一站式" },
+                    { "title": "AcFun", "link": "https://www.acfun.cn", "icon": "./image/icon/ac.ico", "tags": ["弹幕", "怀旧", "社区"], "desc": "弹幕文化发源地，硬核二次元聚集地" },
+                    { "title": "樱花动漫", "link": "http://www.yinghuadm.io/", "icon": "./image/icon/yhdm.ico", "tags": ["在线观看", "新番"], "desc": "海量动漫在线观看，更新快画质优" },
+                    { "title": "Anime1", "link": "https://anime1.me", "icon": "./image/icon/anime1.ico", "tags": ["新番", "追番表"], "desc": "新番动画追踪，每周更新列表清晰" },
+                    { "title": "青空次元", "link": "https://www.sorani.net/", "icon": "./image/icon/qkcy.png", "tags": ["在线观看", "高清"], "desc": "青空次元，悠于青空之上" },
+                    { "title": "次元城动画", "link": "https://www.cycani.org/", "icon": "./image/icon/cyc.ico", "tags": ["蓝光", "免费"], "desc": "次元城动画，海量蓝光番剧免费看" },
+                    { "title": "AniCh", "link": "https://anich.emmmm.eu.org/", "icon": "./image/icon/anich.ico", "tags": ["弹幕", "在线"], "desc": "AniCh动漫弹幕网" },
+                    { "title": "4K动漫", "link": "https://cn.agekkkk.com/", "icon": "./image/icon/4kdm.ico", "tags": ["4K", "在线"], "desc": "4K动漫，超清在线观看" },
+                    { "title": "稀饭动漫", "link": "https://dick.xfani.com/", "icon": "./image/icon/xfdm.png", "tags": ["免费", "高清"], "desc": "稀饭动漫，免费高清动漫分享" },
+                    { "title": "二矿动漫", "link": "https://www.2rk.cc/", "icon": "./image/icon/2rk.ico", "tags": ["在线观看", "新番"], "desc": "二矿，在线观看2k动画" },
+                    { "title": "哔咪动漫 (M站)", "link": "https://www.bimiacg.icu/", "icon": "./image/icon/bimi.ico", "tags": ["在线观看", "弹幕"], "desc": "哔咪动漫，弹幕番剧平台" },
+                    { "title": "girigiri愛動漫", "link": "https://anime.girigirilove.top/", "icon": "./image/icon/giri.png", "tags": ["在线观看", "弹幕"], "desc": "girigiri愛動漫，高清弹幕番剧平台" },
+                    { "title": "AGE动漫", "link": "https://www.agedm.io", "icon": "./image/icon/age.ico", "tags": ["在线观看", "弹幕"], "desc": "在线动漫观看，弹幕互动体验" },
+                    { "title": "E站弹幕网", "link": "https://www.ezdmw.org/", "icon": "./image/icon/ezdmw.ico", "tags": ["在线观看", "搞笑"], "desc": "轻松看番，弹幕氛围" },
+                    { "title": "粵漫之家", "link": "https://www.ymvid.com/", "icon": "./image/icon/ymzj.ico", "tags": ["资讯", "社区", "漫画"], "desc": "为热爱粤语文化的观众提供高质量的观看体验" },
+                    { "title": "观影", "link": "https://www.xn--wcv59z.com/", "icon": "./image/icon/gy.png", "tags": ["影视", "动漫"], "desc": "观影，综合影视动漫站" },
+                    { "title": "虚位以待", "link": "", "icon": "./image/icon/xwyd.png", "tags": [], "desc": "此处风景甚好，静待有缘人" }
                 ]
             },
             // -------- 2. 二次元社区 --------
             {
                 "category": "💬 二次元社区",
                 "items": [
-                    { "title": "番组百科", "link": "https://www.anibk.com/", "icon": "./icon/anibk.ico", "tags": ["百科", "番组"], "desc": "番组百科，动画番组信息" },
-                    { "title": "次元狗", "link": "https://www.acgndog.com/", "icon": "./icon/cyg.png", "tags": ["资讯", "社区"], "desc": "次元狗，ACG资讯与分享" },
-                    { "title": "萌娘百科", "link": "https://zh.moegirl.org.cn", "icon": "./icon/mnbk.png", "tags": ["百科", "二次元"], "desc": "最全二次元百科，ACG文化宝典" },
-                    { "title": "Anime字幕论坛", "link": "https://bbs.acgrip.com/", "icon": "./icon/sub.ico", "tags": ["字幕", "论坛"], "desc": "Anime字幕论坛，字幕分享与讨论" },
-                    { "title": "动漫花园", "link": "https://dmhy.org", "icon": "./icon/dmhy.ico", "tags": ["资源", "分享"], "desc": "动漫资源分享站，经典BT发布" },
-                    { "title": "米麓星", "link": "https://www.miluxing.com/", "icon": "./icon/mlx.webp", "tags": ["在线观看", "资源"], "desc": "米麓星，动漫资源站" },
-                    { "title": "爱恋动漫BT", "link": "http://www.kisssub.org/", "icon": "./icon/kisssub.ico", "tags": ["BT下载", "动漫"], "desc": "爱恋动漫BT下载站，资源丰富" },
-                    { "title": "漫猫", "link": "https://www.comicat.org/", "icon": "./icon/cat.ico", "tags": ["漫画", "在线"], "desc": "漫猫，漫画在线阅读平台" },
-                    { "title": "蜜柑计划", "link": "https://mikanani.me", "icon": "./icon/mikan.ico", "tags": ["资源聚合", "下载"], "desc": "动漫资源聚合站，BDRip/WebRip 一网打尽" },
-                    { "title": "ACG Secrets.HK", "link": "https://acgsecrets.hk/", "icon": "./icon/acghk.png", "tags": ["资讯", "资源"], "desc": "ACG秘密基地，提供资讯与资源" },
-                    { "title": "YuC's AnimeList", "link": "https://yuc.wiki/", "icon": "./icon/yuc.png", "tags": ["动漫列表", "资料"], "desc": "YuC's AnimeList，动漫列表与资料" },
-                    { "title": "NGA", "link": "https://nga.178.com", "icon": "./icon/nga.ico", "tags": ["游戏", "讨论"], "desc": "国内头部游戏社区，硬核攻略讨论" },
-                    { "title": "Bangumi", "link": "https://bgm.tv", "icon": "./icon/bgm.ico", "tags": ["追番", "记录"], "desc": "追番记录工具，动画评分社区" },
-                    { "title": "ACG.RIP", "link": "https://acg.rip/", "icon": "./icon/rip.ico", "tags": ["资源", "聚合"], "desc": "动漫资源聚合，新番/剧场版" },
-                    { "title": "AniFun", "link": "https://anifun.cn/", "icon": "./icon/anifun.jpg", "tags": ["发现", "乐趣"], "desc": "AniFun，一起发现动漫与ACG的乐趣" }
+                    { "title": "番组百科", "link": "https://www.anibk.com/", "icon": "./image/icon/anibk.ico", "tags": ["百科", "番组"], "desc": "番组百科，动画番组信息" },
+                    { "title": "次元狗", "link": "https://www.acgndog.com/", "icon": "./image/icon/cyg.png", "tags": ["资讯", "社区"], "desc": "次元狗，ACG资讯与分享" },
+                    { "title": "萌娘百科", "link": "https://zh.moegirl.org.cn", "icon": "./image/icon/mnbk.png", "tags": ["百科", "二次元"], "desc": "最全二次元百科，ACG文化宝典" },
+                    { "title": "Anime字幕论坛", "link": "https://bbs.acgrip.com/", "icon": "./image/icon/sub.ico", "tags": ["字幕", "论坛"], "desc": "Anime字幕论坛，字幕分享与讨论" },
+                    { "title": "动漫花园", "link": "https://dmhy.org", "icon": "./image/icon/dmhy.ico", "tags": ["资源", "分享"], "desc": "动漫资源分享站，经典BT发布" },
+                    { "title": "米麓星", "link": "https://www.miluxing.com/", "icon": "./image/icon/mlx.webp", "tags": ["在线观看", "资源"], "desc": "米麓星，动漫资源站" },
+                    { "title": "爱恋动漫BT", "link": "http://www.kisssub.org/", "icon": "./image/icon/kisssub.ico", "tags": ["BT下载", "动漫"], "desc": "爱恋动漫BT下载站，资源丰富" },
+                    { "title": "漫猫", "link": "https://www.comicat.org/", "icon": "./image/icon/cat.ico", "tags": ["漫画", "在线"], "desc": "漫猫，漫画在线阅读平台" },
+                    { "title": "蜜柑计划", "link": "https://mikanani.me", "icon": "./image/icon/mikan.ico", "tags": ["资源聚合", "下载"], "desc": "动漫资源聚合站，BDRip/WebRip 一网打尽" },
+                    { "title": "ACG Secrets.HK", "link": "https://acgsecrets.hk/", "icon": "./image/icon/acghk.png", "tags": ["资讯", "资源"], "desc": "ACG秘密基地，提供资讯与资源" },
+                    { "title": "YuC's AnimeList", "link": "https://yuc.wiki/", "icon": "./image/icon/yuc.png", "tags": ["动漫列表", "资料"], "desc": "YuC's AnimeList，动漫列表与资料" },
+                    { "title": "NGA", "link": "https://nga.178.com", "icon": "./image/icon/nga.ico", "tags": ["游戏", "讨论"], "desc": "国内头部游戏社区，硬核攻略讨论" },
+                    { "title": "Bangumi", "link": "https://bgm.tv", "icon": "./image/icon/bgm.ico", "tags": ["追番", "记录"], "desc": "追番记录工具，动画评分社区" },
+                    { "title": "ACG.RIP", "link": "https://acg.rip/", "icon": "./image/icon/rip.ico", "tags": ["资源", "聚合"], "desc": "动漫资源聚合，新番/剧场版" },
+                    { "title": "AniFun", "link": "https://anifun.cn/", "icon": "./image/icon/anifun.jpg", "tags": ["发现", "乐趣"], "desc": "AniFun，一起发现动漫与ACG的乐趣" }
                 ]
             },
             // -------- 3. 漫画阅读 --------
             {
                 "category": "📚 漫画阅读",
                 "items": [
-                    {"title":"包子漫画","link":"https://www.baozimh.com/","icon":"./icon/baozi.png","tags":["国产","日漫","韩漫","免费"],"desc":"提供国产漫画、日漫、韩漫的综合型免费在线观看漫画网站"},
-                    {"title":"MYCOMIC","link":"https://mycomic.com/cn","icon":"./icon/mycomic.webp","tags":["国漫","日漫","韩漫","欧美","免费"],"desc":"国漫、日漫、韩漫、欧美漫画免费在线阅读的网站"},
-                    {"title":"Goda漫画","link":"https://godamh.com/","icon":"./icon/goda.ico","tags":["国漫","日漫","韩漫","欧美","免费"],"desc":"提供国漫、日漫、韩漫以及欧美漫画的在线免费阅读网站"},
-                    {"title":"读漫屋","link":"http://dumanwu1.com/","icon":"./icon/dmw.ico","tags":["日漫","韩漫","在线"],"desc":"提供日漫、韩漫、韩漫资源的在线漫画网站"},
-                    {"title":"爱韩漫","link":"https://www.ihanman.com/","icon":"./icon/ihanman.ico","tags":["韩漫","日漫","国漫","在线"],"desc":"以韩漫、日漫、国漫为主的在线漫画网站"},
-                    {"title":"YY漫画","link":"https://www.yymanhua.com/","icon":"./icon/manga.ico","tags":["日漫","专注"],"desc":"专注日本漫画在线阅读的网站"},
-                    {"title":"漫画狗","link":"https://www.manhuagou.net/","icon":"./icon/manhuagou.ico","tags":["国漫","日漫","韩漫","美漫","免费"],"desc":"提供国漫、日漫、韩漫、美漫免费在线阅读的网站"},
-                    {"title":"漫本","link":"https://www.manben.com/","icon":"./icon/manben.ico","tags":["原创","华人","分享"],"desc":"瑛麒动漫打造的华人原创漫画作品分享平台"}
+                    {"title":"包子漫画","link":"https://www.baozimh.com/","icon":"./image/icon/baozi.png","tags":["国产","日漫","韩漫","免费"],"desc":"提供国产漫画、日漫、韩漫的综合型免费在线观看漫画网站"},
+                    {"title":"MYCOMIC","link":"https://mycomic.com/cn","icon":"./image/icon/mycomic.webp","tags":["国漫","日漫","韩漫","欧美","免费"],"desc":"国漫、日漫、韩漫、欧美漫画免费在线阅读的网站"},
+                    {"title":"Goda漫画","link":"https://godamh.com/","icon":"./image/icon/goda.ico","tags":["国漫","日漫","韩漫","欧美","免费"],"desc":"提供国漫、日漫、韩漫以及欧美漫画的在线免费阅读网站"},
+                    {"title":"读漫屋","link":"http://dumanwu1.com/","icon":"./image/icon/dmw.ico","tags":["日漫","韩漫","在线"],"desc":"提供日漫、韩漫、韩漫资源的在线漫画网站"},
+                    {"title":"爱韩漫","link":"https://www.ihanman.com/","icon":"./image/icon/ihanman.ico","tags":["韩漫","日漫","国漫","在线"],"desc":"以韩漫、日漫、国漫为主的在线漫画网站"},
+                    {"title":"YY漫画","link":"https://www.yymanhua.com/","icon":"./image/icon/manga.ico","tags":["日漫","专注"],"desc":"专注日本漫画在线阅读的网站"},
+                    {"title":"漫画狗","link":"https://www.manhuagou.net/","icon":"./image/icon/manhuagou.ico","tags":["国漫","日漫","韩漫","美漫","免费"],"desc":"提供国漫、日漫、韩漫、美漫免费在线阅读的网站"},
+                    {"title":"漫本","link":"https://www.manben.com/","icon":"./image/icon/manben.ico","tags":["原创","华人","分享"],"desc":"瑛麒动漫打造的华人原创漫画作品分享平台"}
                 ]
             },
             // -------- 4. 游戏天地 --------
             {
                 "category": "🎮 游戏天地",
                 "items": [
-                    { "title": "Steam", "link": "https://store.steampowered.com", "icon": "./icon/steam.ico", "tags": ["游戏平台", "正版"], "desc": "全球最大PC游戏平台，海量单机/联机游戏" },
-                    { "title": "小黑盒", "link": "https://www.xiaoheihe.cn/app/bbs/home", "icon": "./icon/xiaoheihe.ico", "tags": ["游戏", "社区"], "desc": "小黑盒，玩家高能聚集地" },
-                    { "title": "老游戏在线玩", "link": "https://zaixianwan.app/", "icon": "./icon/laoyouxi.ico", "tags": ["怀旧", "网页"], "desc": "老游戏在线玩，经典游戏网页版" },
-                    { "title": "Koyso", "link": "https://koysobackup.com/", "icon": "./icon/playzip.ico", "tags": ["下载", "PC"], "desc": "Koyso - PC Games Free Download" },
-                    { "title": "Epic游戏商城", "link": "https://store.epicgames.com/zh-CN/", "icon": "./icon/epic.ico", "tags": ["平台", "免费"], "desc": "Epic游戏商城，每周免费游戏" },
-                    { "title": "Switch520", "link": "https://www.gamer520.com/", "icon": "./icon/s520.png", "tags": ["Switch", "下载"], "desc": "Switch520，Switch游戏下载" },
-                    { "title": "蒸汽游戏宝库", "link": "https://www.steambk.com/", "icon": "./icon/zqyxbk.ico", "tags": ["Steam", "下载"], "desc": "蒸汽游戏宝库，高质量Steam单机游戏下载" },
-                    { "title": "123资源库", "link": "https://www.123zyk.com/", "icon": "./icon/123.png", "tags": ["游戏资源", "免费"], "desc": "123资源库，免费高质量游戏资源" }
+                    { "title": "Steam", "link": "https://store.steampowered.com", "icon": "./image/icon/steam.ico", "tags": ["游戏平台", "正版"], "desc": "全球最大PC游戏平台，海量单机/联机游戏" },
+                    { "title": "小黑盒", "link": "https://www.xiaoheihe.cn/app/bbs/home", "icon": "./image/icon/xiaoheihe.ico", "tags": ["游戏", "社区"], "desc": "小黑盒，玩家高能聚集地" },
+                    { "title": "老游戏在线玩", "link": "https://zaixianwan.app/", "icon": "./image/icon/laoyouxi.ico", "tags": ["怀旧", "网页"], "desc": "老游戏在线玩，经典游戏网页版" },
+                    { "title": "Koyso", "link": "https://koysobackup.com/", "icon": "./image/icon/playzip.ico", "tags": ["下载", "PC"], "desc": "Koyso - PC Games Free Download" },
+                    { "title": "Epic游戏商城", "link": "https://store.epicgames.com/zh-CN/", "icon": "./image/icon/epic.ico", "tags": ["平台", "免费"], "desc": "Epic游戏商城，每周免费游戏" },
+                    { "title": "Switch520", "link": "https://www.gamer520.com/", "icon": "./image/icon/s520.png", "tags": ["Switch", "下载"], "desc": "Switch520，Switch游戏下载" },
+                    { "title": "蒸汽游戏宝库", "link": "https://www.steambk.com/", "icon": "./image/icon/zqyxbk.ico", "tags": ["Steam", "下载"], "desc": "蒸汽游戏宝库，高质量Steam单机游戏下载" },
+                    { "title": "123资源库", "link": "https://www.123zyk.com/", "icon": "./image/icon/123.png", "tags": ["游戏资源", "免费"], "desc": "123资源库，免费高质量游戏资源" }
                 ]
             },
             // -------- 5. 插画创作 --------
             {
                 "category": "🎨 插画创作",
                 "items": [
-                    { "title": "Pixiv", "link": "https://www.pixiv.net", "icon": "./icon/pixiv.ico", "tags": ["插画", "日本"], "desc": "全球最大二次元插画社区，画师圣地" },
-                    { "title": "pixivic", "link": "https://pixivic.com/", "icon": "./icon/pzjx.png", "tags": ["艺术", "CG"], "desc": "Pixiv镜像，支持浏览，但分类和搜索功能有限，所有作品混合显示 " },
-                    { "title": "触站", "link": "https://www.huashi6.com/", "icon": "./icon/cz.ico", "tags": ["二次元", "同人"], "desc": "包含P站(pixiv)画师与认证画师，作品涵盖动漫图片、动漫壁纸、插画、CG原画等作品" },
-                    { "title": "堆糖", "link": "https://www.duitang.com", "icon": "./icon/duitang.ico", "tags": ["图片分享", "素材"], "desc": "图片分享社区，美图/壁纸/素材" },
-                    { "title": "花瓣网", "link": "https://huaban.com", "icon": "./icon/huaban.ico", "tags": ["设计灵感", "素材"], "desc": "设计灵感采集，海量优质图片" },
-                    { "title": "站酷", "link": "https://www.zcool.com.cn", "icon": "./icon/zcool.ico", "tags": ["设计", "插画"], "desc": "国内设计师社区，插画/UI/平面" }
+                    { "title": "Pixiv", "link": "https://www.pixiv.net", "icon": "./image/icon/pixiv.ico", "tags": ["插画", "日本"], "desc": "全球最大二次元插画社区，画师圣地" },
+                    { "title": "pixivic", "link": "https://pixivic.com/", "icon": "./image/icon/pzjx.png", "tags": ["艺术", "CG"], "desc": "Pixiv镜像，支持浏览，但分类和搜索功能有限，所有作品混合显示 " },
+                    { "title": "触站", "link": "https://www.huashi6.com/", "icon": "./image/icon/cz.ico", "tags": ["二次元", "同人"], "desc": "包含P站(pixiv)画师与认证画师，作品涵盖动漫图片、动漫壁纸、插画、CG原画等作品" },
+                    { "title": "堆糖", "link": "https://www.duitang.com", "icon": "./image/icon/duitang.ico", "tags": ["图片分享", "素材"], "desc": "图片分享社区，美图/壁纸/素材" },
+                    { "title": "花瓣网", "link": "https://huaban.com", "icon": "./image/icon/huaban.ico", "tags": ["设计灵感", "素材"], "desc": "设计灵感采集，海量优质图片" },
+                    { "title": "站酷", "link": "https://www.zcool.com.cn", "icon": "./image/icon/zcool.ico", "tags": ["设计", "插画"], "desc": "国内设计师社区，插画/UI/平面" }
                 ]
             },
             // -------- 6. 免费音乐 --------
             {
                 "category": "🎵 免费音乐",
                 "items": [
-                    { "title": "猫耳FM", "link": "https://www.missevan.com", "icon": "./icon/mefm.png", "tags": ["广播剧", "有声"], "desc": "广播剧/有声漫平台，声控天堂" },
-                    { "title": "网易云音乐", "link": "https://music.163.com", "icon": "./icon/wyy.ico", "tags": ["音乐", "ACG"], "desc": "ACG音乐宝库，歌单/评论文化" },
-                    { "title": "哔哩哔哩音乐", "link": "https://music.bilibili.com/pc/rank", "icon": "./icon/bili.ico", "tags": ["音乐", "翻唱"], "desc": "B站音乐区，翻唱/Vocaloid" },
-                    { "title": "酷狗音乐", "link": "https://www.kugou.com", "icon": "./icon/kugou.ico", "tags": ["音乐", "ACG"], "desc": "ACG曲库丰富，音质优秀" },
-                    { "title": "5sing", "link": "https://5sing.kugou.com", "icon": "./icon/5sing.ico", "tags": ["原创音乐", "翻唱"], "desc": "原创音乐/翻唱平台，古风/二次元" },
-                    { "title": "QQ音乐", "link": "https://y.qq.com", "icon": "./icon/qqmusic.ico", "tags": ["音乐", "ACG"], "desc": "ACG音乐版权丰富，日音/国漫OST" },
-                    { "title": "SPlayer", "link": "https://splayer.uncley.cc/#/", "icon": "./icon/splayer.ico", "tags": ["音乐播放", "在线"], "desc": "SPlayer，在线音乐播放器" },
-                    { "title": "下歌吧", "link": "https://xiageba.liumingye.cn/", "icon": "./icon/xgb.ico", "tags": ["音乐下载", "MP3"], "desc": "下歌吧，免费下载高品质MP3与FLAC" }
+                    { "title": "猫耳FM", "link": "https://www.missevan.com", "icon": "./image/icon/mefm.png", "tags": ["广播剧", "有声"], "desc": "广播剧/有声漫平台，声控天堂" },
+                    { "title": "网易云音乐", "link": "https://music.163.com", "icon": "./image/icon/wyy.ico", "tags": ["音乐", "ACG"], "desc": "ACG音乐宝库，歌单/评论文化" },
+                    { "title": "哔哩哔哩音乐", "link": "https://music.bilibili.com/pc/rank", "icon": "./image/icon/bili.ico", "tags": ["音乐", "翻唱"], "desc": "B站音乐区，翻唱/Vocaloid" },
+                    { "title": "酷狗音乐", "link": "https://www.kugou.com", "icon": "./image/icon/kugou.ico", "tags": ["音乐", "ACG"], "desc": "ACG曲库丰富，音质优秀" },
+                    { "title": "5sing", "link": "https://5sing.kugou.com", "icon": "./image/icon/5sing.ico", "tags": ["原创音乐", "翻唱"], "desc": "原创音乐/翻唱平台，古风/二次元" },
+                    { "title": "QQ音乐", "link": "https://y.qq.com", "icon": "./image/icon/qqmusic.ico", "tags": ["音乐", "ACG"], "desc": "ACG音乐版权丰富，日音/国漫OST" },
+                    { "title": "SPlayer", "link": "https://splayer.uncley.cc/#/", "icon": "./image/icon/splayer.ico", "tags": ["音乐播放", "在线"], "desc": "SPlayer，在线音乐播放器" },
+                    { "title": "下歌吧", "link": "https://xiageba.liumingye.cn/", "icon": "./image/icon/xgb.ico", "tags": ["音乐下载", "MP3"], "desc": "下歌吧，免费下载高品质MP3与FLAC" }
                 ]
             },
             // -------- 7. 轻小说文库 --------
             {
                 "category": "📕 轻小说文库",
                 "items": [
-                    { "title": "哔哩轻小说", "link": "https://www.linovelib.com/", "icon": "./icon/blqxs.ico", "tags": ["轻小说", "阅读"], "desc": "轻小说阅读平台，日轻/国轻均有" },
-                    { "title": "轻之国度", "link": "https://www.lightnovel.cn", "icon": "./icon/qzgd.ico", "tags": ["轻小说", "论坛"], "desc": "轻小说爱好者论坛，翻译/讨论" },
-                    { "title": "幻梦轻小说", "link": "https://www.huanmengacg.com/", "icon": "./icon/huanmeng.jpg", "tags": ["轻小说", "国轻"], "desc": "日本轻小说平台，原创作品丰富" },
-                    { "title": "起点中文网", "link": "https://www.qidian.com", "icon": "./icon/qidian.ico", "tags": ["网络小说", "二次元"], "desc": "网文巨头，二次元/同人分类" },
-                    { "title": "刺猬猫", "link": "https://www.ciweimao.com", "icon": "./icon/ciweimao.png", "tags": ["二次元", "同人"], "desc": "二次元同人小说平台，轻小说风格" },
-                    { "title": "虚位以待", "link": "", "icon": "./icon/xwyd.png", "tags": [], "desc": "此处风景甚好，静待有缘人" }
+                    { "title": "哔哩轻小说", "link": "https://www.linovelib.com/", "icon": "./image/icon/blqxs.ico", "tags": ["轻小说", "阅读"], "desc": "轻小说阅读平台，日轻/国轻均有" },
+                    { "title": "轻之国度", "link": "https://www.lightnovel.cn", "icon": "./image/icon/qzgd.ico", "tags": ["轻小说", "论坛"], "desc": "轻小说爱好者论坛，翻译/讨论" },
+                    { "title": "幻梦轻小说", "link": "https://www.huanmengacg.com/", "icon": "./image/icon/huanmeng.jpg", "tags": ["轻小说", "国轻"], "desc": "日本轻小说平台，原创作品丰富" },
+                    { "title": "起点中文网", "link": "https://www.qidian.com", "icon": "./image/icon/qidian.ico", "tags": ["网络小说", "二次元"], "desc": "网文巨头，二次元/同人分类" },
+                    { "title": "刺猬猫", "link": "https://www.ciweimao.com", "icon": "./image/icon/ciweimao.png", "tags": ["二次元", "同人"], "desc": "二次元同人小说平台，轻小说风格" },
+                    { "title": "虚位以待", "link": "", "icon": "./image/icon/xwyd.png", "tags": [], "desc": "此处风景甚好，静待有缘人" }
                 ]
             },
             // -------- 8. 工具资源 --------
             {
                 "category": "🛠️ 工具资源",
                 "items": [
-                    { "title": "cloudflare", "link": "https://dash.cloudflare.com/", "icon": "./icon/cloudflare.svg", "tags": ["资源", "资讯"], "desc": "域名购买管理，一站式门户" },
-                    { "title": "异次元", "link": "https://www.iplaysoft.com", "icon": "./icon/ycy32.png", "tags": ["软件", "工具"], "desc": "软件分享站，ACG相关工具推荐" },
-                    { "title": "SteamDB", "link": "https://steamdb.info/", "icon": "./icon/sdb.ico", "tags": ["Steam", "数据库"], "desc": "SteamDB，Steam游戏数据统计" },
-                    { "title": "果核剥壳", "link": "https://www.ghxi.com/", "icon": "./icon/ghxi.ico", "tags": ["软件下载", "绿色"], "desc": "果核剥壳，软件资源分享" },
-                    { "title": "扩展搜搜", "link": "https://www.crxsoso.com/", "icon": "./icon/crx.ico", "tags": ["浏览器扩展", "搜索"], "desc": "扩展搜搜，浏览器扩展搜索" },
-                    { "title": "423Down", "link": "https://www.423down.com/", "icon": "./icon/423.ico", "tags": ["软件下载", "免费"], "desc": "423Down，软件下载站" },
-                    { "title": "硬核指南", "link": "https://yinghezhinan.com/", "icon": "./icon/yhzn.png", "tags": ["高清", "资源"], "desc": "硬核指南，高清资源分享" },
-                    { "title": "小众技术资源库", "link": "https://www.xiaozhongjishu.com/", "icon": "./icon/xzjs.png", "tags": ["技术", "资源"], "desc": "小众技术资源库" },
-                    { "title": "小刀娱乐网", "link": "https://www.x6g.com/", "icon": "./icon/xiaodao.ico", "tags": ["活动", "软件"], "desc": "小刀娱乐网，专注活动、软件、教程" },
-                    { "title": "临时邮箱", "link": "https://mail.td/zh", "icon": "./icon/lsyx.ico", "tags": ["在线工具", "实用"], "desc": "你的收件箱， 专为收邮件而构建。" },
-                    { "title": "Github", "link": "https://github.com/", "icon": "./icon/github.svg", "tags": ["代码托管", "开源"], "desc": "GitHub，全球最大代码托管平台" },
-                    { "title": "Greasy", "link": "https://greasyfork.org/zh-CN", "icon": "./icon/tampermonkey.svg", "tags": ["油猴", "脚本"], "desc": "GreasyFork，用户脚本分享站" },
-                    { "title": "聚合图床", "link": "https://www.superbed.cn/", "icon": "./icon/juhe.svg", "tags": ["图床", "图片托管"], "desc": "聚合图床，专业图片托管服务" },
-                    { "title": "七味", "link": "https://www.qwnull.com/", "icon": "./icon/7wei.ico", "tags": ["资源", "分享"], "desc": "七味网，综合资源站" },
-                    { "title": "在线弹幕解析", "link": "https://feiyudo.com/caption/scrolling/bilibili", "icon": "./icon/feiyu.ico", "tags": ["弹幕", "解析"], "desc": "飞鱼视频下载助手，弹幕解析" },
-                    { "title": "文叔叔", "link": "https://www.wenshushu.cn/", "icon": "./icon/wenss.ico", "tags": ["文件传输", "临时"], "desc": "文叔叔，文件传输与分享" },
-                    { "title": "吾爱破解论坛", "link": "https://www.52pojie.cn/", "icon": "./icon/wuai.svg", "tags": ["技术", "破解"], "desc": "吾爱破解论坛，技术交流与分享" }
+                    { "title": "cloudflare", "link": "https://dash.cloudflare.com/", "icon": "./image/icon/cloudflare.svg", "tags": ["资源", "资讯"], "desc": "域名购买管理，一站式门户" },
+                    { "title": "异次元", "link": "https://www.iplaysoft.com", "icon": "./image/icon/ycy32.png", "tags": ["软件", "工具"], "desc": "软件分享站，ACG相关工具推荐" },
+                    { "title": "SteamDB", "link": "https://steamdb.info/", "icon": "./image/icon/sdb.ico", "tags": ["Steam", "数据库"], "desc": "SteamDB，Steam游戏数据统计" },
+                    { "title": "果核剥壳", "link": "https://www.ghxi.com/", "icon": "./image/icon/ghxi.ico", "tags": ["软件下载", "绿色"], "desc": "果核剥壳，软件资源分享" },
+                    { "title": "扩展搜搜", "link": "https://www.crxsoso.com/", "icon": "./image/icon/crx.ico", "tags": ["浏览器扩展", "搜索"], "desc": "扩展搜搜，浏览器扩展搜索" },
+                    { "title": "423Down", "link": "https://www.423down.com/", "icon": "./image/icon/423.ico", "tags": ["软件下载", "免费"], "desc": "423Down，软件下载站" },
+                    { "title": "硬核指南", "link": "https://yinghezhinan.com/", "icon": "./image/icon/yhzn.png", "tags": ["高清", "资源"], "desc": "硬核指南，高清资源分享" },
+                    { "title": "小众技术资源库", "link": "https://www.xiaozhongjishu.com/", "icon": "./image/icon/xzjs.png", "tags": ["技术", "资源"], "desc": "小众技术资源库" },
+                    { "title": "小刀娱乐网", "link": "https://www.x6g.com/", "icon": "./image/icon/xiaodao.ico", "tags": ["活动", "软件"], "desc": "小刀娱乐网，专注活动、软件、教程" },
+                    { "title": "临时邮箱", "link": "https://mail.td/zh", "icon": "./image/icon/lsyx.ico", "tags": ["在线工具", "实用"], "desc": "你的收件箱， 专为收邮件而构建。" },
+                    { "title": "Github", "link": "https://github.com/", "icon": "./image/icon/github.svg", "tags": ["代码托管", "开源"], "desc": "GitHub，全球最大代码托管平台" },
+                    { "title": "Greasy", "link": "https://greasyfork.org/zh-CN", "icon": "./image/icon/tampermonkey.svg", "tags": ["油猴", "脚本"], "desc": "GreasyFork，用户脚本分享站" },
+                    { "title": "聚合图床", "link": "https://www.superbed.cn/", "icon": "./image/icon/juhe.svg", "tags": ["图床", "图片托管"], "desc": "聚合图床，专业图片托管服务" },
+                    { "title": "七味", "link": "https://www.qwnull.com/", "icon": "./image/icon/7wei.ico", "tags": ["资源", "分享"], "desc": "七味网，综合资源站" },
+                    { "title": "在线弹幕解析", "link": "https://feiyudo.com/caption/scrolling/bilibili", "icon": "./image/icon/feiyu.ico", "tags": ["弹幕", "解析"], "desc": "飞鱼视频下载助手，弹幕解析" },
+                    { "title": "文叔叔", "link": "https://www.wenshushu.cn/", "icon": "./image/icon/wenss.ico", "tags": ["文件传输", "临时"], "desc": "文叔叔，文件传输与分享" },
+                    { "title": "吾爱破解论坛", "link": "https://www.52pojie.cn/", "icon": "./image/icon/wuai.svg", "tags": ["技术", "破解"], "desc": "吾爱破解论坛，技术交流与分享" }
                 ]
             },
             // -------- 9. AI工具库 --------
             {
                 "category": "🤖 AI工具库",
                 "items": [
-                    { "title": "Google Gemini", "link": "https://gemini.google.com", "icon": "./icon/gemini.svg", "tags": ["AI", "聊天"], "desc": "Google Gemini，Google AI 助手" },
-                    { "title": "ChatGPT", "link": "https://chatgpt.com", "icon": "./icon/chatgpt.svg", "tags": ["AI", "聊天"], "desc": "ChatGPT，OpenAI 智能对话" },
-                    { "title": "DeepSeek", "link": "https://chat.deepseek.com/", "icon": "./icon/ds.svg", "tags": ["AI", "编程"], "desc": "DeepSeek，深度求索 AI 助手" },
-                    { "title": "grok", "link": "https://grok.com/", "icon": "./icon/grok.svg", "tags": ["AI", "聊天"], "desc": "grok，xAI 旗下 AI 聊天机器人" },
-                    { "title": "Claude", "link": "https://claude.ai", "icon": "./icon/claude.svg", "tags": ["AI", "聊天"], "desc": "Anthropic旗下AI助手，擅长推理与编码" },
-                    { "title": "Perplexity", "link": "https://www.perplexity.ai", "icon": "./icon/Perplexity.svg", "tags": ["AI搜索", "问答"], "desc": "结合生成式AI与实时搜索的答案引擎" },
-                    { "title": "文心一言", "link": "https://yiyan.baidu.com", "icon": "./icon/wenxin.svg", "tags": ["AI", "中文"], "desc": "百度旗下知识增强大语言模型" },
-                    { "title": "讯飞星火", "link": "https://xinghuo.xfyun.cn", "icon": "./icon/xinghuo.ico", "tags": ["AI", "中文"], "desc": "科大讯飞推出的认知大模型" },
-                    { "title": "通义千问", "link": "https://tongyi.aliyun.com", "icon": "./icon/qwen.svg", "tags": ["AI", "中文"], "desc": "阿里云研发的超大规模语言模型" },
-                    { "title": "智谱清言", "link": "https://chatglm.cn", "icon": "./icon/glm.ico", "tags": ["AI", "中文"], "desc": "智谱AI推出的双语对话模型" },
-                    { "title": "Kimi", "link": "https://www.kimi.com", "icon": "./icon/kimi.svg", "tags": ["AI", "长文本"], "desc": "月之暗面旗下，超长上下文AI助手" },
-                    { "title": "豆包", "link": "https://www.doubao.com", "icon": "./icon/doubao.svg", "tags": ["AI", "中文"], "desc": "字节跳动旗下AI智能助手" },
-                    { "title": "元宝", "link": "https://yuanbao.tencent.com", "icon": "./icon/yuanbao.ico", "tags": ["AI", "中文"], "desc": "腾讯旗下全能AI助手" },
-                    { "title": "Microsoft Copilot", "link": "https://copilot.cloud.microsoft/", "icon": "./icon/microsoft.ico", "tags": ["AI", "编程"], "desc": "微软与OpenAI联合推出的AI编程助手" },
-                    { "title": "Midjourney", "link": "https://www.midjourney.com", "icon": "./icon/midj.png", "tags": ["AI绘画", "图像生成"], "desc": "知名AI图像生成工具" },
-                    { "title": "Poe", "link": "https://poe.com", "icon": "./icon/poe.svg", "tags": ["AI聚合", "聊天"], "desc": "Quora旗下AI聊天聚合平台" },
-                    { "title": "Hugging Face", "link": "https://huggingface.co", "icon": "./icon/hugging.ico", "tags": ["AI社区", "模型库"], "desc": "全球最大AI模型社区与开源平台" }
+                    { "title": "Google Gemini", "link": "https://gemini.google.com", "icon": "./image/icon/gemini.svg", "tags": ["AI", "聊天"], "desc": "Google Gemini，Google AI 助手" },
+                    { "title": "ChatGPT", "link": "https://chatgpt.com", "icon": "./image/icon/chatgpt.svg", "tags": ["AI", "聊天"], "desc": "ChatGPT，OpenAI 智能对话" },
+                    { "title": "DeepSeek", "link": "https://chat.deepseek.com/", "icon": "./image/icon/ds.svg", "tags": ["AI", "编程"], "desc": "DeepSeek，深度求索 AI 助手" },
+                    { "title": "grok", "link": "https://grok.com/", "icon": "./image/icon/grok.svg", "tags": ["AI", "聊天"], "desc": "grok，xAI 旗下 AI 聊天机器人" },
+                    { "title": "Claude", "link": "https://claude.ai", "icon": "./image/icon/claude.svg", "tags": ["AI", "聊天"], "desc": "Anthropic旗下AI助手，擅长推理与编码" },
+                    { "title": "Perplexity", "link": "https://www.perplexity.ai", "icon": "./image/icon/Perplexity.svg", "tags": ["AI搜索", "问答"], "desc": "结合生成式AI与实时搜索的答案引擎" },
+                    { "title": "文心一言", "link": "https://yiyan.baidu.com", "icon": "./image/icon/wenxin.svg", "tags": ["AI", "中文"], "desc": "百度旗下知识增强大语言模型" },
+                    { "title": "讯飞星火", "link": "https://xinghuo.xfyun.cn", "icon": "./image/icon/xinghuo.ico", "tags": ["AI", "中文"], "desc": "科大讯飞推出的认知大模型" },
+                    { "title": "通义千问", "link": "https://tongyi.aliyun.com", "icon": "./image/icon/qwen.svg", "tags": ["AI", "中文"], "desc": "阿里云研发的超大规模语言模型" },
+                    { "title": "智谱清言", "link": "https://chatglm.cn", "icon": "./image/icon/glm.ico", "tags": ["AI", "中文"], "desc": "智谱AI推出的双语对话模型" },
+                    { "title": "Kimi", "link": "https://www.kimi.com", "icon": "./image/icon/kimi.svg", "tags": ["AI", "长文本"], "desc": "月之暗面旗下，超长上下文AI助手" },
+                    { "title": "豆包", "link": "https://www.doubao.com", "icon": "./image/icon/doubao.svg", "tags": ["AI", "中文"], "desc": "字节跳动旗下AI智能助手" },
+                    { "title": "元宝", "link": "https://yuanbao.tencent.com", "icon": "./image/icon/yuanbao.ico", "tags": ["AI", "中文"], "desc": "腾讯旗下全能AI助手" },
+                    { "title": "Microsoft Copilot", "link": "https://copilot.cloud.microsoft/", "icon": "./image/icon/microsoft.ico", "tags": ["AI", "编程"], "desc": "微软与OpenAI联合推出的AI编程助手" },
+                    { "title": "Midjourney", "link": "https://www.midjourney.com", "icon": "./image/icon/midj.png", "tags": ["AI绘画", "图像生成"], "desc": "知名AI图像生成工具" },
+                    { "title": "Poe", "link": "https://poe.com", "icon": "./image/icon/poe.svg", "tags": ["AI聚合", "聊天"], "desc": "Quora旗下AI聊天聚合平台" },
+                    { "title": "Hugging Face", "link": "https://huggingface.co", "icon": "./image/icon/hugging.ico", "tags": ["AI社区", "模型库"], "desc": "全球最大AI模型社区与开源平台" }
                 ]
             }
         ];
@@ -1398,16 +1422,69 @@
     </canvas>
 
     <!-- Live2D 加载程序：live2d.js 位于网站根目录的 js 文件夹 -->
-    <script src="./js/live2d.js"></script>
+    <script src="./live2d/js/live2d.js"></script>
 
     <script>
         // 加载小埋模型：
-        // 模型文件位于网站根目录的 model/xiaomai 文件夹
+        // 模型文件位于网站目录的 ./live2d/model/xiaomai 文件夹
         loadlive2d(
             "live2d",
-            "./model/xiaomai/xiaomai.model.json"
+            "./live2d/model/xiaomai/xiaomai.model.json"
         );
     </script>
+<script src="https://cdn.jsdelivr.net/npm/live2d-widget@3.x/lib/L2Dwidget.min.js"></script>
+<script>
+// ===== 模型列表（想加就往数组里添一行，从 0 开始数）=====
+const MODELS = [
+  // ===== 官方 npm 包（22 个，最稳定，L2Dwidget 原生支持）=====
+  { name: "雫",       url: "https://unpkg.com/live2d-widget-model-shizuku@latest/assets/shizuku.model.json" },
+  { name: "はる·校服", url: "https://unpkg.com/live2d-widget-model-haru@latest/01/assets/haru01.model.json" },
+  { name: "はる·冬装", url: "https://unpkg.com/live2d-widget-model-haru@latest/02/assets/haru02.model.json" },
+  { name: "村雨",     url: "https://cdn.jsdelivr.net/gh/evrstr/live2d-widget-models@master/live2d_evrstr/murakumo/model.json" },
+  { name: "时崎狂三", url: "https://cdn.jsdelivr.net/gh/evrstr/live2d-widget-models@master/live2d_evrstr/kurumi/model.json" },
+  { name: "鹿目圆",   url: "https://cdn.jsdelivr.net/gh/evrstr/live2d-widget-models@master/live2d_evrstr/madoka/model.json" },
+  { name: "纱雾",     url: "https://cdn.jsdelivr.net/gh/evrstr/live2d-widget-models@master/live2d_evrstr/sagiri/model.json" },
+  { name: "加藤惠",   url: "https://cdn.jsdelivr.net/gh/evrstr/live2d-widget-models@master/live2d_evrstr/katou/model.json" },
+  { name: "青叶",     url: "https://cdn.jsdelivr.net/gh/evrstr/live2d-widget-models@master/live2d_evrstr/aoba/model.json" },
+  { name: "康娜",     url: "https://cdn.jsdelivr.net/gh/evrstr/live2d-widget-models@master/live2d_evrstr/kobayaxi/model.json" },
+  { name: "当麻",     url: "https://cdn.jsdelivr.net/gh/evrstr/live2d-widget-models@master/live2d_evrstr/touma/model.json" },
+  { name: "茵蒂克丝", url: "https://cdn.jsdelivr.net/gh/evrstr/live2d-widget-models@master/live2d_evrstr/index/model.json" },
+  { name: "萬聖Haru", url: "https://cdn.jsdelivr.net/gh/evrstr/live2d-widget-models@master/live2d_evrstr/hallo/model.json" },
+  { name: "舰C·黑猫", url: "https://cdn.jsdelivr.net/gh/evrstr/live2d-widget-models@master/live2d_evrstr/blackcat/model.json" },
+  { name: "舰C·白猫", url: "https://cdn.jsdelivr.net/gh/evrstr/live2d-widget-models@master/live2d_evrstr/whitecat/model.json" },
+  { name: "Pio酱",    url: "https://github.com/zenghongtu/live2d-model-assets/blob/master/assets/moc/izumi/izumi.model.json" },
+];
+
+
+// ===== 当前使用第几个模型（改这个数字即可换人）=====
+const CURRENT = 0 ;   // 0=雫, 1=初音, 2=響 ... 想换人改这里
+
+// ===== 记住用户上次选的（可选：CURRENT 那行可换成下面这个）=====
+// const CURRENT = Number(localStorage.getItem("l2d_model")) || 0;
+
+L2Dwidget.init({
+  model: {
+    jsonPath: MODELS[CURRENT].url,   // ← 从数组里取地址
+    scale: 1,          // 人物在画布里的占比（建议 0.8 ~ 1.2 之间微调）
+  },
+  display: {
+    position: "left",  // 左下角固定，不用动
+    width: 280,        // 【大小】画布宽度，想更大就加
+    height: 520,       // 【大小】画布高度，想更高就加
+    hOffset: 180,      // 【位置】正数右移，负数左移
+    vOffset: 5,        // 【位置】正数上移，负数下移
+  },
+  mobile: {
+    show: true,        // 手机端显示（false = 手机端隐藏）
+    scale: 0.4,        // 手机端大小（0.3 很小，0.7 偏大）
+  },
+  react: {
+    opacityDefault: 1,       // 默认完全不透明
+    opacityOnHover: 0.8,     // 鼠标悬停时稍微变淡
+  },
+});
+</script>
+
 
 </body>
 </html>
