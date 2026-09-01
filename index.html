@@ -838,8 +838,8 @@
 /* ===== 左下角 Live2D ===== */
 @media (max-width: 768px) {
   #live2d-widget {
-    left: -80px !important;     /* 移动端水平位置（负数往左，正数往右） */
-    bottom: -160px !important;  /* 移动端垂直位置（负数往下沉，正数往上抬） */
+    left: -110px !important;     /* 移动端水平位置（负数往左，正数往右） */
+    bottom: -280px !important;  /* 移动端垂直位置（负数往下沉，正数往上抬） */
   }
 }
 
@@ -1405,27 +1405,27 @@ const navData = [
 // ===== 模型列表（想加就往数组里添一行，从 0 开始数）=====
 const MODELS = [
   // ===== 官方 npm 包（22 个，最稳定，L2Dwidget 原生支持）=====
-  { name: "雫",       url: "https://unpkg.com/live2d-widget-model-shizuku@latest/assets/shizuku.model.json" },
-  { name: "はる·校服", url: "https://unpkg.com/live2d-widget-model-haru@latest/01/assets/haru01.model.json" },
-  { name: "はる·冬装", url: "https://unpkg.com/live2d-widget-model-haru@latest/02/assets/haru02.model.json" },
-  { name: "村雨",     url: "https://cdn.jsdelivr.net/gh/evrstr/live2d-widget-models@master/live2d_evrstr/murakumo/model.json" },
-  { name: "时崎狂三", url: "https://cdn.jsdelivr.net/gh/evrstr/live2d-widget-models@master/live2d_evrstr/kurumi/model.json" },
-  { name: "鹿目圆",   url: "https://cdn.jsdelivr.net/gh/evrstr/live2d-widget-models@master/live2d_evrstr/madoka/model.json" },
-  { name: "纱雾",     url: "https://cdn.jsdelivr.net/gh/evrstr/live2d-widget-models@master/live2d_evrstr/sagiri/model.json" },
-  { name: "加藤惠",   url: "https://cdn.jsdelivr.net/gh/evrstr/live2d-widget-models@master/live2d_evrstr/katou/model.json" },
-  { name: "青叶",     url: "https://cdn.jsdelivr.net/gh/evrstr/live2d-widget-models@master/live2d_evrstr/aoba/model.json" },
-  { name: "康娜",     url: "https://cdn.jsdelivr.net/gh/evrstr/live2d-widget-models@master/live2d_evrstr/kobayaxi/model.json" },
-  { name: "当麻",     url: "https://cdn.jsdelivr.net/gh/evrstr/live2d-widget-models@master/live2d_evrstr/touma/model.json" },
-  { name: "茵蒂克丝", url: "https://cdn.jsdelivr.net/gh/evrstr/live2d-widget-models@master/live2d_evrstr/index/model.json" },
-  { name: "萬聖Haru", url: "https://cdn.jsdelivr.net/gh/evrstr/live2d-widget-models@master/live2d_evrstr/hallo/model.json" },
-  { name: "舰C·黑猫", url: "https://cdn.jsdelivr.net/gh/evrstr/live2d-widget-models@master/live2d_evrstr/blackcat/model.json" },
-  { name: "舰C·白猫", url: "https://cdn.jsdelivr.net/gh/evrstr/live2d-widget-models@master/live2d_evrstr/whitecat/model.json" },
-  { name: "Pio酱",    url: "https://github.com/zenghongtu/live2d-model-assets/blob/master/assets/moc/izumi/izumi.model.json" },
+  { name: "00雫",       url: "https://unpkg.com/live2d-widget-model-shizuku@latest/assets/shizuku.model.json" },
+  { name: "01纱雾",     url: "https://cdn.jsdelivr.net/gh/evrstr/live2d-widget-models@master/live2d_evrstr/sagiri/model.json" },
+  { name: "02加藤惠",   url: "https://cdn.jsdelivr.net/gh/evrstr/live2d-widget-models@master/live2d_evrstr/katou/model.json" },
+  { name: "03はる·校服", url: "https://unpkg.com/live2d-widget-model-haru@latest/01/assets/haru01.model.json" },
+  { name: "04はる·冬装", url: "https://unpkg.com/live2d-widget-model-haru@latest/02/assets/haru02.model.json" },
+  { name: "05村雨",     url: "https://cdn.jsdelivr.net/gh/evrstr/live2d-widget-models@master/live2d_evrstr/murakumo/model.json" },
+  { name: "06时崎狂三", url: "https://cdn.jsdelivr.net/gh/evrstr/live2d-widget-models@master/live2d_evrstr/kurumi/model.json" },
+  { name: "07鹿目圆",   url: "https://cdn.jsdelivr.net/gh/evrstr/live2d-widget-models@master/live2d_evrstr/madoka/model.json" },
+  { name: "08青叶",     url: "https://cdn.jsdelivr.net/gh/evrstr/live2d-widget-models@master/live2d_evrstr/aoba/model.json" },
+  { name: "09康娜",     url: "https://cdn.jsdelivr.net/gh/evrstr/live2d-widget-models@master/live2d_evrstr/kobayaxi/model.json" },
+  { name: "10当麻",     url: "https://cdn.jsdelivr.net/gh/evrstr/live2d-widget-models@master/live2d_evrstr/touma/model.json" },
+  { name: "11茵蒂克丝", url: "https://cdn.jsdelivr.net/gh/evrstr/live2d-widget-models@master/live2d_evrstr/index/model.json" },
+  { name: "12萬聖Haru", url: "https://cdn.jsdelivr.net/gh/evrstr/live2d-widget-models@master/live2d_evrstr/hallo/model.json" },
+  { name: "13舰C·黑猫", url: "https://cdn.jsdelivr.net/gh/evrstr/live2d-widget-models@master/live2d_evrstr/blackcat/model.json" },
+  { name: "14舰C·白猫", url: "https://cdn.jsdelivr.net/gh/evrstr/live2d-widget-models@master/live2d_evrstr/whitecat/model.json" },
+  { name: "15Pio酱",    url: "https://github.com/zenghongtu/live2d-model-assets/blob/master/assets/moc/izumi/izumi.model.json" },
 ];
 
 
 // ===== 当前使用第几个模型（改这个数字即可换人）=====
-const CURRENT = 0 ;   // 0=雫, 1=初音, 2=響 ... 想换人改这里
+const CURRENT = 02 ;   // 0=雫, 1=初音, 2=響 ... 想换人改这里
 
 // ===== 记住用户上次选的（可选：CURRENT 那行可换成下面这个）=====
 // const CURRENT = Number(localStorage.getItem("l2d_model")) || 0;
@@ -1437,13 +1437,13 @@ L2Dwidget.init({
   },
   display: {
     position: "left",  // 左下角固定，不用动
-    width: 280,        // 【大小】画布宽度，想更大就加
-    height: 520,       // 【大小】画布高度，想更高就加
+    width: 300,        // 【大小】画布宽度，想更大就加
+    height: 800,       // 【大小】画布高度，想更高就加
     hOffset: 180,      // 【位置】正数右移，负数左移
-    vOffset: 5,        // 【位置】正数上移，负数下移
+    vOffset: -70,        // 【位置】正数上移，负数下移
   },
   mobile: {
-    show: true,        // 手机端显示（false = 手机端隐藏）
+    show: true,        // true手机端显示（false = 手机端隐藏）
     scale: 0.4,        // 手机端大小（0.3 很小，0.7 偏大）
   },
   react: {
