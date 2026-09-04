@@ -1,0 +1,1022 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>某科学 - 专注分享精品资源的百科全书 | 某科学导航</title>
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css">
+<style>
+:root{
+  --bg:#17191e; --panel:#1e2229; --card:#292e37; --card-h:#333a46;
+  --border:#2a2f38; --text:#e8eaee; --sub:#8a919e;
+  --accent:#e5484d; --pill:#b9a5e8; --ink:#333a46; --tab-ink:#e8eaee;
+  --input:#24272e; --search-bd:#c9aa51;
+  --side:#a9b2c1;
+  --pill-bg:rgba(185,165,232,.26); --pill-tx:#ffffff;
+}
+html.light{
+  --bg:#eef0f4; --panel:#ffffff; --card:#f2f4f8; --card-h:#e8ecf2;
+  --border:#e3e7ee; --text:#25272e; --sub:#8a919e;
+  --ink:#e3e8f3; --tab-ink:#25272e; --input:#f5f6f8;
+  --search-bd:#283593;
+  --side:#5c6474;
+  --pill:#9b87cf; --pill-bg:rgba(155,135,207,.24); --pill-tx:#25272e;
+}
+*{margin:0;padding:0;box-sizing:border-box}
+body{
+  font-family:"PingFang SC","Microsoft YaHei",-apple-system,sans-serif;
+  background:var(--bg);color:var(--text);min-height:100vh;
+  transition:background .3s,color .3s;
+}
+a{color:inherit;text-decoration:none}
+button{font-family:inherit;cursor:pointer;border:none;background:none;color:inherit}
+::-webkit-scrollbar{width:8px;height:8px}
+::-webkit-scrollbar-thumb{background:#333a46;border-radius:4px}
+html.light ::-webkit-scrollbar-thumb{background:#c9cdd6}
+
+/* 背景点缀：气泡/虾/鱼/蟹，520px 大平铺、错落旋转分布
+   气泡1.92 虾2.025 鱼0.168 蟹1.92 */
+body::before{
+  content:"";position:fixed;inset:0;pointer-events:none;z-index:0;
+  background-image:url("data:image/svg+xml,%3Csvg%20xmlns='http://www.w3.org/2000/svg'%20width='520'%20height='520'%3E%3Cg%20fill='%23ffffff'%20fill-opacity='.026'%20fill-rule='evenodd'%3E%3Cg%20transform='translate(40,50)%20rotate(-8)%20scale(1.92)'%3E%3Cpath%20d='M24.9,8.62a13.15,13.15,0,0,0-8,25.05,12.93,12.93,0,0,0,4,.63,13.19,13.19,0,0,0,12.54-9.15h0A13.17,13.17,0,0,0,24.9,8.62Zm6.62,15.92A11.15,11.15,0,1,1,20.91,10a11,11,0,0,1,3.38.53A11.16,11.16,0,0,1,31.52,24.54Z'/%3E%3Cpath%20d='M35.3,34.41a9.49,9.49,0,0,0,9.48,9.47h0a9.48,9.48,0,1,0-9.48-9.47Zm9.48-7.48a7.48,7.48,0,0,1,0,15h0a7.48,7.48,0,1,1,0-15Z'/%3E%3Cpath%20d='M17,49.47A8.54,8.54,0,0,0,25.51,58h0A8.54,8.54,0,1,0,17,49.47Zm15.07,0A6.54,6.54,0,0,1,25.51,56h0a6.54,6.54,0,1,1,6.54-6.53Z'/%3E%3Cpath%20d='M39.81,35.1a1,1,0,0,0,1-1,3.73,3.73,0,0,1,3.73-3.73,1,1,0,0,0,0-2,5.74,5.74,0,0,0-5.73,5.73A1,1,0,0,0,39.81,35.1Z'/%3E%3Cpath%20d='M18.79,27.76a6.87,6.87,0,0,1-4.44-4.3,1,1,0,0,0-1.89.66,8.9,8.9,0,0,0,5.72,5.55,1,1,0,0,0,.3,0,1,1,0,0,0,.31-2Z'/%3E%3Cpath%20d='M24.51,45a1,1,0,0,0,1,1,3.5,3.5,0,0,1,3.5,3.5,1,1,0,0,0,2,0,5.51,5.51,0,0,0-5.5-5.5A1,1,0,0,0,24.51,45Z'/%3E%3Cpath%20d='M24.32,11.67A3.68,3.68,0,1,0,26.7,16.3h0A3.68,3.68,0,0,0,24.32,11.67Zm.48,4a1.68,1.68,0,1,1-1.09-2.11A1.68,1.68,0,0,1,24.8,15.69Z'/%3E%3Cpath%20d='M47.57,17a3.24,3.24,0,1,0-3.24,3.24A3.25,3.25,0,0,0,47.57,17Zm-4.48,0a1.24,1.24,0,1,1,1.24,1.24A1.24,1.24,0,0,1,43.09,17Z'/%3E%3Cpath%20d='M33.12,36.17A2.86,2.86,0,1,0,30.26,39,2.86,2.86,0,0,0,33.12,36.17Zm-3.72,0a.86.86,0,1,1,.86.86A.86.86,0,0,1,29.4,36.17Z'/%3E%3Cpath%20d='M39.88,52.31a3.65,3.65,0,1,0-3.64-3.64A3.64,3.64,0,0,0,39.88,52.31Zm0-5.29a1.65,1.65,0,1,1-1.64,1.65A1.65,1.65,0,0,1,39.88,47Z'/%3E%3C/g%3E%3Cg%20transform='translate(340,84)%20rotate(12)%20scale(2.025)'%3E%3Cpath%20d='M42.71,29.47A6.62,6.62,0,0,0,45.44,31a7,7,0,0,0,1.75.23,6.7,6.7,0,0,0,6.46-5,15.94,15.94,0,0,0,0-6.7c-.63-2.95-1.94-4.84-3.67-5.3-3.75-1-8.29,5-9.23,8.53a6.11,6.11,0,0,0-.18,1.11h-.87a15.32,15.32,0,0,0-2.25-5.48,3.61,3.61,0,0,0,1.62-3,3.58,3.58,0,0,0-3.58-3.58A2.35,2.35,0,0,1,37.51,10h9.68a1,1,0,0,0,0-2H37.51c-2.89,0-4.06,2.85-4.35,4.69a3.44,3.44,0,0,0-1.24,2.06,7.08,7.08,0,0,0-1.84,0,3.56,3.56,0,0,0-1.24-2.06C28.55,10.85,27.38,8,24.49,8H14.81a1,1,0,0,0,0,2h9.68c1.13,0,1.74,1,2.07,1.85a3.57,3.57,0,0,0-2,6.56,15.32,15.32,0,0,0-2.25,5.48h-.87a6.11,6.11,0,0,0-.18-1.11c-.94-3.51-5.39-9.55-9.23-8.53s-4.54,9-3.72,12a6.7,6.7,0,0,0,6.46,5A7,7,0,0,0,16.56,31a6.66,6.66,0,0,0,2.73-1.52H21.9q0,.95.09,1.92l-4.73,2a1,1,0,0,0-.61.92v3a1,1,0,0,0,2,0V35l3.59-1.5a14.36,14.36,0,0,0,.62,2.36L20.21,37a1,1,0,0,0-.58.91v3a1,1,0,0,0,2,0V38.58l2.16-1a2.75,2.75,0,0,0,.82.57v1.07a3.67,3.67,0,0,0,1.48,2.94v1.21a2.93,2.93,0,0,0,.6,1.77V47.3s0,.07,0,.11a6.18,6.18,0,0,0-3.89,5.78v2.12A2.7,2.7,0,0,0,25.5,58h1.25A6.3,6.3,0,0,0,31,56.38,6.3,6.3,0,0,0,35.25,58H36.5a2.7,2.7,0,0,0,2.69-2.69V53.19a6.18,6.18,0,0,0-3.89-5.78s0-.07,0-.11V45.15a2.93,2.93,0,0,0,.6-1.77V42.17a3.67,3.67,0,0,0,1.48-2.94v-1.1a2.74,2.74,0,0,0,.89-.58l2.24,1v2.34a1,1,0,0,0,2,0V38a1,1,0,0,0-.58-.91l-2.78-1.29a14.34,14.34,0,0,0,.61-2.36L43.51,35v2.31a1,1,0,0,0,2,0v-3a1,1,0,0,0-.62-.92l-4.87-2c0-.63.07-1.25.08-1.86Zm-.08-6.18c.6-2.23,3.13-5.77,5.27-6.84-.26,2.07-.83,5.2-1.8,6.61a1,1,0,0,0,.83,1.56,1,1,0,0,0,.82-.43c1.33-1.94,1.93-5.75,2.17-7.74,1.77,1.31,2.51,6.62,1.8,9.28a4.71,4.71,0,0,1-9.09-2.44Zm-2,2.6a6.42,6.42,0,0,0,.54,1.58h-1.1c0-.54-.06-1.06-.12-1.58ZM35.39,39.23a1.69,1.69,0,0,1-1.68,1.69H28.29a1.69,1.69,0,0,1-1.68-1.69v-.81a6,6,0,0,0,1.44-.33,9.17,9.17,0,0,1,5.9,0,6.08,6.08,0,0,0,1.44.31Zm0-25.38h0a1.57,1.57,0,0,1,1.12.46A1.62,1.62,0,0,1,37,15.43a1.57,1.57,0,0,1-.92,1.42,8,8,0,0,0-2.22-1.53A1.54,1.54,0,0,1,35.44,13.85Zm2.68,14.68A18.39,18.39,0,0,1,37,35.93c-.33.72-1.59.56-2.35.28a11,11,0,0,0-7.28,0c-.77.28-2,.44-2.35-.28a18.39,18.39,0,0,1-1.13-7.4c0-6.75,3.06-11.84,7.12-11.84S38.12,21.78,38.12,28.53ZM26.56,13.85h0a1.57,1.57,0,0,1,1.56,1.47,7.76,7.76,0,0,0-2.21,1.53A1.56,1.56,0,0,1,25,15.43,1.58,1.58,0,0,1,26.56,13.85ZM21.91,27.47h-1.1a7.19,7.19,0,0,0,.54-1.58H22C22,26.41,21.93,26.93,21.91,27.47ZM16,29.06a4.74,4.74,0,0,1-3.57-.47,4.67,4.67,0,0,1-2.19-2.86c-.71-2.65,0-8,1.8-9.28.24,2,.84,5.8,2.17,7.74a1,1,0,0,0,.82.43,1,1,0,0,0,.83-1.56c-1-1.41-1.54-4.54-1.8-6.61,2.14,1.07,4.67,4.61,5.27,6.84A4.72,4.72,0,0,1,16,29.06ZM33.31,47.3a.64.64,0,0,1-.65.64H29.34a.64.64,0,0,1-.65-.64v-1a2.09,2.09,0,0,0,.34,0H33a2.09,2.09,0,0,0,.34,0Zm3.88,5.89v2.12a.68.68,0,0,1-.69.69H35.25a4.33,4.33,0,0,1-3.46-1.7,1,1,0,0,0-1.58,0A4.33,4.33,0,0,1,26.75,56H25.5a.68.68,0,0,1-.69-.69V53.19a4.2,4.2,0,0,1,2.74-4,2.61,2.61,0,0,0,1.79.71h3.32a2.59,2.59,0,0,0,1.79-.71A4.2,4.2,0,0,1,37.19,53.19Zm-3.28-9.81a.93.93,0,0,1-.94.95H29a.93.93,0,0,1-.94-.95V42.9l.2,0h5.42l.2,0Z'/%3E%3C/g%3E%3C/g%3E%3Cg%20transform='translate(115,300)%20rotate(18)%20scale(0.168)'%20fill='none'%20stroke='%23ffffff'%20stroke-opacity='.026'%20stroke-width='32'%20stroke-linejoin='round'%20stroke-linecap='round'%3E%3Cpath%20d='M240,152c-50.71,12.21-94.15,52.31-120.3,73.43a261.14,261.14,0,0,0-23.81-19.58C59.53,179.29,16,176,16,176s11.37,51.53,41.36,79.83C27.37,284.14,16,335.67,16,335.67s43.53-3.29,79.89-29.85a259.18,259.18,0,0,0,23.61-19.41C145.6,307.55,189.24,347.75,240,360l-16,56c39.43-6.67,78.86-35.51,94.72-48.25C448,362,496,279,496,256c0-22-48-106-176.89-111.73C303.52,131.78,263.76,102.72,224,96Z'/%3E%3Ccircle%20cx='416'%20cy='239.99'%20r='16'%20fill='%23ffffff'%20fill-opacity='.026'%20stroke='none'/%3E%3Cpath%20d='M378.37,356a199.22,199.22,0,0,1,0-200'/%3E%3C/g%3E%3Cg%20fill='%23ffffff'%20fill-opacity='.026'%20fill-rule='evenodd'%3E%3Cg%20transform='translate(356,366)%20rotate(-10)%20scale(1.92)'%3E%3Cpath%20d='M48.53,35.7l1.8,1.71a3,3,0,0,0,2.07.83h.08a3,3,0,0,0,2.09-.94,3,3,0,0,0-.11-4.24l-2.9-2.76a3,3,0,0,0-1.9-.81,2.75,2.75,0,0,0-.7,0l-3,.54c-.07-.13-.12-.26-.19-.39l2.05-2a5.67,5.67,0,0,0,1.17.13,6.28,6.28,0,0,0,1.6-.21,6.13,6.13,0,0,0,4.33-7.51,14.32,14.32,0,0,0-3.07-5.23c-1.85-2.05-3.75-2.94-5.35-2.52C43,13.23,42.21,20,43.07,23.22c0,.13.1.25.14.38l-2,2a17.12,17.12,0,0,0-2.45-.89,3.19,3.19,0,0,0-6.07-.86c-1.3-.05-2.68,0-3.95,0a3.19,3.19,0,0,0-6.1,1,14.64,14.64,0,0,0-1.8.69l-2-2c0-.13.1-.24.14-.38,1.69-6.3-2.25-15.61-8.77-8.4a14.18,14.18,0,0,0-3.07,5.23,6.14,6.14,0,0,0,4.33,7.51,6.22,6.22,0,0,0,1.6.21,5.82,5.82,0,0,0,1.17-.13l2,2.05c-.07.13-.14.25-.2.38l-3-.54a2.36,2.36,0,0,0-.7,0,3,3,0,0,0-1.9.81l-2.9,2.76a3,3,0,0,0-.11,4.24,3,3,0,0,0,2.09.94H9.6a3,3,0,0,0,2.07-.83l1.8-1.71,1.46.26c0,.45,0,.88.09,1.31l-3.24,1.18A3,3,0,0,0,10,40.27L8.83,43.51a3,3,0,0,0,1.83,3.83,2.85,2.85,0,0,0,1,.18,3,3,0,0,0,2.82-2l.68-1.91L16.83,43c.23.42.48.82.74,1.22L16,45.07a3,3,0,0,0-1.54,2.35l-.29,3.1a3,3,0,0,0,.68,2.2,3,3,0,0,0,2,1.07h.28a3,3,0,0,0,3-2.72l.15-1.51L22,48.66a16,16,0,0,0,18.1,0l1.64.91.15,1.51a3,3,0,0,0,3,2.72h.28a2.94,2.94,0,0,0,2-1.07,3,3,0,0,0,.68-2.2l-.29-3.1A3,3,0,0,0,46,45.07l-1.56-.85A12.79,12.79,0,0,0,45.16,43l1.68.61.68,1.91a3,3,0,0,0,2.83,2,2.88,2.88,0,0,0,1-.18,3,3,0,0,0,1.83-3.83L52,40.27a3,3,0,0,0-1.8-1.82L47,37.27c.05-.43.08-.86.1-1.31Zm.78-4.2a1,1,0,0,1,.24,0,1,1,0,0,1,.63.28l2.91,2.75a1,1,0,0,1-.67,1.73.87.87,0,0,1-.71-.28L49.54,33.9a1,1,0,0,0-.87-.26l-1.67.3a12.27,12.27,0,0,0-.35-2ZM45.92,15.27C46.63,17,47.51,19.53,47.4,21a1,1,0,0,0,.92,1.07h.08a1,1,0,0,0,1-.92c.16-2.05-1-5.15-1.72-6.86a5.73,5.73,0,0,1,2.69,1.89A12.45,12.45,0,0,1,53,20.57a4.08,4.08,0,0,1-.41,3.13,4.12,4.12,0,0,1-5.65,1.51A4.08,4.08,0,0,1,45,22.7,11.83,11.83,0,0,1,45.92,15.27ZM44.19,25.45a6.24,6.24,0,0,0,1.59,1.39l-1.21,1.21A9.61,9.61,0,0,0,43,26.67ZM35.58,24a1.19,1.19,0,0,1,1.19,1.25,1.23,1.23,0,0,1-1.19,1.16,1.21,1.21,0,1,1,0-2.41Zm-9.8,0A1.13,1.13,0,0,1,27,25.2,1.21,1.21,0,1,1,25.78,24ZM11.94,25.63A4.14,4.14,0,0,1,9,20.57a12.3,12.3,0,0,1,2.62-4.41,5.73,5.73,0,0,1,2.69-1.89c-.73,1.71-1.88,4.81-1.73,6.86a1,1,0,0,0,1,.92h.08A1,1,0,0,0,14.6,21c-.11-1.45.77-4,1.48-5.72A11.86,11.86,0,0,1,17,22.7a4.15,4.15,0,0,1-5.06,2.93Zm4.28,1.21a6,6,0,0,0,1.58-1.39L19,26.67a9.2,9.2,0,0,0-1.58,1.39Zm-2.89,6.8a1,1,0,0,0-.87.26L10.29,36a1,1,0,0,1-1.41,0,1,1,0,0,1,0-1.42l2.91-2.75a1,1,0,0,1,.63-.28.86.86,0,0,1,.23,0l2.66.47a12.07,12.07,0,0,0-.35,2ZM14,41.89a1,1,0,0,0-.6.61l-.84,2.35a1,1,0,0,1-.51.57,1,1,0,0,1-.77,0,1,1,0,0,1-.6-1.28l1.15-3.24a1,1,0,0,1,.6-.61l2.93-1.06a15.68,15.68,0,0,0,.6,1.91Zm4.84,6.18a1,1,0,0,0-.52.78l-.19,2a1,1,0,0,1-1.09.91,1,1,0,0,1-.9-1.09l.29-3.1a1,1,0,0,1,.51-.78l1.82-1a15.6,15.6,0,0,0,1.45,1.48Zm-2-12.71c0-4.41,2-7.11,6.17-8.48a3.19,3.19,0,0,0,5.84-1c1.14-.06,2.36-.06,3.54,0a3.18,3.18,0,0,0,5.93.85c4.55,1.3,6.72,4.05,6.72,8.64a14.1,14.1,0,0,1-28.2,0ZM45,46.83a1,1,0,0,1,.51.78l.29,3.1a1,1,0,1,1-2,.18l-.19-2a1,1,0,0,0-.52-.78l-1.38-.76a15.68,15.68,0,0,0,1.46-1.48Zm4.51-6.5a1,1,0,0,1,.6.61l1.15,3.24a1,1,0,1,1-1.88.67l-.84-2.35a1,1,0,0,0-.6-.61l-2-.72a16.38,16.38,0,0,0,.61-1.91Z'/%3E%3C/g%3E%3C/g%3E%3C/svg%3E");
+}
+html.light body::before{
+  background-image:url("data:image/svg+xml,%3Csvg%20xmlns='http://www.w3.org/2000/svg'%20width='520'%20height='520'%3E%3Cg%20fill='%232d3a8c'%20fill-opacity='.04'%20fill-rule='evenodd'%3E%3Cg%20transform='translate(40,50)%20rotate(-8)%20scale(1.92)'%3E%3Cpath%20d='M24.9,8.62a13.15,13.15,0,0,0-8,25.05,12.93,12.93,0,0,0,4,.63,13.19,13.19,0,0,0,12.54-9.15h0A13.17,13.17,0,0,0,24.9,8.62Zm6.62,15.92A11.15,11.15,0,1,1,20.91,10a11,11,0,0,1,3.38.53A11.16,11.16,0,0,1,31.52,24.54Z'/%3E%3Cpath%20d='M35.3,34.41a9.49,9.49,0,0,0,9.48,9.47h0a9.48,9.48,0,1,0-9.48-9.47Zm9.48-7.48a7.48,7.48,0,0,1,0,15h0a7.48,7.48,0,1,1,0-15Z'/%3E%3Cpath%20d='M17,49.47A8.54,8.54,0,0,0,25.51,58h0A8.54,8.54,0,1,0,17,49.47Zm15.07,0A6.54,6.54,0,0,1,25.51,56h0a6.54,6.54,0,1,1,6.54-6.53Z'/%3E%3Cpath%20d='M39.81,35.1a1,1,0,0,0,1-1,3.73,3.73,0,0,1,3.73-3.73,1,1,0,0,0,0-2,5.74,5.74,0,0,0-5.73,5.73A1,1,0,0,0,39.81,35.1Z'/%3E%3Cpath%20d='M18.79,27.76a6.87,6.87,0,0,1-4.44-4.3,1,1,0,0,0-1.89.66,8.9,8.9,0,0,0,5.72,5.55,1,1,0,0,0,.3,0,1,1,0,0,0,.31-2Z'/%3E%3Cpath%20d='M24.51,45a1,1,0,0,0,1,1,3.5,3.5,0,0,1,3.5,3.5,1,1,0,0,0,2,0,5.51,5.51,0,0,0-5.5-5.5A1,1,0,0,0,24.51,45Z'/%3E%3Cpath%20d='M24.32,11.67A3.68,3.68,0,1,0,26.7,16.3h0A3.68,3.68,0,0,0,24.32,11.67Zm.48,4a1.68,1.68,0,1,1-1.09-2.11A1.68,1.68,0,0,1,24.8,15.69Z'/%3E%3Cpath%20d='M47.57,17a3.24,3.24,0,1,0-3.24,3.24A3.25,3.25,0,0,0,47.57,17Zm-4.48,0a1.24,1.24,0,1,1,1.24,1.24A1.24,1.24,0,0,1,43.09,17Z'/%3E%3Cpath%20d='M33.12,36.17A2.86,2.86,0,1,0,30.26,39,2.86,2.86,0,0,0,33.12,36.17Zm-3.72,0a.86.86,0,1,1,.86.86A.86.86,0,0,1,29.4,36.17Z'/%3E%3Cpath%20d='M39.88,52.31a3.65,3.65,0,1,0-3.64-3.64A3.64,3.64,0,0,0,39.88,52.31Zm0-5.29a1.65,1.65,0,1,1-1.64,1.65A1.65,1.65,0,0,1,39.88,47Z'/%3E%3C/g%3E%3Cg%20transform='translate(340,84)%20rotate(12)%20scale(2.025)'%3E%3Cpath%20d='M42.71,29.47A6.62,6.62,0,0,0,45.44,31a7,7,0,0,0,1.75.23,6.7,6.7,0,0,0,6.46-5,15.94,15.94,0,0,0,0-6.7c-.63-2.95-1.94-4.84-3.67-5.3-3.75-1-8.29,5-9.23,8.53a6.11,6.11,0,0,0-.18,1.11h-.87a15.32,15.32,0,0,0-2.25-5.48,3.61,3.61,0,0,0,1.62-3,3.58,3.58,0,0,0-3.58-3.58A2.35,2.35,0,0,1,37.51,10h9.68a1,1,0,0,0,0-2H37.51c-2.89,0-4.06,2.85-4.35,4.69a3.44,3.44,0,0,0-1.24,2.06,7.08,7.08,0,0,0-1.84,0,3.56,3.56,0,0,0-1.24-2.06C28.55,10.85,27.38,8,24.49,8H14.81a1,1,0,0,0,0,2h9.68c1.13,0,1.74,1,2.07,1.85a3.57,3.57,0,0,0-2,6.56,15.32,15.32,0,0,0-2.25,5.48h-.87a6.11,6.11,0,0,0-.18-1.11c-.94-3.51-5.39-9.55-9.23-8.53s-4.54,9-3.72,12a6.7,6.7,0,0,0,6.46,5A7,7,0,0,0,16.56,31a6.66,6.66,0,0,0,2.73-1.52H21.9q0,.95.09,1.92l-4.73,2a1,1,0,0,0-.61.92v3a1,1,0,0,0,2,0V35l3.59-1.5a14.36,14.36,0,0,0,.62,2.36L20.21,37a1,1,0,0,0-.58.91v3a1,1,0,0,0,2,0V38.58l2.16-1a2.75,2.75,0,0,0,.82.57v1.07a3.67,3.67,0,0,0,1.48,2.94v1.21a2.93,2.93,0,0,0,.6,1.77V47.3s0,.07,0,.11a6.18,6.18,0,0,0-3.89,5.78v2.12A2.7,2.7,0,0,0,25.5,58h1.25A6.3,6.3,0,0,0,31,56.38,6.3,6.3,0,0,0,35.25,58H36.5a2.7,2.7,0,0,0,2.69-2.69V53.19a6.18,6.18,0,0,0-3.89-5.78s0-.07,0-.11V45.15a2.93,2.93,0,0,0,.6-1.77V42.17a3.67,3.67,0,0,0,1.48-2.94v-1.1a2.74,2.74,0,0,0,.89-.58l2.24,1v2.34a1,1,0,0,0,2,0V38a1,1,0,0,0-.58-.91l-2.78-1.29a14.34,14.34,0,0,0,.61-2.36L43.51,35v2.31a1,1,0,0,0,2,0v-3a1,1,0,0,0-.62-.92l-4.87-2c0-.63.07-1.25.08-1.86Zm-.08-6.18c.6-2.23,3.13-5.77,5.27-6.84-.26,2.07-.83,5.2-1.8,6.61a1,1,0,0,0,.83,1.56,1,1,0,0,0,.82-.43c1.33-1.94,1.93-5.75,2.17-7.74,1.77,1.31,2.51,6.62,1.8,9.28a4.71,4.71,0,0,1-9.09-2.44Zm-2,2.6a6.42,6.42,0,0,0,.54,1.58h-1.1c0-.54-.06-1.06-.12-1.58ZM35.39,39.23a1.69,1.69,0,0,1-1.68,1.69H28.29a1.69,1.69,0,0,1-1.68-1.69v-.81a6,6,0,0,0,1.44-.33,9.17,9.17,0,0,1,5.9,0,6.08,6.08,0,0,0,1.44.31Zm0-25.38h0a1.57,1.57,0,0,1,1.12.46A1.62,1.62,0,0,1,37,15.43a1.57,1.57,0,0,1-.92,1.42,8,8,0,0,0-2.22-1.53A1.54,1.54,0,0,1,35.44,13.85Zm2.68,14.68A18.39,18.39,0,0,1,37,35.93c-.33.72-1.59.56-2.35.28a11,11,0,0,0-7.28,0c-.77.28-2,.44-2.35-.28a18.39,18.39,0,0,1-1.13-7.4c0-6.75,3.06-11.84,7.12-11.84S38.12,21.78,38.12,28.53ZM26.56,13.85h0a1.57,1.57,0,0,1,1.56,1.47,7.76,7.76,0,0,0-2.21,1.53A1.56,1.56,0,0,1,25,15.43,1.58,1.58,0,0,1,26.56,13.85ZM21.91,27.47h-1.1a7.19,7.19,0,0,0,.54-1.58H22C22,26.41,21.93,26.93,21.91,27.47ZM16,29.06a4.74,4.74,0,0,1-3.57-.47,4.67,4.67,0,0,1-2.19-2.86c-.71-2.65,0-8,1.8-9.28.24,2,.84,5.8,2.17,7.74a1,1,0,0,0,.82.43,1,1,0,0,0,.83-1.56c-1-1.41-1.54-4.54-1.8-6.61,2.14,1.07,4.67,4.61,5.27,6.84A4.72,4.72,0,0,1,16,29.06ZM33.31,47.3a.64.64,0,0,1-.65.64H29.34a.64.64,0,0,1-.65-.64v-1a2.09,2.09,0,0,0,.34,0H33a2.09,2.09,0,0,0,.34,0Zm3.88,5.89v2.12a.68.68,0,0,1-.69.69H35.25a4.33,4.33,0,0,1-3.46-1.7,1,1,0,0,0-1.58,0A4.33,4.33,0,0,1,26.75,56H25.5a.68.68,0,0,1-.69-.69V53.19a4.2,4.2,0,0,1,2.74-4,2.61,2.61,0,0,0,1.79.71h3.32a2.59,2.59,0,0,0,1.79-.71A4.2,4.2,0,0,1,37.19,53.19Zm-3.28-9.81a.93.93,0,0,1-.94.95H29a.93.93,0,0,1-.94-.95V42.9l.2,0h5.42l.2,0Z'/%3E%3C/g%3E%3C/g%3E%3Cg%20transform='translate(115,300)%20rotate(18)%20scale(0.168)'%20fill='none'%20stroke='%232d3a8c'%20stroke-opacity='.04'%20stroke-width='32'%20stroke-linejoin='round'%20stroke-linecap='round'%3E%3Cpath%20d='M240,152c-50.71,12.21-94.15,52.31-120.3,73.43a261.14,261.14,0,0,0-23.81-19.58C59.53,179.29,16,176,16,176s11.37,51.53,41.36,79.83C27.37,284.14,16,335.67,16,335.67s43.53-3.29,79.89-29.85a259.18,259.18,0,0,0,23.61-19.41C145.6,307.55,189.24,347.75,240,360l-16,56c39.43-6.67,78.86-35.51,94.72-48.25C448,362,496,279,496,256c0-22-48-106-176.89-111.73C303.52,131.78,263.76,102.72,224,96Z'/%3E%3Ccircle%20cx='416'%20cy='239.99'%20r='16'%20fill='%232d3a8c'%20fill-opacity='.04'%20stroke='none'/%3E%3Cpath%20d='M378.37,356a199.22,199.22,0,0,1,0-200'/%3E%3C/g%3E%3Cg%20fill='%232d3a8c'%20fill-opacity='.04'%20fill-rule='evenodd'%3E%3Cg%20transform='translate(356,366)%20rotate(-10)%20scale(1.92)'%3E%3Cpath%20d='M48.53,35.7l1.8,1.71a3,3,0,0,0,2.07.83h.08a3,3,0,0,0,2.09-.94,3,3,0,0,0-.11-4.24l-2.9-2.76a3,3,0,0,0-1.9-.81,2.75,2.75,0,0,0-.7,0l-3,.54c-.07-.13-.12-.26-.19-.39l2.05-2a5.67,5.67,0,0,0,1.17.13,6.28,6.28,0,0,0,1.6-.21,6.13,6.13,0,0,0,4.33-7.51,14.32,14.32,0,0,0-3.07-5.23c-1.85-2.05-3.75-2.94-5.35-2.52C43,13.23,42.21,20,43.07,23.22c0,.13.1.25.14.38l-2,2a17.12,17.12,0,0,0-2.45-.89,3.19,3.19,0,0,0-6.07-.86c-1.3-.05-2.68,0-3.95,0a3.19,3.19,0,0,0-6.1,1,14.64,14.64,0,0,0-1.8.69l-2-2c0-.13.1-.24.14-.38,1.69-6.3-2.25-15.61-8.77-8.4a14.18,14.18,0,0,0-3.07,5.23,6.14,6.14,0,0,0,4.33,7.51,6.22,6.22,0,0,0,1.6.21,5.82,5.82,0,0,0,1.17-.13l2,2.05c-.07.13-.14.25-.2.38l-3-.54a2.36,2.36,0,0,0-.7,0,3,3,0,0,0-1.9.81l-2.9,2.76a3,3,0,0,0-.11,4.24,3,3,0,0,0,2.09.94H9.6a3,3,0,0,0,2.07-.83l1.8-1.71,1.46.26c0,.45,0,.88.09,1.31l-3.24,1.18A3,3,0,0,0,10,40.27L8.83,43.51a3,3,0,0,0,1.83,3.83,2.85,2.85,0,0,0,1,.18,3,3,0,0,0,2.82-2l.68-1.91L16.83,43c.23.42.48.82.74,1.22L16,45.07a3,3,0,0,0-1.54,2.35l-.29,3.1a3,3,0,0,0,.68,2.2,3,3,0,0,0,2,1.07h.28a3,3,0,0,0,3-2.72l.15-1.51L22,48.66a16,16,0,0,0,18.1,0l1.64.91.15,1.51a3,3,0,0,0,3,2.72h.28a2.94,2.94,0,0,0,2-1.07,3,3,0,0,0,.68-2.2l-.29-3.1A3,3,0,0,0,46,45.07l-1.56-.85A12.79,12.79,0,0,0,45.16,43l1.68.61.68,1.91a3,3,0,0,0,2.83,2,2.88,2.88,0,0,0,1-.18,3,3,0,0,0,1.83-3.83L52,40.27a3,3,0,0,0-1.8-1.82L47,37.27c.05-.43.08-.86.1-1.31Zm.78-4.2a1,1,0,0,1,.24,0,1,1,0,0,1,.63.28l2.91,2.75a1,1,0,0,1-.67,1.73.87.87,0,0,1-.71-.28L49.54,33.9a1,1,0,0,0-.87-.26l-1.67.3a12.27,12.27,0,0,0-.35-2ZM45.92,15.27C46.63,17,47.51,19.53,47.4,21a1,1,0,0,0,.92,1.07h.08a1,1,0,0,0,1-.92c.16-2.05-1-5.15-1.72-6.86a5.73,5.73,0,0,1,2.69,1.89A12.45,12.45,0,0,1,53,20.57a4.08,4.08,0,0,1-.41,3.13,4.12,4.12,0,0,1-5.65,1.51A4.08,4.08,0,0,1,45,22.7,11.83,11.83,0,0,1,45.92,15.27ZM44.19,25.45a6.24,6.24,0,0,0,1.59,1.39l-1.21,1.21A9.61,9.61,0,0,0,43,26.67ZM35.58,24a1.19,1.19,0,0,1,1.19,1.25,1.23,1.23,0,0,1-1.19,1.16,1.21,1.21,0,1,1,0-2.41Zm-9.8,0A1.13,1.13,0,0,1,27,25.2,1.21,1.21,0,1,1,25.78,24ZM11.94,25.63A4.14,4.14,0,0,1,9,20.57a12.3,12.3,0,0,1,2.62-4.41,5.73,5.73,0,0,1,2.69-1.89c-.73,1.71-1.88,4.81-1.73,6.86a1,1,0,0,0,1,.92h.08A1,1,0,0,0,14.6,21c-.11-1.45.77-4,1.48-5.72A11.86,11.86,0,0,1,17,22.7a4.15,4.15,0,0,1-5.06,2.93Zm4.28,1.21a6,6,0,0,0,1.58-1.39L19,26.67a9.2,9.2,0,0,0-1.58,1.39Zm-2.89,6.8a1,1,0,0,0-.87.26L10.29,36a1,1,0,0,1-1.41,0,1,1,0,0,1,0-1.42l2.91-2.75a1,1,0,0,1,.63-.28.86.86,0,0,1,.23,0l2.66.47a12.07,12.07,0,0,0-.35,2ZM14,41.89a1,1,0,0,0-.6.61l-.84,2.35a1,1,0,0,1-.51.57,1,1,0,0,1-.77,0,1,1,0,0,1-.6-1.28l1.15-3.24a1,1,0,0,1,.6-.61l2.93-1.06a15.68,15.68,0,0,0,.6,1.91Zm4.84,6.18a1,1,0,0,0-.52.78l-.19,2a1,1,0,0,1-1.09.91,1,1,0,0,1-.9-1.09l.29-3.1a1,1,0,0,1,.51-.78l1.82-1a15.6,15.6,0,0,0,1.45,1.48Zm-2-12.71c0-4.41,2-7.11,6.17-8.48a3.19,3.19,0,0,0,5.84-1c1.14-.06,2.36-.06,3.54,0a3.18,3.18,0,0,0,5.93.85c4.55,1.3,6.72,4.05,6.72,8.64a14.1,14.1,0,0,1-28.2,0ZM45,46.83a1,1,0,0,1,.51.78l.29,3.1a1,1,0,1,1-2,.18l-.19-2a1,1,0,0,0-.52-.78l-1.38-.76a15.68,15.68,0,0,0,1.46-1.48Zm4.51-6.5a1,1,0,0,1,.6.61l1.15,3.24a1,1,0,1,1-1.88.67l-.84-2.35a1,1,0,0,0-.6-.61l-2-.72a16.38,16.38,0,0,0,.61-1.91Z'/%3E%3C/g%3E%3C/g%3E%3C/svg%3E");
+}
+
+/* ===== 左侧图标导航：整体放大1.2倍，颜色加深 ===== */
+.sidebar{
+  position:fixed;left:0;top:0;bottom:0;width:94px;z-index:100;
+  background:var(--panel);border-right:1px solid var(--border);
+  display:flex;flex-direction:column;align-items:center;
+  padding:18px 0 12px;transition:background .3s;
+}
+.logo{display:flex;flex-direction:column;align-items:center;gap:7px;margin-bottom:14px;cursor:pointer;flex-shrink:0}
+.logo .lg-ic{
+  width:52px;height:52px;border-radius:14px;background:#17181c;color:#fff;
+  display:flex;align-items:center;justify-content:center;font-size:25px;
+}
+html.light .logo .lg-ic{background:#25272e}
+.logo .lg-tx{font-size:15px;font-weight:800;letter-spacing:1px}
+.logo .lg-bar{width:24px;height:3px;border-radius:2px;background:var(--accent)}
+.side-nav{position:relative;flex:1;width:100%;overflow-y:auto;overflow-x:hidden;padding:4px 0}
+.side-nav::-webkit-scrollbar{display:none}
+.side-ink{
+  position:absolute;left:9px;right:9px;top:0;height:0;z-index:0;
+  background:var(--ink);border-radius:14px;
+  transition:top .35s cubic-bezier(.45,1.35,.4,1),height .3s ease,
+             left .35s cubic-bezier(.45,1.35,.4,1),width .35s cubic-bezier(.45,1.35,.4,1);
+}
+.side-item{
+  position:relative;z-index:1;display:flex;flex-direction:column;align-items:center;gap:6px;
+  margin:3px 9px;padding:12px 0 11px;border-radius:14px;
+  color:var(--side);cursor:pointer;transition:color .2s;user-select:none;
+}
+.side-item i{font-size:26px;width:30px;text-align:center}
+.side-item img{width:28px;height:28px;object-fit:contain}
+.side-item span{font-size:15px;white-space:nowrap}
+.side-item:hover{color:var(--text)}
+.side-item.active{color:var(--text);font-weight:700}
+
+/* ===== 悬停飞出菜单（仅多子分类板块） ===== */
+.side-flyout{
+  position:fixed;left:104px;z-index:150;min-width:150px;max-width:220px;
+  background:var(--panel);border:1px solid var(--border);border-radius:12px;
+  padding:7px;box-shadow:0 10px 28px rgba(0,0,0,.3);
+  opacity:0;visibility:hidden;transform:translate(-8px,0);
+  transition:opacity .18s ease,transform .18s ease,visibility .18s;
+}
+html.light .side-flyout{box-shadow:0 10px 28px rgba(40,50,90,.14)}
+.side-flyout::before{
+  content:"";position:absolute;left:-5px;top:25px;
+  width:10px;height:10px;background:var(--panel);
+  border-left:1px solid var(--border);border-bottom:1px solid var(--border);
+  transform:rotate(45deg);
+}
+.side-flyout.show{opacity:1;visibility:visible;transform:translate(0,0)}
+.fly-it{
+  display:flex;align-items:center;gap:8px;padding:8px 10px;border-radius:8px;
+  font-size:13px;color:var(--text);cursor:pointer;transition:.15s;white-space:nowrap;
+}
+.fly-it:hover{background:var(--card-h)}
+.fly-it.active{font-weight:700}
+
+/* ===== 右上角按钮 ===== */
+.top-pill{
+  position:fixed;z-index:99;display:inline-flex;align-items:center;gap:7px;
+  background:var(--panel);border:1px solid var(--border);border-radius:10px;
+  padding:9px 14px;font-size:13px;font-weight:600;color:var(--sub);transition:.2s;
+}
+.top-pill:hover{color:var(--text);border-color:#3a4150}
+#aboutBtn{right:80px;top:16px}
+#themeToggle{right:18px;top:16px;padding:9px 12px}
+
+/* ===== 回到顶部按钮 ===== */
+#backTop{
+  position:fixed;right:22px;bottom:26px;z-index:99;
+  width:44px;height:44px;border-radius:50%;
+  background:var(--panel);border:1px solid var(--border);
+  color:var(--sub);font-size:15px;
+  display:flex;align-items:center;justify-content:center;
+  box-shadow:0 4px 16px rgba(0,0,0,.28);
+  opacity:0;visibility:hidden;transform:translateY(10px);
+  transition:opacity .25s,transform .25s,visibility .25s,color .2s,border-color .2s;
+}
+html.light #backTop{box-shadow:0 4px 16px rgba(40,50,90,.15)}
+#backTop.show{opacity:1;visibility:visible;transform:none}
+#backTop:hover{color:var(--pill);border-color:var(--pill);transform:translateY(-2px)}
+
+/* ===== 页面主体 ===== */
+.page{margin-left:94px;position:relative;z-index:1}
+.content{max-width:1560px;margin:0 auto;padding:22px 26px 60px}
+
+/* ===== 搜索区：缩短1/10，下移留白 ===== */
+.search-area{max-width:864px;margin:28px auto 26px;text-align:center}
+.search-tabs{
+  position:relative;display:flex;justify-content:center;gap:34px;
+  margin-bottom:18px;padding-bottom:7px;
+}
+.search-tabs .ink{
+  position:absolute;bottom:0;height:3px;width:0;left:0;z-index:0;
+  background:var(--tab-ink);border-radius:2px;
+  transition:left .35s cubic-bezier(.45,1.35,.4,1),width .35s cubic-bezier(.45,1.35,.4,1);
+}
+.s-tab{font-size:15px;color:var(--sub);cursor:pointer;white-space:nowrap;user-select:none;transition:color .2s}
+.s-tab:hover{color:var(--text)}
+.s-tab.active{color:var(--text);font-weight:700}
+
+/* 搜索框：粗线常显，聚焦再外扩1px（不抖布局）；深色金色/浅色深蓝
+   右内距 3px */
+.search-bar{
+  display:flex;align-items:stretch;height:54px;
+  background:var(--input);border:2px solid var(--search-bd);border-radius:12px;
+  padding:0 3px 0 22px;transition:box-shadow .15s;cursor:text;
+}
+.search-bar:focus-within{
+  box-shadow:0 0 0 1px var(--search-bd);
+}
+.search-bar input{
+  flex:1;height:100%;border:none;outline:none;background:transparent;
+  font-size:15px;color:var(--text);cursor:text;
+}
+.search-bar input::placeholder{color:var(--sub)}
+/* 正方形按钮：同色底；深色金色底配深色图标，浅色蓝底配白图标 */
+.search-bar button{
+  width:44px;height:44px;border-radius:10px;flex-shrink:0;align-self:center;
+  background:var(--search-bd);
+  color:#fff;font-size:15px;transition:.2s;
+}
+html:not(.light) .search-bar button{color:#1c1e24}
+.result-bar{display:none;margin-top:14px;font-size:13px;color:var(--sub);text-align:left}
+.result-bar.show{display:block}
+.result-bar b{color:var(--text)}
+.result-bar button{color:var(--accent);font-size:13px}
+
+/* ===== 推广卡：与二次元空间同款深→亮渐变 ===== */
+.promo-row{display:grid;grid-template-columns:repeat(4,1fr);gap:14px;margin-bottom:14px}
+.promo{
+  color:#fff;border-radius:10px;
+  padding:11px 8px;display:flex;flex-direction:column;align-items:center;justify-content:center;
+  gap:5px;font-size:12.5px;font-weight:600;min-height:64px;transition:.2s;text-align:center;
+  text-shadow:0 1px 4px rgba(0,0,0,.18);
+}
+.promo:hover{transform:translateY(-3px);filter:brightness(1.08)}
+.promo .pi{font-size:15px}
+.promo.c1{background:linear-gradient(100deg,#101b3d,#1c2f75 50%,#3150b8)}
+.promo.c2{background:linear-gradient(100deg,#3d1020,#751c3d 50%,#b83258)}
+.promo.c3{background:linear-gradient(100deg,#0c2e33,#155a66 50%,#1f8a99)}
+.promo.c4{background:linear-gradient(100deg,#0e3320,#1c663d 50%,#2b9e5f)}
+
+/* ===== 双 Banner ===== */
+.banner-row{display:grid;grid-template-columns:1fr 1fr;gap:14px;margin-bottom:20px}
+.banner{border-radius:12px;padding:16px 24px;display:flex;align-items:center;gap:18px;min-height:88px;transition:.2s;overflow:hidden}
+.banner:hover{transform:translateY(-2px)}
+.banner.b1{background:linear-gradient(100deg,#161038,#2c2170 50%,#4a2f9e);color:#fff}
+.banner.b1 .lg{font-size:20px;font-weight:800;white-space:nowrap;letter-spacing:1px}
+.banner.b1 b{font-size:20px;display:block;margin-bottom:4px}
+.banner.b1 small{font-size:12px;color:#c9c2ee}
+.banner.b1 .btn{margin-left:auto;background:linear-gradient(90deg,#7b4ff0,#a44ff0);padding:9px 16px;border-radius:999px;font-size:12.5px;white-space:nowrap}
+.banner.b2{background:#101216;border:1px solid #2a2e35;justify-content:space-between}
+html.light .banner.b2{background:#1c2026;border-color:#1c2026;color:#fff}
+.banner.b2 .big{font-size:19px;font-weight:800;letter-spacing:3px;margin-bottom:8px;white-space:nowrap}
+.banner.b2 .plats{font-size:13px;font-weight:600;white-space:nowrap}
+.banner.b2 .rt{color:#ff5a7a;font-size:14px;font-weight:800;letter-spacing:1px;white-space:nowrap;margin-left:auto}
+
+/* ===== 分区面板 ===== */
+.panel{
+  background:var(--panel);border:1px solid var(--border);
+  border-radius:14px;padding:18px 20px;margin-bottom:16px;
+  transition:background .3s;
+}
+.panel-head{display:flex;align-items:center;gap:14px;margin-bottom:16px;flex-wrap:wrap}
+.panel-title{display:flex;align-items:center;gap:8px;font-size:15.5px;font-weight:700;white-space:nowrap}
+.panel-title i{color:var(--sub);font-size:15px}
+.panel-title img{width:16px;height:16px;object-fit:contain}
+.sep{width:1px;height:14px;background:var(--border)}
+
+/* 小分类：浅紫胶囊（迷你版），跟随鼠标；浅色模式文字为黑 */
+.subtabs{position:relative;display:flex;gap:8px;overflow-x:auto;scrollbar-width:none;min-width:0;padding:3px 8px}
+.subtabs::-webkit-scrollbar{display:none}
+.subtabs .ink{
+  position:absolute;top:2px;height:calc(100% - 4px);width:0;left:0;z-index:0;
+  background:var(--pill-bg);border-radius:999px;
+  transition:left .25s cubic-bezier(.3,.7,.4,1),width .25s cubic-bezier(.3,.7,.4,1);
+}
+.subtab{
+  position:relative;z-index:1;font-size:12.5px;color:var(--sub);
+  cursor:pointer;white-space:nowrap;user-select:none;
+  padding:3px 9px;border-radius:999px;transition:color .2s;
+}
+.subtab:hover{color:var(--text)}
+.subtab.active{color:var(--text);font-weight:700}
+.subtab.on-pill{color:var(--pill-tx) !important;font-weight:700}
+
+/* ===== 紧凑卡片 ===== */
+.grid{display:grid;gap:12px;grid-template-columns:repeat(auto-fill,minmax(206px,1fr))}
+.scard{
+  position:relative;display:flex;align-items:center;gap:12px;min-width:0;
+  background:var(--card);border-radius:11px;padding:15px 14px;
+  transition:.2s;animation:fadeIn .35s both;
+}
+@keyframes fadeIn{from{opacity:0;transform:translateY(8px)}to{opacity:1;transform:none}}
+.scard:hover{background:var(--card-h);transform:translateY(-2px)}
+/* 网站图标：透明背景融入卡片，内图 28px */
+.scard .ic{
+  width:42px;height:42px;flex-shrink:0;
+  display:flex;align-items:center;justify-content:center;
+  color:var(--text);font-weight:700;font-size:16px;overflow:hidden;
+}
+.scard .ic img{width:28px;height:28px;object-fit:contain}
+.scard:hover .ic{animation:icJump .5s ease}
+@keyframes icJump{
+  0%{transform:translateY(0)}
+  30%{transform:translateY(-7px)}
+  55%{transform:translateY(0)}
+  75%{transform:translateY(-3px)}
+  100%{transform:translateY(0)}
+}
+.scard .info{flex:1;min-width:0}
+.scard .nm{display:block;font-size:13.5px;font-weight:700;margin-bottom:2px;white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
+.scard .ds{display:block;font-size:11.5px;color:var(--sub);white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
+
+/* 右侧平台小图标组：绝对定位悬在卡片右上角，
+   文字延伸到卡片右内边距处截断；整组缩小至0.8倍贴右上角 */
+.pts{
+  position:absolute;top:3px;right:7px;z-index:2;
+  display:flex;align-items:center;gap:7px;
+  transform:scale(.8);transform-origin:right top;
+}
+.pt{cursor:pointer;user-select:none;transition:transform .15s}
+.pt i{
+  display:block;font-size:13.5px;line-height:1;
+  color:var(--sub);transition:color .2s;
+}
+/* 详情三角：caret-right 逆时针旋转45° */
+.pt i.tri{transform:rotate(-45deg);font-size:25px}
+.ptb{ /* APP 文字徽章 */
+  display:block;font-size:9px;font-weight:800;line-height:1;
+  padding:3px 5px;border-radius:4px;letter-spacing:.5px;
+  background:var(--sub);color:var(--bg);transition:background .2s;
+}
+/* 悬停整张卡片：各图标显示各自颜色 */
+.scard:hover .pt i{color:var(--pc,var(--text))}
+.scard:hover .ptb{background:var(--pc,var(--text))}
+.hotb{
+  position:absolute;top:-7px;left:-7px;z-index:2;
+  background:var(--accent);color:#fff;font-size:10px;font-weight:800;
+  padding:2px 7px;border-radius:999px;
+}
+.scard.hidden{display:none}
+
+/* ===== 卡片介绍气泡：卡片正下方、箭头朝上，延迟0.8秒显示 ===== */
+.glob-tip{
+  position:fixed;left:0;top:0;z-index:300;max-width:260px;
+  background:#1c1e24;color:#e8eaee;font-size:12px;line-height:1.5;
+  padding:7px 11px;border-radius:8px;border:1px solid #3a4150;
+  box-shadow:0 6px 20px rgba(0,0,0,.35);
+  pointer-events:none;opacity:0;visibility:hidden;transform:translateY(3px);
+  transition:opacity .12s,transform .12s,visibility .12s;
+}
+html.light .glob-tip{background:#26282e}
+.glob-tip.show{opacity:1;visibility:visible;transform:none}
+.glob-tip::after{
+  content:"";position:absolute;left:50%;top:-5px;
+  width:10px;height:10px;background:#1c1e24;
+  border-left:1px solid #3a4150;border-top:1px solid #3a4150;
+  transform:translateX(-50%) rotate(45deg);
+}
+html.light .glob-tip::after{background:#26282e}
+.glob-tip.above::after{
+  top:auto;bottom:-5px;
+  border:none;border-right:1px solid #3a4150;border-bottom:1px solid #3a4150;
+}
+
+/* ===== 小图标气泡：图标正上方、箭头朝下，整排等高对齐，立即显示 ===== */
+.tip-icon{
+  position:fixed;left:0;top:0;z-index:310;white-space:nowrap;
+  background:#1c1e24;color:#e8eaee;font-size:12px;line-height:1.5;
+  padding:6px 10px;border-radius:7px;border:1px solid #3a4150;
+  box-shadow:0 6px 20px rgba(0,0,0,.35);
+  pointer-events:none;opacity:0;visibility:hidden;transform:translateY(3px);
+  transition:opacity .12s,transform .12s,visibility .12s;
+}
+html.light .tip-icon{background:#26282e}
+.tip-icon.show{opacity:1;visibility:visible;transform:none}
+.tip-icon::after{
+  content:"";position:absolute;left:50%;bottom:-5px;
+  width:10px;height:10px;background:#1c1e24;
+  border-right:1px solid #3a4150;border-bottom:1px solid #3a4150;
+  transform:translateX(-50%) rotate(45deg);
+}
+html.light .tip-icon::after{background:#26282e}
+.tip-icon.below::after{
+  bottom:auto;top:-5px;
+  border:none;border-left:1px solid #3a4150;border-top:1px solid #3a4150;
+}
+
+footer{margin-left:94px;text-align:center;padding:24px;font-size:12.5px;color:var(--sub);position:relative;z-index:1}
+footer a:hover{color:var(--pill)}
+
+/* ===== 响应式 ===== */
+@media (max-width:1150px){
+  .promo-row{grid-template-columns:repeat(2,1fr)}
+  .banner-row{grid-template-columns:1fr}
+}
+@media (max-width:900px){
+  .sidebar{
+    flex-direction:row;width:100%;height:64px;bottom:auto;
+    border-right:0;border-bottom:1px solid var(--border);
+    padding:0 10px;gap:4px;overflow-x:auto;
+  }
+  .logo{flex-direction:row;margin:0 6px 0 0;gap:8px}
+  .logo .lg-ic{width:36px;height:36px;font-size:16px}
+  .logo .lg-tx,.logo .lg-bar{display:none}
+  .side-nav{display:flex;flex:1;padding:0}
+  .side-ink{top:5px;bottom:5px;height:auto;right:auto;left:0;width:0}
+  .side-item{margin:0;padding:8px 11px;gap:3px;flex-shrink:0}
+  .side-item i{font-size:18px;width:22px}
+  .side-item img{width:20px;height:20px}
+  .side-item span{font-size:11px}
+  .page{margin-left:0}
+  .content{padding:78px 14px 50px}
+  footer{margin-left:0}
+  #aboutBtn{display:none}
+  #themeToggle{right:12px;top:76px}
+  #backTop{right:14px;bottom:18px;width:40px;height:40px}
+  .search-tabs{justify-content:flex-start;overflow-x:auto;gap:24px;scrollbar-width:none}
+  .search-tabs::-webkit-scrollbar{display:none}
+  .grid{grid-template-columns:repeat(auto-fill,minmax(160px,1fr))}
+  .banner{flex-direction:column;align-items:flex-start;gap:10px}
+  .banner.b1 .btn{margin-left:0}
+  .side-flyout{display:none}
+}
+</style>
+</head>
+<body>
+
+<!-- 左侧图标导航 -->
+<aside class="sidebar">
+  <div class="logo" id="logoBtn">
+    <div class="lg-ic"><i class="fa-solid fa-hand-fist"></i></div>
+    <div class="lg-tx">某科学</div>
+    <div class="lg-bar"></div>
+  </div>
+  <nav class="side-nav" id="sideNav">
+    <span class="side-ink" id="sideInk"></span>
+  </nav>
+</aside>
+
+<a class="top-pill" id="aboutBtn" href="./about.html"><i class="fa-solid fa-circle-info"></i>关于</a>
+<button class="top-pill" id="themeToggle"><i class="fa-solid fa-sun"></i></button>
+<button id="backTop" title="回到顶部"><i class="fa-solid fa-arrow-up"></i></button>
+
+<div class="page">
+  <div class="content">
+    <!-- 搜索 -->
+    <div class="search-area">
+      <div class="search-tabs" id="searchTabs"><span class="ink"></span></div>
+      <div class="search-bar" id="searchBar">
+        <input id="kw" type="text" placeholder="站内搜索">
+        <button id="go"><i class="fa-solid fa-magnifying-glass"></i></button>
+      </div>
+      <div class="result-bar" id="resultBar"></div>
+    </div>
+
+    <!-- 推广卡：深→亮同色系渐变 -->
+    <div class="promo-row">
+      <a class="promo c1" href="https://www.bilibili.com" target="_blank" rel="noopener"><span class="pi"><i class="fa-solid fa-tv"></i></span>哔哩哔哩-弹幕视频网</a>
+      <a class="promo c2" href="https://www.acfun.cn" target="_blank" rel="noopener"><span class="pi"><i class="fa-solid fa-face-smile"></i></span>AcFun-弹幕视频A站</a>
+      <a class="promo c3" href="https://zh.moegirl.org.cn" target="_blank" rel="noopener"><span class="pi"><i class="fa-solid fa-book-open"></i></span>萌娘百科-ACG百科</a>
+      <a class="promo c4" href="https://www.agefans.cc" target="_blank" rel="noopener"><span class="pi"><i class="fa-solid fa-fan"></i></span>Age动漫-新番跟番</a>
+    </div>
+
+    <!-- 双 Banner -->
+    <div class="banner-row">
+      <a class="banner b1" href="./anime.html">
+        <span class="lg">二次元空间</span>
+        <span><b>番剧 · 漫画 · 游戏 · 音乐</b><small>二次元资源一站式导航，进入专属你的次元</small></span>
+        <span class="btn">立即进入</span>
+      </a>
+      <a class="banner b2" href="#">
+        <span>
+          <span class="big">顶级 Ai 触手可及　零门槛国内直连</span>
+          <span class="plats">
+            <span style="color:#19c39c">ChatGPT</span> ✦
+            <span style="color:#4a90ff">Gemini</span> ✷
+            <span style="color:#e8935a">Claude</span> ⌀
+            <span style="color:#c9cdd6">Grok</span>
+          </span>
+        </span>
+        <span class="rt">原生官网使用　一站畅享多平台</span>
+      </a>
+    </div>
+
+    <!-- 分区 -->
+    <div id="panels"></div>
+  </div>
+</div>
+
+<footer>© 2026-2027 · 某科学导航 · 用 ❤️ 为二次元引路 · <a href="./about.html">关于本站</a></footer>
+
+<script>
+/* =====================================================
+   图标 ic 字段三种写法：
+   1. 图片地址："./image/icon/xx.ico"（404自动回退首字）
+   2. Font Awesome 类名："fa-solid fa-film"
+   3. 留空 "" → 自动显示站点名首字（透明背景，色随主题文字）
+
+   站点可选字段：
+   - pt:[...]  卡片右上小图标（默认灰色，悬停卡片显各自颜色）：
+       "win"     Windows 客户端·蓝
+       "android" 安卓客户端·绿
+       "app"     APP 徽章·橙（客户端软件，非网页版）
+       "info"    ↗ 斜三角详情图标（点击打开 ./sites/xx.html）
+   - sl:"doubao" 详情页文件名；不加则用站点名，如 ./sites/豆包.html
+   - bg 字段保留但不再渲染（网站图标已改为透明背景）
+
+   气泡规则：
+   - 卡片介绍气泡：悬停 0.8 秒后显示，固定在卡片正下方、箭头朝上；
+     范围内移动不消失；下方空间不足翻到卡片上方
+   - 小图标气泡：指到立即显示，图标正上方、箭头朝下；
+     垂直位置锚定整排图标组顶边，所有气泡等高对齐
+===================================================== */
+
+const S=(n,d,ic,bg,url="#",o={})=>({n,d,ic,bg,url,...o});
+
+const DATA=[
+ {id:"hot",icon:"fa-solid fa-fire",title:"热门推荐",
+  groups:{"推荐":[
+   S("免翻GPT-Image-2","免费使用，生图/改图一体化","./image/icon/gpt-image.ico","#2a2e37"),
+   S("GPT官网国内直连","世界顶级AI四合一镜像站","./image/icon/gpt.ico","#1f242c","#",{hot:1}),
+   S("Codex学术版","3.6亿真实文献 0 幻觉","./image/icon/codex.ico","#17181c"),
+   S("莆田潮牌鞋服一手货源","莆田潮牌基地，主营运动鞋服","./image/icon/putian.ico","#3b6ea5"),
+   S("盘搜吧-云盘资源","体验最好的聚合云盘搜索","./image/icon/pansouba.ico","#d6455f"),
+   S("网盘资源搜索","免费无广告，资源全秒收录","./image/icon/wangpansou.ico","#4a90d9"),
+   S("国内NanoBananaPro","一句话轻松搞定复杂P图！","./image/icon/nanobanana.ico","#e8b64c"),
+   S("iSlide-AI一键生成PPT","AI 设计 PPT，只需一句话","./image/icon/islide.ico","#e5484d","#",{hot:1,pt:["win","info"]}),
+   S("抖音视频文案提取","全平台视频解析，字幕导出","./image/icon/douyin-jx.ico","#2b2f38"),
+   S("小云省AI短剧创作","全场景AI内容创作助手","./image/icon/xiaoyunsheng.ico","#17181c"),
+   S("飞书多维表格","表格形态的 AI 工作流","./image/icon/feishu.ico","#7b5cf0","#",{pt:["win","android","app","info"]}),
+   S("千问","阿里出品的大模型工具","./image/icon/qianwen.ico","#5a6ee0","#",{pt:["android","app","info"]}),
+  ]}},
+ {id:"ai",icon:"fa-solid fa-robot",title:"AI工具库",
+  groups:{
+   "对话写作":[
+    S("ChatGPT","OpenAI 官方对话助手","./image/icon/chatgpt.ico","#10a37f"),
+    S("Claude","Anthropic 高质量写作","./image/icon/claude.ico","#d97757"),
+    S("通义千问","阿里出品全能助手","./image/icon/qianwen.ico","#5a6ee0","#",{pt:["android","app","info"]}),
+    S("豆包","字节出品免费全能AI","./image/icon/doubao.ico","#4a90d9","#",{pt:["win","android","app","info"]}),
+   ],
+   "绘画设计":[
+    S("Midjourney","顶级 AI 绘画工具","./image/icon/midjourney.ico","#4a5cf0"),
+    S("Stable Diffusion","开源AI绘画","./image/icon/sd.ico","#2d2d2d","#",{pt:["win","info"]}),
+    S("即梦AI","字节AI图片视频创作","./image/icon/jimeng.ico","#3b6ea5","#",{pt:["android","info"]}),
+    S("Canva","在线平面设计","./image/icon/canva.ico","#00c4cc","#",{pt:["win","android","info"]}),
+   ],
+   "视频音乐":[
+    S("Suno","AI 一键生成歌曲","./image/icon/suno.ico","#8b5cf6"),
+    S("Runway","AI 视频生成与编辑","./image/icon/runway.ico","#2d2d2d"),
+    S("剪映AI","智能剪辑成片","./image/icon/jianying.ico","#17181c","#",{pt:["win","android","app","info"]}),
+   ],
+   "编程开发":[
+    S("GitHub Copilot","AI 结对编程","./image/icon/copilot.ico","#24292e","#",{pt:["win","info"]}),
+    S("Cursor","AI 代码编辑器","./image/icon/cursor.ico","#2d2d2d","#",{pt:["win","info"]}),
+    S("TRAE","国内AI编程IDE","./image/icon/trae.ico","#e5484d","#",{pt:["win","info"]}),
+   ],
+  }},
+ {id:"movie",icon:"fa-solid fa-film",title:"免费影视",
+  groups:{
+   "在线观影":[
+    S("硬核影视","大量超清影片资源！","./image/icon/yinghe.ico","#3b6ea5"),
+    S("24电影网","24电影全天候精彩不断","./image/icon/24dy.ico","#d6455f"),
+    S("电影先生","提供免费电影、电视剧","./image/icon/dianyingxs.ico","#c0392b"),
+    S("HDmoli","一个专注提高清在线","./image/icon/hdmoli.ico","#2d2d2d"),
+    S("厂长资源","提供最新高清电影","./image/icon/changzhang.ico","#f0c060"),
+    S("玖玖影视","免费短视频、热门剧集","./image/icon/jiujiu.ico","#e05a8a"),
+    S("优视频UVOD","优视频在线观看","./image/icon/uvod.ico","#3b8ee8"),
+    S("Pomo","Pomo 4K 质量影视","./image/icon/pomo.ico","#e8a03a"),
+    S("爱看机器人iKanBot","一款免费的影视资源搜索","./image/icon/ikanbot.ico","#333a46"),
+    S("电影天堂资源","提供超100万部影视资源","./image/icon/dytt.ico","#e8443a"),
+    S("奈飞工厂","一个专注 Netflix","./image/icon/naifei.ico","#17181c"),
+    S("共青春影院","提供海量影视资源","./image/icon/gongqc.ico","#8b5cf6"),
+    S("仙女影视","高清短剧自选视频库","./image/icon/xiannv.ico","#5ac08a"),
+    S("来看点播","免费观看最新影视","./image/icon/laikan.ico","#e05a5a"),
+    S("网飞猫","汇聚海量影视资源","./image/icon/wangfeimao.ico","#d64545"),
+    S("FreeOK","免费看电影、电视剧","./image/icon/freeok.ico","#e8a03a"),
+   ],
+   "电影下载":[
+    S("电影天堂","每日更新高清电影下载","./image/icon/dytt.ico","#333a46"),
+    S("BT之家","老牌影视种子下载站","./image/icon/btzhijia.ico","#3b6ea5"),
+    S("6v电影","经典老片资源丰富","./image/icon/6v.ico","#5ac08a"),
+    S("音范丝","高清蓝光原盘下载","./image/icon/yinfansi.ico","#8b5cf6"),
+   ],
+   "字幕下载":[
+    S("SubHD","知名字幕分享站","./image/icon/subhd.ico","#4a90d9"),
+    S("字幕库","电影剧集字幕下载","./image/icon/zimuku.ico","#e8a03a"),
+    S("OpenSubtitles","全球最大开源字幕库","./image/icon/opensubtitles.ico","#5ac08a"),
+    S("SubtitleCat","多语言字幕搜索","./image/icon/subtitlecat.ico","#d6455f"),
+   ],
+   "聚合搜索":[
+    S("大片搜","聚合全网影视资源搜索","./image/icon/dapiansou.ico","#8b5cf6"),
+    S("奈斯搜索","干净好用的资源聚合","./image/icon/naisi.ico","#4a90d9"),
+    S("茶杯狐","影视资源聚合搜索","./image/icon/chabeihu.ico","#e8a03a"),
+    S("电影蜜蜂","影视网盘资源聚合","./image/icon/fengmi.ico","#f0c060"),
+   ],
+   "动漫网站":[
+    S("樱花动漫","海量番剧在线观看","./image/icon/yinghua.ico","#f08ab0"),
+    S("Age动漫","新番跟番必备","./image/icon/age.ico","#6a9cf0"),
+    S("ZzzFun","动漫视频在线观看","./image/icon/zzzfun.ico","#8b5cf6"),
+    S("Anime1","动画线上看","./image/icon/anime1.ico","#4a90d9"),
+   ],
+   "看纪录片":[
+    S("纪录片之家","纪录片爱好者的家","./image/icon/jilupian.ico","#3b6ea5"),
+    S("B站纪录片","B站官方纪录片专区","./image/icon/bili.ico","#e8a0c0","#",{pt:["win","android","app","info"]}),
+   ],
+   "美剧网站":[
+    S("美剧网","美剧更新快、字幕全","./image/icon/meiju.ico","#4a5cf0"),
+    S("人人美剧","老牌美剧字幕站","./image/icon/renren.ico","#e05a5a"),
+   ],
+   "体育直播":[
+    S("直播吧","体育赛事直播聚合","./image/icon/zhibo8.ico","#4a90d9","#",{pt:["android","app","info"]}),
+    S("低调看球","JRS低调看直播","./image/icon/didao.ico","#2d2d2d"),
+   ],
+   "VIP视频解析":[
+    S("万能解析","各大平台VIP视频解析","./image/icon/wanneng.ico","#e8a03a"),
+    S("人人解析","稳定快速的解析接口","./image/icon/rrjx.ico","#d6455f"),
+   ],
+  }},
+ {id:"book",icon:"fa-solid fa-book-open",title:"免费看书",
+  groups:{
+   "网络小说":[
+    S("笔趣阁","网络小说在线阅读","./image/icon/biquge.ico","#e8a03a"),
+    S("起点中文网","正版网络文学平台","./image/icon/qidian.ico","#d6455f","#",{pt:["android","app","info"]}),
+    S("晋江文学城","原创女性向文学","./image/icon/jjwxc.ico","#f08ab0","#",{pt:["android","app","info"]}),
+   ],
+   "电子书":[
+    S("Zlibrary","全球最大电子书库","./image/icon/zlibrary.ico","#4a90d9"),
+    S("苦瓜书盘","优质电子书下载","./image/icon/kugua.ico","#5ac08a"),
+   ],
+   "漫画":[
+    S("拷贝漫画","漫画聚合阅读","./image/icon/kaobei.ico","#8b5cf6","#",{pt:["android","app","info"]}),
+    S("漫画DB","海量漫画在线看","./image/icon/manhuadb.ico","#e8a03a"),
+   ],
+  }},
+ {id:"music",icon:"fa-solid fa-music",title:"免费音乐",
+  groups:{
+   "在线听歌":[
+    S("MyFreeMP3","在线听歌免费下载","./image/icon/myfreemp3.ico","#4a90d9"),
+    S("歌曲网","全网音乐聚合搜索","./image/icon/gequ.ico","#5ac08a"),
+   ],
+   "无损下载":[
+    S("音乐精选台","无损音乐免费下载","./image/icon/music-jx.ico","#8b5cf6"),
+    S("无损音乐库","FLAC/WAV 下载","./image/icon/wusun.ico","#d6455f","#",{pt:["win","android","app","info"]}),
+   ],
+  }},
+ {id:"down",icon:"fa-solid fa-circle-down",title:"软件下载",
+  groups:{"下载":[
+   S("小众软件","精选小众软件分享","./image/icon/xiaozhong.ico","#4a90d9","#",{pt:["win","android","info"]}),
+   S("腾讯软件中心","官方软件高速下载","./image/icon/qqsoft.ico","#3b6ea5","#",{pt:["win","android","info"]}),
+   S("酷安","高质量安卓应用市场","./image/icon/coolapk.ico","#5ac08a","#",{pt:["android","app","info"]}),
+   S("Alternativeto","软件替代品查询","./image/icon/alt.ico","#e8a03a"),
+  ]}},
+ {id:"pic",icon:"fa-solid fa-images",title:"图片工具",
+  groups:{"图片":[
+   S("Photopea","在线PS修图工具","./image/icon/photopea.ico","#4a90d9"),
+   S("remove.bg","AI一键抠图去背景","./image/icon/removebg.ico","#8b5cf6"),
+   S("TinyPNG","PNG/JPG智能压缩","./image/icon/tinypng.ico","#5ac08a"),
+   S("Squoosh","谷歌图片压缩工具","./image/icon/squoosh.ico","#e8a03a"),
+  ]}},
+ {id:"tool",icon:"fa-solid fa-screwdriver-wrench",title:"工具网站",
+  groups:{"工具":[
+   S("在线工具","程序员在线工具箱","./image/icon/zxgj.ico","#4a90d9"),
+   S("爱资料","实用查询工具","./image/icon/aiziliao.ico","#e8a03a"),
+   S("iLovePDF","PDF在线转换处理","./image/icon/ilovepdf.ico","#d6455f","#",{pt:["win","android","info"]}),
+   S("Smallpdf","PDF压缩转换","./image/icon/smallpdf.ico","#8b5cf6"),
+  ]}},
+ {id:"fun",icon:"fa-solid fa-gamepad",title:"娱乐网站",
+  groups:{"娱乐":[
+   S("斗鱼","弹幕互动直播","./image/icon/douyu.ico","#f0703a","#",{pt:["android","app","info"]}),
+   S("虎牙","游戏直播平台","./image/icon/huya.ico","#e8a03a","#",{pt:["android","app","info"]}),
+   S("哔哩哔哩","视频弹幕网站","./image/icon/bili.ico","#fb7299","#",{pt:["win","android","app","info"]}),
+   S("抖音","短视频平台","./image/icon/douyin.ico","#1f242c","#",{pt:["android","app","info"]}),
+  ]}},
+];
+
+/* 搜索标签：站内=过滤，其余=跳转（改 u 换成你的搜索地址） */
+const TABS=[
+ {t:"站内",    u:""},
+ {t:"影视",    u:"https://www.bing.com/search?q={kw}+在线观看"},
+ {t:"音乐",    u:"https://www.bing.com/search?q={kw}+音乐下载"},
+ {t:"网盘资源",u:"https://www.bing.com/search?q={kw}+网盘资源"},
+ {t:"搜索引擎",u:"https://www.bing.com/search?q={kw}"},
+];
+
+/* ============ 工具函数 ============ */
+window.iconErr=function(img){
+  const t=document.createElement("span");
+  t.textContent=img.getAttribute("data-letter")||"站";
+  img.replaceWith(t);
+};
+const esc=t=>String(t).replace(/&/g,"&amp;").replace(/</g,"&lt;").replace(/>/g,"&gt;").replace(/"/g,"&quot;");
+const iconHTML=(ic,name)=>{
+  ic=(ic||"").trim();
+  const letter=(name||"站").trim().charAt(0);
+  if(!ic) return letter;
+  if(ic.startsWith("fa")) return `<i class="${ic}"></i>`;
+  return `<img src="${ic}" alt="" loading="lazy" data-letter="${letter}" onerror="iconErr(this)">`;
+};
+const navIconHTML=(ic)=>{
+  ic=(ic||"").trim();
+  if(ic.startsWith("fa")) return `<i class="${ic}"></i>`;
+  if(ic) return `<img src="${ic}" alt="">`;
+  return `<i class="fa-solid fa-cube"></i>`;
+};
+
+/* 平台小图标：i=FA图标 t=悬停提示 c=显色（悬停卡片时） badge=文字徽章
+   info=斜三角详情图标（caret-right 逆时针转45°） */
+const PT={
+  win:    {i:"fa-brands fa-windows",        t:"Windows 客户端",       c:"#5a9cf8"},
+  android:{i:"fa-solid fa-robot",           t:"安卓客户端",           c:"#6fbf73"},
+  app:    {badge:"APP",                     t:"客户端软件，非网页版", c:"#f09a3e"},
+  info:   {i:"fa-solid fa-caret-right tri", t:"网站详情",             c:"var(--text)"},
+};
+/* 详情页：./sites/xx.html，xx=站点名；数据里加 sl:"英文名" 可自定义文件名 */
+const detailUrl=s=>"./sites/"+encodeURIComponent(s.sl||s.n)+".html";
+const ptsHTML=s=>{
+  let h="";
+  (s.pt||[]).forEach(k=>{
+    const p=PT[k];if(!p)return;
+    h+=p.badge
+      ?`<span class="pt" data-tip="${p.t}" data-url="${detailUrl(s)}"><b class="ptb" style="--pc:${p.c}">${p.badge}</b></span>`
+      :`<span class="pt" data-tip="${p.t}" data-url="${detailUrl(s)}"><i class="${p.i}" style="--pc:${p.c}"></i></span>`;
+  });
+  return h;
+};
+const card=s=>`<a class="scard" href="${s.url}" target="_blank" rel="noopener" data-kw="${esc((s.n+" "+(s.d||"")).toLowerCase())}" data-desc="${esc(s.d||s.n)}">
+  ${s.hot?'<b class="hotb">荐</b>':''}
+  <span class="ic">${iconHTML(s.ic,s.n)}</span>
+  <span class="info"><span class="nm">${s.n}</span><span class="ds">${s.d||s.n}</span></span>
+  <span class="pts">${ptsHTML(s)}</span></a>`;
+const slideH=(ink,el)=>{if(!ink||!el)return;ink.style.left=el.offsetLeft+"px";ink.style.width=el.offsetWidth+"px";};
+
+/* ============ 分区渲染 ============ */
+const panelsEl=document.getElementById("panels");
+panelsEl.innerHTML=DATA.map(sec=>{
+  const keys=Object.keys(sec.groups);
+  const hasTabs=keys.length>1;
+  const head=`<div class="panel-title">${navIconHTML(sec.icon)}${sec.title}</div>`
+    +(hasTabs?`<span class="sep"></span>
+      <div class="subtabs" data-sec="${sec.id}"><span class="ink"></span>
+      ${keys.map((k,i)=>`<span class="subtab${i?"":" active"}">${k}</span>`).join("")}</div>`:"");
+  const grid=(sec.groups[keys[0]]||[]).map(card).join("");
+  return `<section class="panel" id="sec-${sec.id}">
+    <div class="panel-head">${head}</div><div class="grid">${grid}</div></section>`;
+}).join("");
+
+/* ============ JS 自绘平滑滚动 ============ */
+let scrollAnimId=null;
+function animScrollTo(targetY){
+  const duration=Math.min(900,Math.max(400,Math.abs(targetY-window.scrollY)*0.35));
+  if(scrollAnimId)cancelAnimationFrame(scrollAnimId);
+  const maxY=document.documentElement.scrollHeight-window.innerHeight;
+  targetY=Math.max(0,Math.min(targetY,maxY));
+  const startY=window.scrollY,diff=targetY-startY;
+  if(Math.abs(diff)<2)return;
+  const t0=performance.now();
+  const ease=t=>t<.5?2*t*t:1-Math.pow(-2*t+2,2)/2;
+  function step(now){
+    const p=Math.min((now-t0)/duration,1);
+    document.documentElement.scrollTop=startY+diff*ease(p);
+    if(p<1)scrollAnimId=requestAnimationFrame(step);
+  }
+  scrollAnimId=requestAnimationFrame(step);
+}
+["wheel","touchstart"].forEach(ev=>{
+  addEventListener(ev,()=>{if(scrollAnimId)cancelAnimationFrame(scrollAnimId);},{passive:true});
+});
+
+/* ============ 侧边栏：亮块跟随鼠标 + 悬停飞出菜单 ============ */
+const sideNav=document.getElementById("sideNav"),sideInk=document.getElementById("sideInk");
+sideNav.insertAdjacentHTML("beforeend",
+  DATA.map(s=>`<div class="side-item" data-target="sec-${s.id}">
+    ${navIconHTML(s.icon)}<span>${s.title}</span></div>`).join(""));
+
+const sideItems=[...document.querySelectorAll(".side-item")];
+const isMobile=()=>matchMedia("(max-width:900px)").matches;
+const topOffset=()=>isMobile()?76:16;
+
+function moveSideInk(){
+  const act=sideNav.querySelector(".side-item.active");
+  if(!act)return;
+  if(isMobile()){
+    sideInk.style.top="";sideInk.style.height="";
+    slideH(sideInk,act);
+  }else{
+    sideInk.style.left="";sideInk.style.width="";
+    sideInk.style.top=act.offsetTop+"px";
+    sideInk.style.height=act.offsetHeight+"px";
+  }
+}
+function showInkAt(el){
+  sideItems.forEach(x=>x.classList.remove("active"));
+  el.classList.add("active");
+  moveSideInk();
+}
+function collapseInk(){
+  sideItems.forEach(x=>x.classList.remove("active"));
+  if(isMobile()){sideInk.style.width="0";}
+  else{sideInk.style.height="0";}
+}
+
+/* 飞出菜单 */
+const flyout=document.createElement("div");
+flyout.className="side-flyout";
+document.body.appendChild(flyout);
+let hideTimer=null;
+
+function showFlyout(item){
+  const sec=DATA.find(s=>"sec-"+s.id===item.dataset.target);
+  if(!sec)return;
+  const keys=Object.keys(sec.groups);
+  if(keys.length<2){flyout.classList.remove("show");return;}
+  const cur=sec._cur||keys[0];
+  flyout.innerHTML=keys.map(k=>`<span class="fly-it${k===cur?" active":""}" data-sec="${sec.id}" data-key="${k}">${k}</span>`).join("");
+  const r=item.getBoundingClientRect();
+  const h=flyout.offsetHeight||160;
+  let top=r.top-6;
+  if(top+h>window.innerHeight-10)top=window.innerHeight-h-10;
+  if(top<10)top=10;
+  flyout.style.top=top+"px";
+  flyout.classList.add("show");
+}
+function hideFlyout(){
+  flyout.classList.remove("show");
+  setTimeout(()=>{
+    if(!flyout.classList.contains("show")&&!sideNav.matches(":hover"))collapseInk();
+  },200);
+}
+
+sideItems.forEach(el=>{
+  el.addEventListener("mouseenter",()=>{
+    if(isMobile())return;
+    clearTimeout(hideTimer);
+    showInkAt(el);
+    showFlyout(el);
+  });
+  el.addEventListener("mouseleave",()=>{
+    clearTimeout(hideTimer);
+    hideTimer=setTimeout(hideFlyout,160);
+  });
+  el.addEventListener("click",()=>{
+    showInkAt(el);
+    const t=document.getElementById(el.dataset.target);
+    if(t)animScrollTo(t.getBoundingClientRect().top+window.scrollY-topOffset());
+    if(isMobile()){
+      setTimeout(()=>{if(!sideNav.matches(":hover"))collapseInk();},900);
+    }
+  });
+});
+sideNav.addEventListener("mouseleave",()=>{
+  setTimeout(()=>{
+    if(!flyout.classList.contains("show")&&!sideNav.matches(":hover"))collapseInk();
+  },200);
+});
+flyout.addEventListener("mouseenter",()=>clearTimeout(hideTimer));
+flyout.addEventListener("mouseleave",()=>{
+  clearTimeout(hideTimer);
+  hideTimer=setTimeout(hideFlyout,160);
+});
+flyout.addEventListener("click",e=>{
+  const it=e.target.closest(".fly-it");if(!it)return;
+  if(it.dataset.key){
+    const box=document.querySelector(`.subtabs[data-sec="${it.dataset.sec}"]`);
+    if(box){
+      const target=[...box.querySelectorAll(".subtab")].find(x=>x.textContent===it.dataset.key);
+      if(target)target.click();
+    }
+    const sec=DATA.find(s=>s.id===it.dataset.sec);
+    if(sec)sec._cur=it.dataset.key;
+    flyout.querySelectorAll(".fly-it").forEach(x=>x.classList.toggle("active",x===it));
+    const t=document.getElementById("sec-"+it.dataset.sec);
+    if(t)animScrollTo(t.getBoundingClientRect().top+window.scrollY-topOffset());
+    const sideItem=sideItems.find(x=>x.dataset.target==="sec-"+it.dataset.sec);
+    if(sideItem)showInkAt(sideItem);
+  }
+});
+
+/* Logo 回顶部 */
+document.getElementById("logoBtn").addEventListener("click",()=>{
+  animScrollTo(0);
+});
+
+/* ============ 分区子分类：浅紫胶囊，跟随鼠标、不点回原位 ============ */
+document.querySelectorAll(".subtabs").forEach(box=>{
+  const ink=box.querySelector(".ink");
+  const tabs=()=>[...box.querySelectorAll(".subtab")];
+  function pillTo(el){
+    if(!el){ink.style.width="0";return;}
+    ink.style.left=el.offsetLeft+"px";
+    ink.style.width=el.offsetWidth+"px";
+    tabs().forEach(x=>x.classList.toggle("on-pill",x===el));
+  }
+  const init=()=>pillTo(box.querySelector(".subtab.active"));
+  init();
+  box._init=init;
+  tabs().forEach(t=>t.addEventListener("mouseenter",()=>pillTo(t)));
+  box.addEventListener("mouseleave",()=>pillTo(box.querySelector(".subtab.active")));
+  box.onclick=e=>{
+    const t=e.target.closest(".subtab");if(!t)return;
+    tabs().forEach(x=>x.classList.remove("active"));
+    t.classList.add("active");
+    pillTo(t);
+    const sec=DATA.find(s=>s.id===box.dataset.sec);
+    sec._cur=t.textContent;
+    document.querySelector("#sec-"+sec.id+" .grid").innerHTML=(sec.groups[t.textContent]||[]).map(card).join("");
+  };
+});
+
+/* ============ 两套气泡 ============ */
+/* A. 卡片介绍气泡：延迟0.8秒显示，卡片正下方、箭头朝上；范围内不消失 */
+const tip=document.createElement("div");
+tip.className="glob-tip";
+document.body.appendChild(tip);
+const TIP_DELAY=800;
+let tipTimer=null;
+function tipShow(text,cardEl){
+  tip.textContent=text;
+  tip.classList.add("show");
+  tip.classList.remove("above");
+  const r=cardEl.getBoundingClientRect();
+  const w=tip.offsetWidth,h=tip.offsetHeight,gap=9;
+  let x=r.left+r.width/2-w/2;
+  let y=r.bottom+gap;
+  if(x<8)x=8;
+  if(x+w>innerWidth-8)x=innerWidth-8-w;
+  if(y+h>innerHeight-8){y=r.top-h-gap;tip.classList.add("above");}
+  tip.style.left=x+"px";tip.style.top=y+"px";
+}
+function tipHide(){tip.classList.remove("show");}
+
+/* B. 小图标气泡：图标正上方、箭头朝下、立即显示；
+      垂直位置锚定整排图标组(.pts)顶边 → 所有气泡等高对齐 */
+const tipIc=document.createElement("div");
+tipIc.className="tip-icon";
+document.body.appendChild(tipIc);
+function tipIcShow(text,el){
+  tipIc.textContent=text;
+  tipIc.classList.add("show");
+  tipIc.classList.remove("below");
+  const r=el.getBoundingClientRect();                       /* 当前图标：水平居中用 */
+  const row=el.closest(".pts").getBoundingClientRect();     /* 整排图标：等高锚点 */
+  const w=tipIc.offsetWidth,h=tipIc.offsetHeight,gap=9;
+  let x=r.left+r.width/2-w/2;
+  let y=row.top-h-gap;
+  if(x<8)x=8;
+  if(x+w>innerWidth-8)x=innerWidth-8-w;
+  if(y<8){y=row.bottom+gap;tipIc.classList.add("below");}
+  tipIc.style.left=x+"px";tipIc.style.top=y+"px";
+}
+function tipIcHide(){tipIc.classList.remove("show");}
+
+function allTipCancel(){clearTimeout(tipTimer);tipHide();tipIcHide();}
+addEventListener("scroll",allTipCancel,{passive:true});
+
+/* 事件委托：
+   小图标→图标气泡立即显示；卡片→0.8秒后显示介绍气泡 */
+panelsEl.addEventListener("mouseover",e=>{
+  const pt=e.target.closest(".pt");
+  if(pt){ /* 指到小图标：立即显示，压掉卡片气泡 */
+    clearTimeout(tipTimer);tipHide();
+    tipIcShow(pt.dataset.tip,pt);
+    return;
+  }
+  tipIcHide();
+  if(e.target.closest(".pts")){clearTimeout(tipTimer);tipHide();return;} /* 图标间隙：都不显示 */
+  const cardEl=e.target.closest(".scard");
+  if(!cardEl)return;
+  clearTimeout(tipTimer);
+  tipTimer=setTimeout(()=>tipShow(cardEl.dataset.desc,cardEl),TIP_DELAY);
+});
+panelsEl.addEventListener("mouseout",e=>{
+  const to=e.relatedTarget;
+  const pt=e.target.closest(".pt");
+  if(pt){
+    if(!to||!pt.contains(to))tipIcHide();
+    return;
+  }
+  const cardEl=e.target.closest(".scard");
+  if(!cardEl)return;
+  if(!to||!cardEl.contains(to)){clearTimeout(tipTimer);tipHide();}
+});
+panelsEl.addEventListener("click",e=>{
+  const pt=e.target.closest(".pt");
+  if(!pt)return;
+  e.preventDefault();e.stopPropagation();
+  allTipCancel();
+  window.open(pt.dataset.url,"_blank");
+});
+
+/* ============ 顶部搜索 ============ */
+const tabsBox=document.getElementById("searchTabs"),kw=document.getElementById("kw"),
+      goBtn=document.getElementById("go"),resultBar=document.getElementById("resultBar"),
+      searchBar=document.getElementById("searchBar");
+let curTab=0;
+
+tabsBox.insertAdjacentHTML("beforeend",
+  TABS.map((x,i)=>`<span class="s-tab${i?"":" active"}" data-i="${i}">${x.t}</span>`).join(""));
+
+/* 点击搜索框任意位置（含边缘/留白）都聚焦输入框；点按钮除外 */
+searchBar.addEventListener("click",e=>{
+  if(e.target.closest("#go"))return;
+  kw.focus();
+});
+
+tabsBox.onclick=e=>{
+  const t=e.target.closest(".s-tab");if(!t)return;
+  tabsBox.querySelectorAll(".s-tab").forEach(x=>x.classList.remove("active"));
+  t.classList.add("active");
+  slideH(tabsBox.querySelector(".ink"),t);
+  curTab=+t.dataset.i;
+  kw.placeholder=TABS[curTab].t;
+  kw.focus();
+  if(curTab===0){clearFilter();resultBar.classList.remove("show");}
+};
+function siteFilter(k){
+  let total=0;
+  document.querySelectorAll(".panel").forEach(p=>{
+    let vis=0;
+    p.querySelectorAll(".scard").forEach(c=>{
+      const hit=(c.dataset.kw||"").includes(k);
+      c.classList.toggle("hidden",!hit);if(hit)vis++;
+    });
+    p.style.display=vis?"":"none";total+=vis;
+  });
+  resultBar.innerHTML=`共找到 <b>${total}</b> 个与「${k}」相关的站点 &nbsp;<button onclick="clearFilter()">清除筛选</button>`;
+  resultBar.classList.add("show");
+}
+function clearFilter(){
+  document.querySelectorAll(".scard.hidden").forEach(c=>c.classList.remove("hidden"));
+  document.querySelectorAll(".panel").forEach(p=>p.style.display="");
+  resultBar.classList.remove("show");
+}
+goBtn.onclick=()=>{
+  const k=kw.value.trim();if(!k){kw.focus();return;}
+  if(curTab===0){siteFilter(k.toLowerCase());}
+  else{window.open(TABS[curTab].u.split("{kw}").join(encodeURIComponent(k)),"_blank");}
+};
+kw.addEventListener("keydown",e=>{if(e.key==="Enter")goBtn.click()});
+
+/* ============ 回到顶部按钮 ============ */
+const backTop=document.getElementById("backTop");
+function checkBackTop(){
+  backTop.classList.toggle("show",window.scrollY>300);
+}
+addEventListener("scroll",checkBackTop,{passive:true});
+backTop.addEventListener("click",()=>animScrollTo(0));
+
+/* ============ 主题切换（默认深色） ============ */
+const htmlEl=document.documentElement,tbtn=document.getElementById("themeToggle");
+function setTheme(light){
+  htmlEl.classList.toggle("light",light);
+  tbtn.innerHTML=`<i class="fa-solid fa-${light?"moon":"sun"}"></i>`;
+  try{localStorage.setItem("acg-theme",light?"light":"dark");}catch(err){}
+}
+tbtn.onclick=()=>setTheme(!htmlEl.classList.contains("light"));
+try{if(localStorage.getItem("acg-theme")==="light")setTheme(true);}catch(err){}
+
+/* ============ 初始化 ============ */
+function initInks(){
+  const act=sideNav.querySelector(".side-item.active");
+  if(act&&!sideNav.matches(":hover")){sideInk.style.height="0";sideInk.style.width="0";}
+  document.querySelectorAll(".subtabs").forEach(b=>b._init());
+  slideH(tabsBox.querySelector(".ink"),tabsBox.querySelector(".s-tab.active"));
+}
+initInks();
+checkBackTop();
+setTimeout(initInks,80);
+addEventListener("load",()=>setTimeout(initInks,120));
+addEventListener("resize",()=>{initInks();hideFlyout();});
+if(document.fonts&&document.fonts.ready){document.fonts.ready.then(()=>initInks());}
+</script>
+</body>
+</html>
